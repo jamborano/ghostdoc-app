@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+body {
+  background-color: #0a0a0a; /* Neutral-950, warna hitam elit tech */
+  color: #e5e5e5; /* Neutral-200, abu-abu elit */
+}
