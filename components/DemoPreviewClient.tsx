@@ -44,10 +44,182 @@ export default function DemoPreviewClient() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) {
-      alert('Email wajib diisi.');
+      alert('Email is required.');
       return;
     }
     window.location.href = activeRepo.gumroadLink;
+  };
+
+  // ================================================================
+  // KONTEN DINAMIS PER REPO & TAB
+  // ================================================================
+  const renderContent = () => {
+    // SUPABASE
+    if (selectedRepo === 'supabase') {
+      if (activeTab === 'readme') {
+        return (
+          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
+            <div className="text-xs text-green-400 font-bold">STATUS: PARSING COMPLETE // PRODUCTION REPO TOPOLOGY MAPPED</div>
+            <h3 className="text-lg font-black text-white tracking-tight">Supabase Monorepo – Architecture & Development Guide</h3>
+            <p className="text-neutral-400">Production-ready monorepo comprising the Supabase Studio dashboard, marketing site, documentation, shared UI component library, and a suite of backend microservices. Built with pnpm workspaces, Turborepo, Next.js, React 19, and a rigorous security-first type system.</p>
+            <h4 className="text-sm font-bold text-blue-400 pt-2">Repository Topology Graph</h4>
+            <pre className="bg-[#16171a] p-4 rounded-xl border border-neutral-800 text-neutral-400 overflow-x-auto text-[11px]">
+{`supabase/
+├── apps/
+│   ├── studio/          # Next.js Pages Router (React 19 Dashboard)
+│   ├── www/             # Next.js App Router (Marketing Hub)
+│   └── docs/            # Contentlayer + MDX Technical Docs
+└── packages/
+    ├── ui/              # Shared Tailwind Component Library
+    ├── pg-meta/         # Postgres Management & Direct Inspection Asset
+    └── dev-tools/       # Internal Inspection Toolbars`}
+            </pre>
+          </article>
+        );
+      }
+      if (activeTab === 'api') {
+        return (
+          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
+            <h3 className="text-lg font-black text-white tracking-tight">Supabase Studio API Reference Contract</h3>
+            <p className="text-neutral-400">Version: 2.6 | Base URL: http://localhost:8080. All endpoints strictly require session JWT tokens obtained from Supabase Auth.</p>
+            <pre className="bg-[#16171a] p-4 rounded-xl border border-neutral-800 text-purple-400 overflow-x-auto text-[11px]">
+{`// Example SQL Query Execution Endpoint
+POST /api/projects/{ref}/query
+Authorization: Bearer <session_token>
+Content-Type: application/json
+
+{
+  "query": "SELECT * FROM public.users WHERE role = $1",
+  "params": ["admin"]
+}`}
+            </pre>
+          </article>
+        );
+      }
+      if (activeTab === 'security') {
+        return (
+          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
+            <h3 className="text-lg font-black text-white tracking-tight">SecOps Findings: Branded Type Enforcement</h3>
+            <div className="bg-[#16171a] p-5 rounded-xl border border-neutral-800 space-y-2">
+              <span className="bg-red-600 text-white font-bold px-2 py-0.5 text-[10px] rounded">MEDIUM (V-001)</span>
+              <div className="text-white font-bold">Runtime validation missing for SafeSqlFragment</div>
+              <p className="text-neutral-400 text-xs">All data access layers rely on the integrity of the TypeScript compiler; no runtime enforcement exists for the branded SQL type system. Risk of type assertion bypass via manual casts.</p>
+            </div>
+          </article>
+        );
+      }
+      if (activeTab === 'executive') {
+        return (
+          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
+            <h3 className="text-lg font-black text-white tracking-tight">Investor Valuation & Architectural Strategic Summary</h3>
+            <p className="text-neutral-400">The brand-differentiated SQL protection system, combined with a modular UI framework and rigorous testing pipeline, positions the platform to capture enterprise revenue while maintaining top-line growth. Technical debt is minimal (&lt;1% total codebase complexity).</p>
+          </article>
+        );
+      }
+    }
+
+    // CAL.COM
+    if (selectedRepo === 'calcom') {
+      if (activeTab === 'readme') {
+        return (
+          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
+            <div className="text-xs text-green-400 font-bold">STATUS: PARSING COMPLETE // SCHEDULING INFRASTRUCTURE LAYERS MAPPED</div>
+            <h3 className="text-lg font-black text-white tracking-tight">Cal.diy Monorepo – Community-maintained Scheduling System</h3>
+            <p className="text-neutral-400">MIT-licensed open-source scheduling infrastructure built for scale. Employs a vertical slice architecture and a strict dependency matrix layer to avoid dependency entanglements.</p>
+            <pre className="bg-[#16171a] p-4 rounded-xl border border-neutral-800 text-neutral-400 overflow-x-auto text-[11px]">
+{`Dependency Hierarchy Matrix:
+@calcom/lib ──> @calcom/app-store ──> @calcom/features ──> @calcom/trpc ──> apps/web`}
+            </pre>
+          </article>
+        );
+      }
+      if (activeTab === 'api') {
+        return (
+          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
+            <h3 className="text-lg font-black text-white tracking-tight">Cal.diy Surface Layer API Reference</h3>
+            <p className="text-neutral-400">Exposes two primary surfaces: a high-performance tRPC tunnel layer for first-party interfaces, and traditional REST API v2 endpoints backed by NestJS.</p>
+            <pre className="bg-[#16171a] p-4 rounded-xl border border-neutral-800 text-purple-400 overflow-x-auto text-[11px]">
+{`// Procedure Contract: bookings.create
+POST /api/trpc/bookings.create
+Input Validation Context:
+{
+  "eventTypeId": "string (z.uuid())",
+  "start": "string (z.string().datetime())",
+  "end": "string (z.string().datetime())",
+  "responses": "z.record(z.any())"
+}`}
+            </pre>
+          </article>
+        );
+      }
+      if (activeTab === 'security') {
+        return (
+          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
+            <h3 className="text-lg font-black text-white tracking-tight">SecOps Findings: Database Masking Strategy</h3>
+            <div className="bg-[#16171a] p-5 rounded-xl border border-neutral-800 space-y-2">
+              <span className="bg-red-600 text-white font-bold px-2 py-0.5 text-[10px] rounded">HIGH (VULN-001)</span>
+              <div className="text-white font-bold">Snaplet Transform Unsafe Mode Enables Data Leakage</div>
+              <p className="text-neutral-400 text-xs">packages/snaplet/transform.ts uses $mode: "unsafe", disabling runtime type checks. Custom functions could leak production keys (credential.key, client_secret) directly into development snapshots.</p>
+            </div>
+          </article>
+        );
+      }
+      if (activeTab === 'executive') {
+        return (
+          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
+            <h3 className="text-lg font-black text-white tracking-tight">Strategic Recommendations for Funding & Scaling</h3>
+            <p className="text-neutral-400">1. Complete PBAC migration to unlock enterprise seat-based licensing. 2. Enforce mandatory rate limiting via Unkey. 3. Budget $50k/year for a dedicated upstream maintenance developer role.</p>
+          </article>
+        );
+      }
+    }
+
+    // JUICE SHOP
+    if (selectedRepo === 'juice-shop') {
+      if (activeTab === 'readme') {
+        return (
+          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
+            <div className="text-xs text-green-400 font-bold">STATUS: UNLOCKED PREVIEW // STANDARD SCALE ACCESSIBLE</div>
+            <h3 className="text-lg font-black text-white tracking-tight">OWASP Juice Shop Architecture Audit</h3>
+            <p className="text-neutral-400">An intentional insecure web application written in Node.js, Express, and Angular. GhostDoc maps the abstract structural models to track real-time architectural decay boundaries.</p>
+          </article>
+        );
+      }
+      if (activeTab === 'api') {
+        return (
+          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
+            <h3 className="text-lg font-black text-white tracking-tight">Juice Shop Legacy Endpoint Mapping</h3>
+            <p className="text-neutral-400">The application utilizes standard RESTful patterns with weak data validation contracts exposed at the router layer.</p>
+            <pre className="bg-[#16171a] p-4 rounded-xl border border-neutral-800 text-purple-400 overflow-x-auto text-[11px]">
+{`GET /rest/products/search?q=
+// Exploit surface: Traditional raw SQL query string interpolation`}
+            </pre>
+          </article>
+        );
+      }
+      if (activeTab === 'security') {
+        return (
+          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
+            <h3 className="text-lg font-black text-white tracking-tight">SecOps Findings: Injection Vulnerabilities</h3>
+            <div className="bg-[#16171a] p-5 rounded-xl border border-neutral-800 space-y-2">
+              <span className="bg-red-600 text-white font-bold px-2 py-0.5 text-[10px] rounded">HIGH</span>
+              <div className="text-white font-bold">SQL Injection (SQLi) in Search Field</div>
+              <p className="text-neutral-400 text-xs">Product search route concatenates queries directly without parameterization bounds, allowing full information disclosure via UNION operations.</p>
+            </div>
+          </article>
+        );
+      }
+      if (activeTab === 'executive') {
+        return (
+          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
+            <h3 className="text-lg font-black text-white tracking-tight">Remediation Cost Summary</h3>
+            <p className="text-neutral-400">Converting insecure standard controllers to repository pattern requires major refactoring. Estimated architectural cost: $15,000 for full sanitation coverage.</p>
+          </article>
+        );
+      }
+    }
+
+    return <p className="text-neutral-400">Content not available.</p>;
   };
 
   return (
@@ -70,7 +242,7 @@ export default function DemoPreviewClient() {
       </div>
 
       <div className="max-w-5xl mx-auto px-6 mt-12 relative z-10">
-        {/* Pilihan repo */}
+        {/* Repository selector */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-2 bg-[#1e1f20]/60 border border-neutral-800/80 rounded-2xl mb-8">
           {(['juice-shop', 'calcom', 'supabase'] as const).map((repo) => (
             <button
@@ -100,7 +272,7 @@ export default function DemoPreviewClient() {
           </div>
         </div>
 
-        {/* Tab navigasi */}
+        {/* Tab navigation */}
         <div className="flex flex-wrap gap-2 border-b border-neutral-800/80 pb-3 mb-6">
           {(['readme', 'api', 'security', 'executive'] as const).map((tab) => (
             <button
@@ -118,20 +290,12 @@ export default function DemoPreviewClient() {
           ))}
         </div>
 
-        {/* Konten preview (sederhana) */}
-        <div className="bg-[#121318] border border-neutral-800/80 p-8 rounded-2xl min-h-[300px]">
-          <p className="text-neutral-400 text-sm font-mono">
-            Menampilkan konten untuk <span className="text-white font-bold">{activeRepo.name}</span> — tab <span className="text-blue-400">{activeTab}</span>
-          </p>
-          <div className="mt-4 text-xs text-neutral-500">
-            {activeTab === 'readme' && '📄 Dokumentasi README lengkap akan muncul di sini.'}
-            {activeTab === 'api' && '⚙️ Kontrak API dan endpoint mapping.'}
-            {activeTab === 'security' && '🛡️ Temuan keamanan dan rekomendasi perbaikan.'}
-            {activeTab === 'executive' && '📊 Ringkasan eksekutif untuk investor.'}
-          </div>
+        {/* Content preview — PAKAI FUNCTION renderContent() */}
+        <div className="bg-[#121318] border border-neutral-800/80 p-8 rounded-2xl min-h-[350px]">
+          {renderContent()}
         </div>
 
-        {/* Form pembayaran */}
+        {/* Payment form */}
         <div className="bg-[#121318] p-8 rounded-2xl border border-neutral-800/80 mt-8 max-w-xl mx-auto">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>

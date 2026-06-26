@@ -158,13 +158,13 @@ export default function TerminalConsole() {
               onClick={handleTriggerDemo}
               className="text-green-400 hover:text-green-300 text-sm border border-green-500/30 px-6 py-3 rounded-full hover:bg-green-900/10 transition-all font-mono"
             >
-              💡 Coba Demo Instan (OWASP Juice Shop)
+              ⚡ Try Instant Demo (OWASP Juice Shop)
             </button>
             <button 
               onClick={() => window.location.href = `https://jamborano.gumroad.com/l/ghostdoc-enterprise`}
               className="text-blue-400 hover:text-blue-300 text-sm border border-blue-500/30 px-6 py-3 rounded-full hover:bg-blue-900/20 transition-all"
             >
-              🔒 Use Secure ZIP Upload ($99)
+              🔒 Upload Secure ZIP ($99)
             </button>
           </div>
         </div>
