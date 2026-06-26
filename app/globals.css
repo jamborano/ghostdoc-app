@@ -1,6 +1,29 @@
 @import "tailwindcss";
 
+/* ===== GLOBAL STYLE GHOSTDOC ===== */
 body {
-  background-color: #0a0a0a; /* Neutral-950, warna hitam elit tech */
-  color: #e5e5e5; /* Neutral-200, abu-abu elit */
+  background: #0c0d12;
+  color: #F5F5DC;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: white;
+}
+
+/* Scrollbar kustom */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #1e1f20;
+}
+::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #60a5fa;
 }

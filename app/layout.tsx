@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import React from 'react';
 import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/react';
-import "./globals.css";
+import "./globals.css"; // <-- HARUS ADA INI
 
 // ================= SUPLEMENTASI SEO PREMIUM GHOSTDOC =================
 export const metadata: Metadata = {
