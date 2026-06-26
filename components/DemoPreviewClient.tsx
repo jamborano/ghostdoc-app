@@ -51,10 +51,10 @@ export default function DemoPreviewClient() {
   };
 
   // ================================================================
-  // KONTEN DINAMIS PER REPO & TAB
+  // 🧠 KONTEN DINAMIS PER REPO & TAB
   // ================================================================
   const renderContent = () => {
-    // SUPABASE
+    // ---------- SUPABASE ----------
     if (selectedRepo === 'supabase') {
       if (activeTab === 'readme') {
         return (
@@ -118,7 +118,7 @@ Content-Type: application/json
       }
     }
 
-    // CAL.COM
+    // ---------- CAL.COM ----------
     if (selectedRepo === 'calcom') {
       if (activeTab === 'readme') {
         return (
@@ -174,7 +174,7 @@ Input Validation Context:
       }
     }
 
-    // JUICE SHOP
+    // ---------- JUICE SHOP ----------
     if (selectedRepo === 'juice-shop') {
       if (activeTab === 'readme') {
         return (
