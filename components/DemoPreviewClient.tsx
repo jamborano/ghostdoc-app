@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -8,39 +8,162 @@ export default function DemoPreviewClient() {
   const [selectedRepo, setSelectedRepo] = useState<'juice-shop' | 'calcom' | 'supabase'>('supabase');
   const [activeTab, setActiveTab] = useState<'readme' | 'api' | 'security' | 'executive'>('readme');
   const [email, setEmail] = useState('');
+  const [content, setContent] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
 
   const repoConfig = {
     'juice-shop': {
       name: 'bkimminich/juice-shop',
+      displayName: 'OWASP Juice Shop',
       files: 412,
       credits: '45.210',
       tier: 'Core Bundle ($9)',
       priceLabel: '$9',
       gumroadLink: 'https://gumroad.com/l/ghostdoc-core-9',
       isOverlimit: false,
+      folder: 'juice-shop',
     },
     'calcom': {
       name: 'calcom/cal.diy (Monorepo Fork)',
+      displayName: 'Cal.com',
       files: 2450,
       credits: '320.450',
       tier: 'Enterprise Vault ($99)',
       priceLabel: '$99',
       gumroadLink: 'https://gumroad.com/l/ghostdoc-enterprise-99',
       isOverlimit: true,
+      folder: 'calcom',
     },
     'supabase': {
       name: 'supabase/supabase (Studio Monorepo)',
+      displayName: 'Supabase',
       files: 7775,
       credits: '1.430.600',
       tier: 'Enterprise Vault ($99)',
       priceLabel: '$99',
       gumroadLink: 'https://gumroad.com/l/ghostdoc-enterprise-99',
       isOverlimit: true,
+      folder: 'supabase',
     }
   };
 
   const activeRepo = repoConfig[selectedRepo];
 
+  // ================================================================
+  // 🚀 LOAD MARKDOWN FILE DARI PUBLIC
+  // ================================================================
+  useEffect(() => {
+    const loadContent = async () => {
+      setLoading(true);
+      const fileMap = {
+        'readme': 'README.md',
+        'api': 'API_Reference.md',
+        'security': 'Vulnerability_Report.md',
+        'executive': 'Executive_Summary.md',
+      };
+
+      const fileName = fileMap[activeTab];
+      const folder = activeRepo.folder;
+      const url = `/demo-content/${folder}/${fileName}`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`File not found: ${url}`);
+        }
+        const text = await response.text();
+        setContent(text);
+      } catch (error) {
+        setContent(`# Content Not Available\n\nFile \`${fileName}\` for **${activeRepo.displayName}** is not yet uploaded.\n\nPlease add \`${fileName}\` to \`public/demo-content/${folder}/\`.`);
+        console.error('Error loading markdown:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadContent();
+  }, [selectedRepo, activeTab, activeRepo.displayName, activeRepo.folder]);
+
+  // ================================================================
+  // 🖼️ RENDER MARKDOWN (SEDERHANA TAPI BERKELAS)
+  // ================================================================
+  const renderMarkdown = (markdown: string) => {
+    if (!markdown) return null;
+
+    // Split by lines
+    const lines = markdown.split('\n');
+    const elements: React.ReactNode[] = [];
+    let inCodeBlock = false;
+    let codeContent: string[] = [];
+    let codeLanguage = '';
+
+    let i = 0;
+    while (i < lines.length) {
+      const line = lines[i];
+
+      // Code block detection
+      if (line.trim().startsWith('```')) {
+        if (!inCodeBlock) {
+          inCodeBlock = true;
+          codeLanguage = line.trim().replace('```', '').trim();
+          codeContent = [];
+          i++;
+          continue;
+        } else {
+          inCodeBlock = false;
+          const code = codeContent.join('\n');
+          elements.push(
+            <pre key={`code-${i}`} className="bg-[#16171a] p-4 rounded-xl border border-neutral-800 text-neutral-400 overflow-x-auto text-[11px] font-mono my-2">
+              {code}
+            </pre>
+          );
+          i++;
+          continue;
+        }
+      }
+
+      if (inCodeBlock) {
+        codeContent.push(line);
+        i++;
+        continue;
+      }
+
+      // Headers
+      if (line.startsWith('# ')) {
+        elements.push(<h1 key={i} className="text-2xl font-black text-white mt-6 mb-2">{line.replace('# ', '')}</h1>);
+      } else if (line.startsWith('## ')) {
+        elements.push(<h2 key={i} className="text-xl font-bold text-white mt-5 mb-2">{line.replace('## ', '')}</h2>);
+      } else if (line.startsWith('### ')) {
+        elements.push(<h3 key={i} className="text-lg font-bold text-blue-400 mt-4 mb-2">{line.replace('### ', '')}</h3>);
+      }
+      // Bold
+      else if (line.startsWith('**') && line.endsWith('**')) {
+        elements.push(<p key={i} className="text-sm font-bold text-neutral-200 my-2">{line.replace(/\*\*/g, '')}</p>);
+      }
+      // List items
+      else if (line.startsWith('- ')) {
+        elements.push(<li key={i} className="text-sm text-neutral-300 ml-4 list-disc">{line.replace('- ', '')}</li>);
+      } else if (line.startsWith('1. ') || line.startsWith('2. ') || line.startsWith('3. ')) {
+        elements.push(<li key={i} className="text-sm text-neutral-300 ml-4 list-decimal">{line.replace(/^\d+\.\s/, '')}</li>);
+      }
+      // Empty line
+      else if (line.trim() === '') {
+        elements.push(<br key={i} />);
+      }
+      // Regular paragraph
+      else {
+        elements.push(<p key={i} className="text-sm text-neutral-400 my-1 leading-relaxed">{line}</p>);
+      }
+
+      i++;
+    }
+
+    return <div className="space-y-1">{elements}</div>;
+  };
+
+  // ================================================================
+  // HANDLE SUBMIT
+  // ================================================================
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) {
@@ -51,177 +174,8 @@ export default function DemoPreviewClient() {
   };
 
   // ================================================================
-  // 🧠 KONTEN DINAMIS PER REPO & TAB
+  // RENDER
   // ================================================================
-  const renderContent = () => {
-    // ---------- SUPABASE ----------
-    if (selectedRepo === 'supabase') {
-      if (activeTab === 'readme') {
-        return (
-          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
-            <div className="text-xs text-green-400 font-bold">STATUS: PARSING COMPLETE // PRODUCTION REPO TOPOLOGY MAPPED</div>
-            <h3 className="text-lg font-black text-white tracking-tight">Supabase Monorepo – Architecture & Development Guide</h3>
-            <p className="text-neutral-400">Production-ready monorepo comprising the Supabase Studio dashboard, marketing site, documentation, shared UI component library, and a suite of backend microservices. Built with pnpm workspaces, Turborepo, Next.js, React 19, and a rigorous security-first type system.</p>
-            <h4 className="text-sm font-bold text-blue-400 pt-2">Repository Topology Graph</h4>
-            <pre className="bg-[#16171a] p-4 rounded-xl border border-neutral-800 text-neutral-400 overflow-x-auto text-[11px]">
-{`supabase/
-├── apps/
-│   ├── studio/          # Next.js Pages Router (React 19 Dashboard)
-│   ├── www/             # Next.js App Router (Marketing Hub)
-│   └── docs/            # Contentlayer + MDX Technical Docs
-└── packages/
-    ├── ui/              # Shared Tailwind Component Library
-    ├── pg-meta/         # Postgres Management & Direct Inspection Asset
-    └── dev-tools/       # Internal Inspection Toolbars`}
-            </pre>
-          </article>
-        );
-      }
-      if (activeTab === 'api') {
-        return (
-          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
-            <h3 className="text-lg font-black text-white tracking-tight">Supabase Studio API Reference Contract</h3>
-            <p className="text-neutral-400">Version: 2.6 | Base URL: http://localhost:8080. All endpoints strictly require session JWT tokens obtained from Supabase Auth.</p>
-            <pre className="bg-[#16171a] p-4 rounded-xl border border-neutral-800 text-purple-400 overflow-x-auto text-[11px]">
-{`// Example SQL Query Execution Endpoint
-POST /api/projects/{ref}/query
-Authorization: Bearer <session_token>
-Content-Type: application/json
-
-{
-  "query": "SELECT * FROM public.users WHERE role = $1",
-  "params": ["admin"]
-}`}
-            </pre>
-          </article>
-        );
-      }
-      if (activeTab === 'security') {
-        return (
-          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
-            <h3 className="text-lg font-black text-white tracking-tight">SecOps Findings: Branded Type Enforcement</h3>
-            <div className="bg-[#16171a] p-5 rounded-xl border border-neutral-800 space-y-2">
-              <span className="bg-red-600 text-white font-bold px-2 py-0.5 text-[10px] rounded">MEDIUM (V-001)</span>
-              <div className="text-white font-bold">Runtime validation missing for SafeSqlFragment</div>
-              <p className="text-neutral-400 text-xs">All data access layers rely on the integrity of the TypeScript compiler; no runtime enforcement exists for the branded SQL type system. Risk of type assertion bypass via manual casts.</p>
-            </div>
-          </article>
-        );
-      }
-      if (activeTab === 'executive') {
-        return (
-          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
-            <h3 className="text-lg font-black text-white tracking-tight">Investor Valuation & Architectural Strategic Summary</h3>
-            <p className="text-neutral-400">The brand-differentiated SQL protection system, combined with a modular UI framework and rigorous testing pipeline, positions the platform to capture enterprise revenue while maintaining top-line growth. Technical debt is minimal (&lt;1% total codebase complexity).</p>
-          </article>
-        );
-      }
-    }
-
-    // ---------- CAL.COM ----------
-    if (selectedRepo === 'calcom') {
-      if (activeTab === 'readme') {
-        return (
-          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
-            <div className="text-xs text-green-400 font-bold">STATUS: PARSING COMPLETE // SCHEDULING INFRASTRUCTURE LAYERS MAPPED</div>
-            <h3 className="text-lg font-black text-white tracking-tight">Cal.diy Monorepo – Community-maintained Scheduling System</h3>
-            <p className="text-neutral-400">MIT-licensed open-source scheduling infrastructure built for scale. Employs a vertical slice architecture and a strict dependency matrix layer to avoid dependency entanglements.</p>
-            <pre className="bg-[#16171a] p-4 rounded-xl border border-neutral-800 text-neutral-400 overflow-x-auto text-[11px]">
-{`Dependency Hierarchy Matrix:
-@calcom/lib ──> @calcom/app-store ──> @calcom/features ──> @calcom/trpc ──> apps/web`}
-            </pre>
-          </article>
-        );
-      }
-      if (activeTab === 'api') {
-        return (
-          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
-            <h3 className="text-lg font-black text-white tracking-tight">Cal.diy Surface Layer API Reference</h3>
-            <p className="text-neutral-400">Exposes two primary surfaces: a high-performance tRPC tunnel layer for first-party interfaces, and traditional REST API v2 endpoints backed by NestJS.</p>
-            <pre className="bg-[#16171a] p-4 rounded-xl border border-neutral-800 text-purple-400 overflow-x-auto text-[11px]">
-{`// Procedure Contract: bookings.create
-POST /api/trpc/bookings.create
-Input Validation Context:
-{
-  "eventTypeId": "string (z.uuid())",
-  "start": "string (z.string().datetime())",
-  "end": "string (z.string().datetime())",
-  "responses": "z.record(z.any())"
-}`}
-            </pre>
-          </article>
-        );
-      }
-      if (activeTab === 'security') {
-        return (
-          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
-            <h3 className="text-lg font-black text-white tracking-tight">SecOps Findings: Database Masking Strategy</h3>
-            <div className="bg-[#16171a] p-5 rounded-xl border border-neutral-800 space-y-2">
-              <span className="bg-red-600 text-white font-bold px-2 py-0.5 text-[10px] rounded">HIGH (VULN-001)</span>
-              <div className="text-white font-bold">Snaplet Transform Unsafe Mode Enables Data Leakage</div>
-              <p className="text-neutral-400 text-xs">packages/snaplet/transform.ts uses $mode: "unsafe", disabling runtime type checks. Custom functions could leak production keys (credential.key, client_secret) directly into development snapshots.</p>
-            </div>
-          </article>
-        );
-      }
-      if (activeTab === 'executive') {
-        return (
-          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
-            <h3 className="text-lg font-black text-white tracking-tight">Strategic Recommendations for Funding & Scaling</h3>
-            <p className="text-neutral-400">1. Complete PBAC migration to unlock enterprise seat-based licensing. 2. Enforce mandatory rate limiting via Unkey. 3. Budget $50k/year for a dedicated upstream maintenance developer role.</p>
-          </article>
-        );
-      }
-    }
-
-    // ---------- JUICE SHOP ----------
-    if (selectedRepo === 'juice-shop') {
-      if (activeTab === 'readme') {
-        return (
-          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
-            <div className="text-xs text-green-400 font-bold">STATUS: UNLOCKED PREVIEW // STANDARD SCALE ACCESSIBLE</div>
-            <h3 className="text-lg font-black text-white tracking-tight">OWASP Juice Shop Architecture Audit</h3>
-            <p className="text-neutral-400">An intentional insecure web application written in Node.js, Express, and Angular. GhostDoc maps the abstract structural models to track real-time architectural decay boundaries.</p>
-          </article>
-        );
-      }
-      if (activeTab === 'api') {
-        return (
-          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
-            <h3 className="text-lg font-black text-white tracking-tight">Juice Shop Legacy Endpoint Mapping</h3>
-            <p className="text-neutral-400">The application utilizes standard RESTful patterns with weak data validation contracts exposed at the router layer.</p>
-            <pre className="bg-[#16171a] p-4 rounded-xl border border-neutral-800 text-purple-400 overflow-x-auto text-[11px]">
-{`GET /rest/products/search?q=
-// Exploit surface: Traditional raw SQL query string interpolation`}
-            </pre>
-          </article>
-        );
-      }
-      if (activeTab === 'security') {
-        return (
-          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
-            <h3 className="text-lg font-black text-white tracking-tight">SecOps Findings: Injection Vulnerabilities</h3>
-            <div className="bg-[#16171a] p-5 rounded-xl border border-neutral-800 space-y-2">
-              <span className="bg-red-600 text-white font-bold px-2 py-0.5 text-[10px] rounded">HIGH</span>
-              <div className="text-white font-bold">SQL Injection (SQLi) in Search Field</div>
-              <p className="text-neutral-400 text-xs">Product search route concatenates queries directly without parameterization bounds, allowing full information disclosure via UNION operations.</p>
-            </div>
-          </article>
-        );
-      }
-      if (activeTab === 'executive') {
-        return (
-          <article className="font-mono text-xs md:text-sm leading-relaxed text-neutral-300 space-y-4">
-            <h3 className="text-lg font-black text-white tracking-tight">Remediation Cost Summary</h3>
-            <p className="text-neutral-400">Converting insecure standard controllers to repository pattern requires major refactoring. Estimated architectural cost: $15,000 for full sanitation coverage.</p>
-          </article>
-        );
-      }
-    }
-
-    return <p className="text-neutral-400">Content not available.</p>;
-  };
-
   return (
     <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] font-sans pb-24 relative overflow-x-hidden">
       {/* Background glow */}
@@ -236,7 +190,7 @@ Input Validation Context:
             <Image src="/logo.png" alt="Logo" width={20} height={20} />
           </div>
           <p className="text-xs font-mono text-neutral-400">
-            ⚡ <b className="text-blue-400">GHOSTDOC SANDBOX:</b> {activeRepo.name}
+            ⚡ <b className="text-blue-400">GHOSTDOC SANDBOX:</b> {activeRepo.displayName}
           </p>
         </div>
       </div>
@@ -254,9 +208,9 @@ Input Validation Context:
                   : 'text-neutral-400 hover:text-white hover:bg-neutral-800/50'
               }`}
             >
-              {repo === 'juice-shop' && '📦 juice-shop'}
-              {repo === 'calcom' && '📅 cal.com'}
-              {repo === 'supabase' && '⚡ supabase'}
+              {repo === 'juice-shop' && '📦 Juice Shop'}
+              {repo === 'calcom' && '📅 Cal.com'}
+              {repo === 'supabase' && '⚡ Supabase'}
             </button>
           ))}
         </div>
@@ -290,9 +244,15 @@ Input Validation Context:
           ))}
         </div>
 
-        {/* Content preview — PAKAI FUNCTION renderContent() */}
-        <div className="bg-[#121318] border border-neutral-800/80 p-8 rounded-2xl min-h-[350px]">
-          {renderContent()}
+        {/* Content preview — LOAD DARI FILE MD */}
+        <div className="bg-[#121318] border border-neutral-800/80 p-8 rounded-2xl min-h-[350px] max-h-[600px] overflow-y-auto">
+          {loading ? (
+            <div className="flex items-center justify-center h-64">
+              <div className="text-neutral-500 text-sm font-mono animate-pulse">⏳ Loading documentation...</div>
+            </div>
+          ) : (
+            renderMarkdown(content)
+          )}
         </div>
 
         {/* Payment form */}
