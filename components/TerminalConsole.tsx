@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
 
 const SendUpArrowIcon = () => (
@@ -18,7 +19,6 @@ export default function TerminalConsole() {
   const [repoUrl, setRepoUrl] = useState('');
   const [logs, setLogs] = useState<string[]>([]);
   const [deliveryEmail, setDeliveryEmail] = useState('');
-  
   const [repoStats, setRepoStats] = useState({
     tierName: 'Awaiting Architecture Scan',
     files: 0,
@@ -34,7 +34,10 @@ export default function TerminalConsole() {
   }, [logs]);
 
   const simulateScan = async () => {
-    if (!repoUrl) return alert("System requires a valid GitHub Repository URL to proceed.");
+    if (!repoUrl) {
+      alert("System requires a valid GitHub Repository URL to proceed.");
+      return;
+    }
     
     const match = repoUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
     if (!match) {
@@ -43,44 +46,47 @@ export default function TerminalConsole() {
     }
     
     const owner = match[1];
-    const repo = match[2].replace('.git', ''); 
+    const repo = match[2].replace('.git', '');
 
     setStep(2);
     setLogs(["[SYSTEM] Bootstrapping zero-retention ephemeral worker node..."]);
 
     try {
-      await new Promise(r => setTimeout(r, 600)); 
+      await new Promise(r => setTimeout(r, 600));
       setLogs(prev => [...prev, `[INFO] Authenticating and mapping GitHub API for ${owner}/${repo}...`]);
+      
       const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
       
       if (!repoRes.ok) {
         throw new Error(repoRes.status === 404 ? "Repository is private or does not exist." : "GitHub API rate limit exceeded or unresponsive.");
       }
+      
       const repoData = await repoRes.json();
       const defaultBranch = repoData.default_branch;
 
       await new Promise(r => setTimeout(r, 800));
       setLogs(prev => [...prev, `[INFO] Crawling repository tree on branch: ${defaultBranch}...`]);
+      
       const treeRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees/${defaultBranch}?recursive=1`);
       const treeData = await treeRes.json();
 
       const validExtensions = ['.js', '.ts', '.jsx', '.tsx', '.py', '.go', '.rs', '.java', '.c', '.cpp', '.cs', '.php', '.rb', '.md', '.html', '.css', '.json'];
       
       const validFiles = treeData.tree ? treeData.tree.filter((file: any) => {
-        if (file.type !== 'blob') return false; 
+        if (file.type !== 'blob') return false;
         if (file.path.includes('package-lock.json') || file.path.includes('yarn.lock') || file.path.includes('pnpm-lock.yaml')) return false;
         const ext = file.path.slice((Math.max(0, file.path.lastIndexOf(".")) || Infinity) + 1);
         return validExtensions.includes(`.${ext.toLowerCase()}`);
       }) : [];
 
       const fileCount = validFiles.length;
-      
+
       await new Promise(r => setTimeout(r, 600));
       setLogs(prev => [...prev, `[INFO] Pruning boilerplate and lockfiles. Valid logic files: ${fileCount}...`]);
 
       let tier = "Micro-Architecture";
-      if (fileCount > 150) tier = "Monolithic Scale"; 
-      else if (fileCount > 40) tier = "Standard Codebase"; 
+      if (fileCount > 150) tier = "Monolithic Scale";
+      else if (fileCount > 40) tier = "Standard Codebase";
 
       const credits = fileCount === 0 ? 120 : fileCount * 184;
 
@@ -91,7 +97,7 @@ export default function TerminalConsole() {
       });
 
       await new Promise(r => setTimeout(r, 800));
-      setLogs(prev => [...prev, `[SUCCESS] Architecture mapped successfully.`]);
+      setLogs(prev => [...prev, "[SUCCESS] Architecture mapped successfully."]);
       
       setTimeout(() => setStep(3), 2000);
 
@@ -100,24 +106,26 @@ export default function TerminalConsole() {
     }
   };
 
-  // HANDLER KHUSUS DEMO OWASP JUICE SHOP (ANTI BILLING MELEDAK)
-  const handleTriggerDemo = async () => {
+  const handleTriggerDemo = () => {
     setRepoUrl("https://github.com/juice-shop/juice-shop");
     setStep(2);
     setLogs(["[SYSTEM] Bootstrapping zero-retention ephemeral worker node..."]);
     
-    await new Promise(r => setTimeout(r, 600));
-    setLogs(prev => [...prev, "[INFO] Authenticating and mapping GitHub API for juice-shop/juice-shop..."]);
+    setTimeout(() => {
+      setLogs(prev => [...prev, "[INFO] Authenticating and mapping GitHub API for juice-shop/juice-shop..."]);
+    }, 600);
     
-    await new Promise(r => setTimeout(r, 800));
-    setLogs(prev => [...prev, "[INFO] Crawling repository tree. 100+ architectural vectors mapped..."]);
+    setTimeout(() => {
+      setLogs(prev => [...prev, "[INFO] Crawling repository tree. 100+ architectural vectors mapped..."]);
+    }, 1400);
     
-    await new Promise(r => setTimeout(r, 600));
-    setLogs(prev => [...prev, "[SUCCESS] Target cloned into sandboxed environment. Redirecting to interactive demo..."]);
+    setTimeout(() => {
+      setLogs(prev => [...prev, "[SUCCESS] Target cloned into sandboxed environment. Redirecting to interactive demo..."]);
+    }, 2000);
 
     setTimeout(() => {
       window.location.href = "/demo";
-    }, 1500);
+    }, 3500);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -125,7 +133,10 @@ export default function TerminalConsole() {
   };
 
   const handleCheckout = () => {
-    if (deliveryEmail.trim() === '') return alert("⚠️ FATAL: A valid delivery email is required.");
+    if (deliveryEmail.trim() === '') {
+      alert("⚠️ FATAL: A valid delivery email is required.");
+      return;
+    }
     window.location.href = `https://jamborano.gumroad.com/l/ghostdoc?repo_url=${encodeURIComponent(repoUrl)}&email=${encodeURIComponent(deliveryEmail)}`;
   };
 
@@ -152,7 +163,6 @@ export default function TerminalConsole() {
             </div>
           </div>
 
-          {/* DUA TOMBOL OPSI DI BAWAH INPUT INPUT FIELD */}
           <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
             <button 
               onClick={handleTriggerDemo}
@@ -161,7 +171,7 @@ export default function TerminalConsole() {
               ⚡ Try Instant Demo (OWASP Juice Shop)
             </button>
             <button 
-              onClick={() => window.location.href = `https://jamborano.gumroad.com/l/ghostdoc-enterprise`}
+              onClick={() => window.location.href = "https://jamborano.gumroad.com/l/ghostdoc-enterprise"}
               className="text-blue-400 hover:text-blue-300 text-sm border border-blue-500/30 px-6 py-3 rounded-full hover:bg-blue-900/20 transition-all"
             >
               🔒 Upload Secure ZIP ($99)
