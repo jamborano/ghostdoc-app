@@ -14,6 +14,12 @@ const CheckIcon = () => (
   </svg>
 );
 
+const DEMO_REPOS = [
+  { id: 'juice-shop', label: 'OWASP Juice Shop', url: 'https://github.com/juice-shop/juice-shop' },
+  { id: 'calcom', label: 'Cal.com', url: 'https://github.com/calcom/cal.com' },
+  { id: 'supabase', label: 'Supabase', url: 'https://github.com/supabase/supabase' },
+];
+
 export default function TerminalConsole() {
   const [step, setStep] = useState(1);
   const [repoUrl, setRepoUrl] = useState('');
@@ -24,6 +30,7 @@ export default function TerminalConsole() {
     files: 0,
     credits: 0
   });
+  const [showPopup, setShowPopup] = useState(false);
   
   const terminalRef = useRef<HTMLDivElement>(null);
 
@@ -33,6 +40,9 @@ export default function TerminalConsole() {
     }
   }, [logs]);
 
+  // ============================================================
+  // SCAN SIMULATION
+  // ============================================================
   const simulateScan = async () => {
     if (!repoUrl) {
       alert("System requires a valid GitHub Repository URL to proceed.");
@@ -106,28 +116,17 @@ export default function TerminalConsole() {
     }
   };
 
-  const handleTriggerDemo = () => {
-    setRepoUrl("https://github.com/juice-shop/juice-shop");
-    setStep(2);
-    setLogs(["[SYSTEM] Bootstrapping zero-retention ephemeral worker node..."]);
-    
-    setTimeout(() => {
-      setLogs(prev => [...prev, "[INFO] Authenticating and mapping GitHub API for juice-shop/juice-shop..."]);
-    }, 600);
-    
-    setTimeout(() => {
-      setLogs(prev => [...prev, "[INFO] Crawling repository tree. 100+ architectural vectors mapped..."]);
-    }, 1400);
-    
-    setTimeout(() => {
-      setLogs(prev => [...prev, "[SUCCESS] Target cloned into sandboxed environment. Redirecting to interactive demo..."]);
-    }, 2000);
-
-    setTimeout(() => {
-      window.location.href = "/demo";
-    }, 3500);
+  // ============================================================
+  // POPUP HANDLER
+  // ============================================================
+  const handleSelectDemo = (url: string) => {
+    setRepoUrl(url);
+    setShowPopup(false);
   };
 
+  // ============================================================
+  // KEYBOARD & CHECKOUT
+  // ============================================================
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') simulateScan();
   };
@@ -140,10 +139,14 @@ export default function TerminalConsole() {
     window.location.href = `https://jamborano.gumroad.com/l/ghostdoc?repo_url=${encodeURIComponent(repoUrl)}&email=${encodeURIComponent(deliveryEmail)}`;
   };
 
+  // ============================================================
+  // RENDER
+  // ============================================================
   return (
     <div className="w-full max-w-3xl relative z-20">
       {step === 1 && (
         <div className="w-full flex flex-col items-center">
+          {/* Input Field */}
           <div className="w-full relative group">
             <input 
               type="text" 
@@ -163,9 +166,10 @@ export default function TerminalConsole() {
             </div>
           </div>
 
+          {/* Tombol Demo & ZIP Upload */}
           <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
             <button 
-              onClick={handleTriggerDemo}
+              onClick={() => setShowPopup(true)}
               className="text-green-400 hover:text-green-300 text-sm border border-green-500/30 px-6 py-3 rounded-full hover:bg-green-900/10 transition-all font-mono"
             >
               ⚡ Try Instant Demo ($0)
@@ -177,9 +181,52 @@ export default function TerminalConsole() {
               🔒 Upload Secure ZIP ($99)
             </button>
           </div>
+
+          {/* ============================================================ */}
+          {/* POPUP PILIHAN DEMO */}
+          {/* ============================================================ */}
+          {showPopup && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+              <div className="bg-[#1e1f20] border border-neutral-800 rounded-2xl p-8 max-w-md w-full shadow-2xl animate-fadeIn">
+                <div className="flex justify-between items-center mb-6">
+                  <h3 className="text-xl font-black text-white tracking-tight">Select Demo Repository</h3>
+                  <button 
+                    onClick={() => setShowPopup(false)}
+                    className="text-neutral-400 hover:text-white text-2xl leading-none"
+                  >
+                    ✕
+                  </button>
+                </div>
+                
+                <p className="text-sm text-neutral-400 mb-6 font-mono">
+                  Choose a repo to instantly populate the URL and run a live architecture scan.
+                </p>
+
+                <div className="space-y-3">
+                  {DEMO_REPOS.map((repo) => (
+                    <button
+                      key={repo.id}
+                      onClick={() => handleSelectDemo(repo.url)}
+                      className="w-full text-left bg-[#0c0d12] hover:bg-[#2a2b2e] border border-neutral-800 hover:border-blue-500/50 rounded-xl px-5 py-4 transition-all duration-200"
+                    >
+                      <div className="text-white font-bold text-sm">{repo.label}</div>
+                      <div className="text-xs text-neutral-500 font-mono truncate">{repo.url}</div>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-neutral-800/60">
+                  <p className="text-[10px] text-neutral-600 font-mono text-center">
+                    🔒 Zero-retention • No data stored • Redirects to sandbox after scan
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
+      {/* STEP 2 — TERMINAL */}
       {step === 2 && (
         <div className="w-full max-w-2xl mx-auto bg-[#0c0d12] border border-neutral-800 rounded-xl p-6 font-mono text-sm shadow-2xl">
           <div className="flex items-center gap-2 mb-4 pb-4 border-b border-[#1e1f20]">
@@ -197,6 +244,7 @@ export default function TerminalConsole() {
         </div>
       )}
 
+      {/* STEP 3 — SCAN COMPLETED */}
       {step === 3 && (
         <div className="w-full max-w-2xl mx-auto bg-[#1e1f20] rounded-2xl p-10 shadow-2xl border border-neutral-800">
           <h2 className="text-3xl font-black mb-8 text-center tracking-tight">Scan Completed</h2>
