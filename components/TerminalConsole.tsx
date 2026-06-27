@@ -168,7 +168,7 @@ export default function TerminalConsole() {
               onClick={handleTriggerDemo}
               className="text-green-400 hover:text-green-300 text-sm border border-green-500/30 px-6 py-3 rounded-full hover:bg-green-900/10 transition-all font-mono"
             >
-              ⚡ Try Instant Demo (OWASP Juice Shop)
+              ⚡ Try Instan Demo
             </button>
             <button 
               onClick={() => window.location.href = "https://jamborano.gumroad.com/l/ghostdoc-enterprise"}
