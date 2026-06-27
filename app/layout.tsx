@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import React from 'react';
 import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/react';
-import "./globals.css"; // <-- HARUS ADA INI
+import "./globals.css";
 
 // ================= SUPLEMENTASI SEO PREMIUM GHOSTDOC =================
 export const metadata: Metadata = {
@@ -124,8 +124,10 @@ export default function RootLayout({
         {/* PRELOAD FONT & CRITICAL ASSETS */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* FAVICON LENGKAP */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        
+        {/* ===== FAVICON LENGKAP (PAKAI LOGO GHOSTDOC) ===== */}
+        <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+        <link rel="icon" href="/logo.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
       </head>
