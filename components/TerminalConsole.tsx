@@ -31,6 +31,8 @@ export default function TerminalConsole() {
     credits: 0
   });
   const [showPopup, setShowPopup] = useState(false);
+  const [isDemoMode, setIsDemoMode] = useState(false);
+  const [selectedRepoId, setSelectedRepoId] = useState<string>('');
   
   const terminalRef = useRef<HTMLDivElement>(null);
 
@@ -108,8 +110,18 @@ export default function TerminalConsole() {
 
       await new Promise(r => setTimeout(r, 800));
       setLogs(prev => [...prev, "[SUCCESS] Architecture mapped successfully."]);
-      
-      setTimeout(() => setStep(3), 2000);
+
+      // ============================================================
+      // Jika demo mode, redirect ke /demo?repo=xxx
+      // ============================================================
+      if (isDemoMode && selectedRepoId) {
+        setTimeout(() => {
+          window.location.href = `/demo?repo=${selectedRepoId}`;
+        }, 1500);
+      } else {
+        // Mode normal → lanjut ke step checkout
+        setTimeout(() => setStep(3), 2000);
+      }
 
     } catch (err: any) {
       setLogs(prev => [...prev, `[ERROR] ${err.message}`]);
@@ -119,9 +131,17 @@ export default function TerminalConsole() {
   // ============================================================
   // POPUP HANDLER
   // ============================================================
-  const handleSelectDemo = (url: string) => {
-    setRepoUrl(url);
+  const handleSelectDemo = (repo: { id: string; url: string }) => {
+    setRepoUrl(repo.url);
+    setSelectedRepoId(repo.id);
+    setIsDemoMode(true);
     setShowPopup(false);
+
+    // Jalankan scan otomatis setelah URL terisi
+    // (delay tipis biar state update)
+    setTimeout(() => {
+      simulateScan();
+    }, 100);
   };
 
   // ============================================================
@@ -206,7 +226,7 @@ export default function TerminalConsole() {
                   {DEMO_REPOS.map((repo) => (
                     <button
                       key={repo.id}
-                      onClick={() => handleSelectDemo(repo.url)}
+                      onClick={() => handleSelectDemo(repo)}
                       className="w-full text-left bg-[#0c0d12] hover:bg-[#2a2b2e] border border-neutral-800 hover:border-blue-500/50 rounded-xl px-5 py-4 transition-all duration-200"
                     >
                       <div className="text-white font-bold text-sm">{repo.label}</div>
@@ -244,8 +264,8 @@ export default function TerminalConsole() {
         </div>
       )}
 
-      {/* STEP 3 — SCAN COMPLETED */}
-      {step === 3 && (
+      {/* STEP 3 — SCAN COMPLETED (hanya muncul jika bukan demo mode) */}
+      {step === 3 && !isDemoMode && (
         <div className="w-full max-w-2xl mx-auto bg-[#1e1f20] rounded-2xl p-10 shadow-2xl border border-neutral-800">
           <h2 className="text-3xl font-black mb-8 text-center tracking-tight">Scan Completed</h2>
           <div className="bg-[#0c0d12] p-6 rounded-2xl flex items-center gap-6 mb-8 border border-green-500/20">
