@@ -33,6 +33,7 @@ export default function TerminalConsole() {
   const [showPopup, setShowPopup] = useState(false);
   const [isDemoMode, setIsDemoMode] = useState(false);
   const [selectedRepoId, setSelectedRepoId] = useState<string>('');
+  const [isScanning, setIsScanning] = useState(false);
   
   const terminalRef = useRef<HTMLDivElement>(null);
 
@@ -45,13 +46,15 @@ export default function TerminalConsole() {
   // ============================================================
   // SCAN SIMULATION
   // ============================================================
-  const simulateScan = async () => {
-    if (!repoUrl) {
+  const simulateScan = async (url?: string) => {
+    const targetUrl = url || repoUrl;
+    
+    if (!targetUrl) {
       alert("System requires a valid GitHub Repository URL to proceed.");
       return;
     }
     
-    const match = repoUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
+    const match = targetUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
     if (!match) {
       alert("Invalid format detected. Expected format: https://github.com/username/repo");
       return;
@@ -60,6 +63,7 @@ export default function TerminalConsole() {
     const owner = match[1];
     const repo = match[2].replace('.git', '');
 
+    setIsScanning(true);
     setStep(2);
     setLogs(["[SYSTEM] Bootstrapping zero-retention ephemeral worker node..."]);
 
@@ -111,22 +115,30 @@ export default function TerminalConsole() {
       await new Promise(r => setTimeout(r, 800));
       setLogs(prev => [...prev, "[SUCCESS] Architecture mapped successfully."]);
 
-      // ============================================================
-      // Jika demo mode, redirect ke /demo?repo=xxx
-      // ============================================================
       if (isDemoMode && selectedRepoId) {
         setTimeout(() => {
           window.location.href = `/demo?repo=${selectedRepoId}`;
         }, 1500);
       } else {
-        // Mode normal → lanjut ke step checkout
         setTimeout(() => setStep(3), 2000);
       }
 
     } catch (err: any) {
       setLogs(prev => [...prev, `[ERROR] ${err.message}`]);
+    } finally {
+      setIsScanning(false);
     }
   };
+
+  // ============================================================
+  // OTOMATIS SCAN SAAT DEMO DIPILIH
+  // ============================================================
+  useEffect(() => {
+    if (isDemoMode && repoUrl && !isScanning) {
+      simulateScan(repoUrl);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDemoMode, repoUrl]);
 
   // ============================================================
   // POPUP HANDLER
@@ -136,12 +148,6 @@ export default function TerminalConsole() {
     setSelectedRepoId(repo.id);
     setIsDemoMode(true);
     setShowPopup(false);
-
-    // Jalankan scan otomatis setelah URL terisi
-    // (delay tipis biar state update)
-    setTimeout(() => {
-      simulateScan();
-    }, 100);
   };
 
   // ============================================================
@@ -166,7 +172,6 @@ export default function TerminalConsole() {
     <div className="w-full max-w-3xl relative z-20">
       {step === 1 && (
         <div className="w-full flex flex-col items-center">
-          {/* Input Field */}
           <div className="w-full relative group">
             <input 
               type="text" 
@@ -178,7 +183,7 @@ export default function TerminalConsole() {
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2">
               <button 
-                onClick={simulateScan} 
+                onClick={() => simulateScan()} 
                 className="w-10 h-10 flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white rounded-full transition-all active:scale-95"
               >
                 <SendUpArrowIcon />
@@ -186,28 +191,28 @@ export default function TerminalConsole() {
             </div>
           </div>
 
-          {/* Tombol Demo & ZIP Upload */}
-          <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
+          {/* TOMBOL - RESPONSIVE */}
+          <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             <button 
               onClick={() => setShowPopup(true)}
-              className="text-green-400 hover:text-green-300 text-sm border border-green-500/30 px-6 py-3 rounded-full hover:bg-green-900/10 transition-all font-mono"
+              className="text-green-400 hover:text-green-300 text-sm border border-green-500/30 px-6 py-3 rounded-full hover:bg-green-900/10 transition-all font-mono w-full sm:w-auto text-center"
             >
               ⚡ Try Instant Demo ($0)
             </button>
             <button 
               onClick={() => window.location.href = "https://jamborano.gumroad.com/l/ghostdoc-enterprise"}
-              className="text-blue-400 hover:text-blue-300 text-sm border border-blue-500/30 px-6 py-3 rounded-full hover:bg-blue-900/20 transition-all"
+              className="text-blue-400 hover:text-blue-300 text-sm border border-blue-500/30 px-6 py-3 rounded-full hover:bg-blue-900/20 transition-all w-full sm:w-auto text-center"
             >
               🔒 Upload Secure ZIP ($99)
             </button>
           </div>
 
           {/* ============================================================ */}
-          {/* POPUP PILIHAN DEMO */}
+          {/* POPUP - RESPONSIF & FULL-WIDTH BUTTON */}
           {/* ============================================================ */}
           {showPopup && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-              <div className="bg-[#1e1f20] border border-neutral-800 rounded-2xl p-8 max-w-md w-full shadow-2xl animate-fadeIn">
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+              <div className="bg-[#1e1f20] border border-neutral-800 rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl animate-fadeIn">
                 <div className="flex justify-between items-center mb-6">
                   <h3 className="text-xl font-black text-white tracking-tight">Select Demo Repository</h3>
                   <button 
@@ -264,7 +269,7 @@ export default function TerminalConsole() {
         </div>
       )}
 
-      {/* STEP 3 — SCAN COMPLETED (hanya muncul jika bukan demo mode) */}
+      {/* STEP 3 — SCAN COMPLETED (hanya jika bukan demo mode) */}
       {step === 3 && !isDemoMode && (
         <div className="w-full max-w-2xl mx-auto bg-[#1e1f20] rounded-2xl p-10 shadow-2xl border border-neutral-800">
           <h2 className="text-3xl font-black mb-8 text-center tracking-tight">Scan Completed</h2>
