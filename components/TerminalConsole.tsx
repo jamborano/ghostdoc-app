@@ -44,7 +44,7 @@ export default function TerminalConsole() {
   }, [logs]);
 
   // ============================================================
-  // SCAN SIMULATION — REDIRECT PASTI JALAN
+  // SCAN SIMULATION — REDIRECT KE /demo-preview
   // ============================================================
   const simulateScan = async (url?: string, repoId?: string) => {
     const targetUrl = url || repoUrl;
@@ -121,11 +121,11 @@ export default function TerminalConsole() {
     } finally {
       setIsScanning(false);
       // ============================================================
-      // REDIRECT KE /demo?repo=xxx APAPUN HASILNYA (kalo demo mode)
+      // REDIRECT KE /demo-preview?repo=xxx (BUKAN /demo)
       // ============================================================
       if (isDemoMode && targetRepoId) {
         setTimeout(() => {
-          window.location.href = `/demo?repo=${targetRepoId}`;
+          window.location.href = `/demo-preview?repo=${targetRepoId}`;
         }, 1500);
       } else if (!isDemoMode) {
         // Mode normal → pindah ke step 3 (checkout)
@@ -168,7 +168,6 @@ export default function TerminalConsole() {
     <div className="w-full max-w-3xl relative z-20">
       {step === 1 && (
         <div className="w-full flex flex-col items-center">
-          {/* Input Field */}
           <div className="w-full relative group">
             <input 
               type="text" 
@@ -188,7 +187,6 @@ export default function TerminalConsole() {
             </div>
           </div>
 
-          {/* Tombol Demo & ZIP Upload — Responsif */}
           <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             <button 
               onClick={() => setShowPopup(true)}
@@ -204,9 +202,6 @@ export default function TerminalConsole() {
             </button>
           </div>
 
-          {/* ============================================================ */}
-          {/* POPUP — RESPONSIF & FULL-WIDTH */}
-          {/* ============================================================ */}
           {showPopup && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
               <div className="bg-[#1e1f20] border border-neutral-800 rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl animate-fadeIn">
@@ -219,11 +214,9 @@ export default function TerminalConsole() {
                     ✕
                   </button>
                 </div>
-                
                 <p className="text-sm text-neutral-400 mb-6 font-mono">
                   Choose a repo to instantly populate the URL and run a live architecture scan.
                 </p>
-
                 <div className="space-y-3">
                   {DEMO_REPOS.map((repo) => (
                     <button
@@ -236,7 +229,6 @@ export default function TerminalConsole() {
                     </button>
                   ))}
                 </div>
-
                 <div className="mt-6 pt-4 border-t border-neutral-800/60">
                   <p className="text-[10px] text-neutral-600 font-mono text-center">
                     🔒 Zero-retention • No data stored • Redirects to sandbox after scan
@@ -248,7 +240,6 @@ export default function TerminalConsole() {
         </div>
       )}
 
-      {/* STEP 2 — TERMINAL */}
       {step === 2 && (
         <div className="w-full max-w-2xl mx-auto bg-[#0c0d12] border border-neutral-800 rounded-xl p-6 font-mono text-sm shadow-2xl">
           <div className="flex items-center gap-2 mb-4 pb-4 border-b border-[#1e1f20]">
@@ -266,7 +257,6 @@ export default function TerminalConsole() {
         </div>
       )}
 
-      {/* STEP 3 — SCAN COMPLETED (hanya jika bukan demo mode) */}
       {step === 3 && !isDemoMode && (
         <div className="w-full max-w-2xl mx-auto bg-[#1e1f20] rounded-2xl p-10 shadow-2xl border border-neutral-800">
           <h2 className="text-3xl font-black mb-8 text-center tracking-tight">Scan Completed</h2>
