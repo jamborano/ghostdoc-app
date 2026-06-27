@@ -3,13 +3,27 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 export default function DemoPreviewClient() {
-  const [selectedRepo, setSelectedRepo] = useState<'juice-shop' | 'calcom' | 'supabase'>('supabase');
+  const searchParams = useSearchParams();
+  const repoParam = searchParams.get('repo');
+
+  const [selectedRepo, setSelectedRepo] = useState<'juice-shop' | 'calcom' | 'supabase'>(
+    repoParam === 'juice-shop' || repoParam === 'calcom' || repoParam === 'supabase'
+      ? repoParam
+      : 'supabase'
+  );
   const [activeTab, setActiveTab] = useState<'readme' | 'api' | 'security' | 'executive'>('readme');
   const [email, setEmail] = useState('');
   const [content, setContent] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (repoParam === 'juice-shop' || repoParam === 'calcom' || repoParam === 'supabase') {
+      setSelectedRepo(repoParam);
+    }
+  }, [repoParam]);
 
   const repoConfig = {
     'juice-shop': {
@@ -49,9 +63,6 @@ export default function DemoPreviewClient() {
 
   const activeRepo = repoConfig[selectedRepo];
 
-  // ================================================================
-  // 🚀 LOAD MARKDOWN FILE DARI PUBLIC
-  // ================================================================
   useEffect(() => {
     const loadContent = async () => {
       setLoading(true);
@@ -82,30 +93,21 @@ export default function DemoPreviewClient() {
     };
 
     loadContent();
-  }, [selectedRepo, activeTab, activeRepo.displayName, activeRepo.folder]);
+  }, [selectedRepo, activeTab]);
 
-  // ================================================================
-  // 🖼️ RENDER MARKDOWN (SEDERHANA TAPI BERKELAS)
-  // ================================================================
   const renderMarkdown = (markdown: string) => {
     if (!markdown) return null;
 
-    // Split by lines
     const lines = markdown.split('\n');
     const elements: React.ReactNode[] = [];
     let inCodeBlock = false;
     let codeContent: string[] = [];
-    let codeLanguage = '';
-
     let i = 0;
     while (i < lines.length) {
       const line = lines[i];
-
-      // Code block detection
       if (line.trim().startsWith('```')) {
         if (!inCodeBlock) {
           inCodeBlock = true;
-          codeLanguage = line.trim().replace('```', '').trim();
           codeContent = [];
           i++;
           continue;
@@ -121,49 +123,33 @@ export default function DemoPreviewClient() {
           continue;
         }
       }
-
       if (inCodeBlock) {
         codeContent.push(line);
         i++;
         continue;
       }
-
-      // Headers
       if (line.startsWith('# ')) {
         elements.push(<h1 key={i} className="text-2xl font-black text-white mt-6 mb-2">{line.replace('# ', '')}</h1>);
       } else if (line.startsWith('## ')) {
         elements.push(<h2 key={i} className="text-xl font-bold text-white mt-5 mb-2">{line.replace('## ', '')}</h2>);
       } else if (line.startsWith('### ')) {
         elements.push(<h3 key={i} className="text-lg font-bold text-blue-400 mt-4 mb-2">{line.replace('### ', '')}</h3>);
-      }
-      // Bold
-      else if (line.startsWith('**') && line.endsWith('**')) {
+      } else if (line.startsWith('**') && line.endsWith('**')) {
         elements.push(<p key={i} className="text-sm font-bold text-neutral-200 my-2">{line.replace(/\*\*/g, '')}</p>);
-      }
-      // List items
-      else if (line.startsWith('- ')) {
+      } else if (line.startsWith('- ')) {
         elements.push(<li key={i} className="text-sm text-neutral-300 ml-4 list-disc">{line.replace('- ', '')}</li>);
       } else if (line.startsWith('1. ') || line.startsWith('2. ') || line.startsWith('3. ')) {
         elements.push(<li key={i} className="text-sm text-neutral-300 ml-4 list-decimal">{line.replace(/^\d+\.\s/, '')}</li>);
-      }
-      // Empty line
-      else if (line.trim() === '') {
+      } else if (line.trim() === '') {
         elements.push(<br key={i} />);
-      }
-      // Regular paragraph
-      else {
+      } else {
         elements.push(<p key={i} className="text-sm text-neutral-400 my-1 leading-relaxed">{line}</p>);
       }
-
       i++;
     }
-
     return <div className="space-y-1">{elements}</div>;
   };
 
-  // ================================================================
-  // HANDLE SUBMIT
-  // ================================================================
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) {
@@ -173,17 +159,12 @@ export default function DemoPreviewClient() {
     window.location.href = activeRepo.gumroadLink;
   };
 
-  // ================================================================
-  // RENDER
-  // ================================================================
   return (
     <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] font-sans pb-24 relative overflow-x-hidden">
-      {/* Background glow */}
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
         <div className="h-[600px] w-[1000px] bg-blue-600/5 rounded-full blur-[250px] opacity-60"></div>
       </div>
 
-      {/* Header */}
       <div className="sticky top-0 w-full bg-[#0c0d12]/95 backdrop-blur-md border-b border-blue-500/20 p-4 text-center z-50">
         <div className="flex items-center justify-center gap-2">
           <div className="relative w-5 h-5">
@@ -196,7 +177,6 @@ export default function DemoPreviewClient() {
       </div>
 
       <div className="max-w-5xl mx-auto px-6 mt-12 relative z-10">
-        {/* Repository selector */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-2 bg-[#1e1f20]/60 border border-neutral-800/80 rounded-2xl mb-8">
           {(['juice-shop', 'calcom', 'supabase'] as const).map((repo) => (
             <button
@@ -215,7 +195,6 @@ export default function DemoPreviewClient() {
           ))}
         </div>
 
-        {/* Status */}
         <div className={`p-6 rounded-2xl border mb-8 ${activeRepo.isOverlimit ? 'bg-red-950/10 border-red-500/30' : 'bg-blue-950/10 border-blue-500/20'}`}>
           <div className={`text-[10px] font-bold uppercase tracking-widest font-mono ${activeRepo.isOverlimit ? 'text-red-400' : 'text-blue-400'}`}>
             STATUS // {activeRepo.isOverlimit ? 'MONOLITHIC SCALE OVERLIMIT' : 'STANDARD STACK PASSED'}
@@ -226,7 +205,6 @@ export default function DemoPreviewClient() {
           </div>
         </div>
 
-        {/* Tab navigation */}
         <div className="flex flex-wrap gap-2 border-b border-neutral-800/80 pb-3 mb-6">
           {(['readme', 'api', 'security', 'executive'] as const).map((tab) => (
             <button
@@ -244,7 +222,6 @@ export default function DemoPreviewClient() {
           ))}
         </div>
 
-        {/* Content preview — LOAD DARI FILE MD */}
         <div className="bg-[#121318] border border-neutral-800/80 p-8 rounded-2xl min-h-[350px] max-h-[600px] overflow-y-auto">
           {loading ? (
             <div className="flex items-center justify-center h-64">
@@ -255,7 +232,6 @@ export default function DemoPreviewClient() {
           )}
         </div>
 
-        {/* Payment form */}
         <div className="bg-[#121318] p-8 rounded-2xl border border-neutral-800/80 mt-8 max-w-xl mx-auto">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -284,7 +260,6 @@ export default function DemoPreviewClient() {
           </form>
         </div>
 
-        {/* Footer */}
         <footer className="mt-20 text-center border-t border-neutral-800/60 pt-10">
           <Link href="/" className="text-blue-400 hover:text-blue-300 text-sm font-mono">
             ← Back to Home
