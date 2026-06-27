@@ -1,6 +1,6 @@
+import { Suspense } from 'react';
 import DemoPreviewClient from '@/components/DemoPreviewClient';
 import { Metadata } from 'next';
-import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'GhostDoc Demo — Live Codebase Analysis & Automated Documentation',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
 
 export default function DemoPage() {
   return (
-    <Suspense fallback={<div className="text-center text-neutral-400 p-10">Loading demo...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] flex items-center justify-center">Loading demo...</div>}>
       <DemoPreviewClient />
     </Suspense>
   );
