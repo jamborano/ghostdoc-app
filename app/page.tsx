@@ -33,13 +33,13 @@ export default function Home() {
         </div>
       </header>
 
-      {/* HERO */}
-      <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center mt-32 p-4 text-center">
+      {/* HERO — dirapikan agar tidak numpuk */}
+      <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 pt-28 pb-12 text-center">
         <h1 className="text-3xl md:text-5xl text-[#F5F5DC] font-light tracking-wide mb-4 leading-tight">
           Ship code. We write the docs. <br />
           <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">Then we vanish.</span>
         </h1>
-        <p className="text-neutral-500 text-sm md:text-base max-w-xl mb-10 font-medium">
+        <p className="text-neutral-500 text-sm md:text-base max-w-xl mb-8 font-medium">
           Automated production-grade system architecture blueprints and code manuals for Next.js, Python, and microservice stacks.
         </p>
         
@@ -50,7 +50,7 @@ export default function Home() {
           <span>Bank-Grade Security: Zero-retention ephemeral nodes</span>
         </div>
 
-        {/* CTA - HANYA SATU TOMBOL */}
+        {/* CTA — hanya satu tombol */}
         <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
           <Link
             href="https://github.com/jamborano/ghostdoc-app/blob/main/README.md"
@@ -64,11 +64,11 @@ export default function Home() {
       </section>
 
       {/* FEATURES */}
-      <section className="relative z-10 max-w-5xl mx-auto px-6 py-24 border-t border-neutral-900/60 mt-12 w-full">
+      <section className="relative z-10 max-w-5xl mx-auto px-6 py-16 border-t border-neutral-900/60 w-full">
         <h2 className="text-2xl md:text-4xl font-black text-center tracking-tight mb-4">
           Engineered for Enterprise Security &amp; Speed
         </h2>
-        <p className="text-neutral-400 text-center max-w-2xl mx-auto mb-16 text-sm md:text-base">
+        <p className="text-neutral-400 text-center max-w-2xl mx-auto mb-12 text-sm md:text-base">
           GhostDoc generates deep contextual analysis of your codebase without storing a single byte of logic. High-performance documentation meets ironclad data isolation.
         </p>
 

@@ -4,7 +4,6 @@ import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/react';
 import "./globals.css";
 
-// ================= SUPLEMENTASI SEO PREMIUM GHOSTDOC =================
 export const metadata: Metadata = {
   metadataBase: new URL('https://ghostdoc.dev'),
   title: {
@@ -76,8 +75,6 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
-// =====================================================================
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -114,18 +111,14 @@ export default function RootLayout({
   return (
     <html lang="id" className="dark">
       <head>
-        {/* INJEKSI JSON-LD UNTUK E-E-A-T */}
         <Script
           id="json-ld-ghostdoc"
           type="application/ld+json"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* PRELOAD FONT & CRITICAL ASSETS */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
-        {/* ===== FAVICON LENGKAP (PAKAI LOGO GHOSTDOC) ===== */}
         <link rel="icon" type="image/svg+xml" href="/logo.svg" />
         <link rel="icon" href="/logo.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
