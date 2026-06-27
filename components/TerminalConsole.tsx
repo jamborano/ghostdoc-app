@@ -44,7 +44,7 @@ export default function TerminalConsole() {
   }, [logs]);
 
   // ============================================================
-  // SCAN SIMULATION — TERIMA PARAMETER URL & REPO ID
+  // SCAN SIMULATION — REDIRECT PASTI JALAN
   // ============================================================
   const simulateScan = async (url?: string, repoId?: string) => {
     const targetUrl = url || repoUrl;
@@ -116,33 +116,33 @@ export default function TerminalConsole() {
       await new Promise(r => setTimeout(r, 800));
       setLogs(prev => [...prev, "[SUCCESS] Architecture mapped successfully."]);
 
+    } catch (err: any) {
+      setLogs(prev => [...prev, `[ERROR] ${err.message}`]);
+    } finally {
+      setIsScanning(false);
       // ============================================================
-      // REDIRECT KE /demo?repo=xxx (pakai targetRepoId yang dikirim)
+      // REDIRECT KE /demo?repo=xxx APAPUN HASILNYA (kalo demo mode)
       // ============================================================
       if (isDemoMode && targetRepoId) {
         setTimeout(() => {
           window.location.href = `/demo?repo=${targetRepoId}`;
         }, 1500);
-      } else {
+      } else if (!isDemoMode) {
+        // Mode normal → pindah ke step 3 (checkout)
         setTimeout(() => setStep(3), 2000);
       }
-
-    } catch (err: any) {
-      setLogs(prev => [...prev, `[ERROR] ${err.message}`]);
-    } finally {
-      setIsScanning(false);
     }
   };
 
   // ============================================================
-  // POPUP HANDLER — LANGSUNG SCAN DENGAN URL & ID
+  // POPUP HANDLER
   // ============================================================
   const handleSelectDemo = (repo: { id: string; url: string }) => {
     setRepoUrl(repo.url);
     setSelectedRepoId(repo.id);
     setIsDemoMode(true);
     setShowPopup(false);
-    // Langsung scan dengan parameter yang jelas
+    // Langsung scan dengan parameter
     simulateScan(repo.url, repo.id);
   };
 
