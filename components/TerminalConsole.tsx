@@ -44,11 +44,12 @@ export default function TerminalConsole() {
   }, [logs]);
 
   // ============================================================
-  // SCAN SIMULATION
+  // SCAN SIMULATION — TERIMA PARAMETER URL & REPO ID
   // ============================================================
-  const simulateScan = async (url?: string) => {
+  const simulateScan = async (url?: string, repoId?: string) => {
     const targetUrl = url || repoUrl;
-    
+    const targetRepoId = repoId || selectedRepoId;
+
     if (!targetUrl) {
       alert("System requires a valid GitHub Repository URL to proceed.");
       return;
@@ -115,9 +116,12 @@ export default function TerminalConsole() {
       await new Promise(r => setTimeout(r, 800));
       setLogs(prev => [...prev, "[SUCCESS] Architecture mapped successfully."]);
 
-      if (isDemoMode && selectedRepoId) {
+      // ============================================================
+      // REDIRECT KE /demo?repo=xxx (pakai targetRepoId yang dikirim)
+      // ============================================================
+      if (isDemoMode && targetRepoId) {
         setTimeout(() => {
-          window.location.href = `/demo?repo=${selectedRepoId}`;
+          window.location.href = `/demo?repo=${targetRepoId}`;
         }, 1500);
       } else {
         setTimeout(() => setStep(3), 2000);
@@ -131,23 +135,15 @@ export default function TerminalConsole() {
   };
 
   // ============================================================
-  // OTOMATIS SCAN SAAT DEMO DIPILIH
-  // ============================================================
-  useEffect(() => {
-    if (isDemoMode && repoUrl && !isScanning) {
-      simulateScan(repoUrl);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDemoMode, repoUrl]);
-
-  // ============================================================
-  // POPUP HANDLER
+  // POPUP HANDLER — LANGSUNG SCAN DENGAN URL & ID
   // ============================================================
   const handleSelectDemo = (repo: { id: string; url: string }) => {
     setRepoUrl(repo.url);
     setSelectedRepoId(repo.id);
     setIsDemoMode(true);
     setShowPopup(false);
+    // Langsung scan dengan parameter yang jelas
+    simulateScan(repo.url, repo.id);
   };
 
   // ============================================================
@@ -172,6 +168,7 @@ export default function TerminalConsole() {
     <div className="w-full max-w-3xl relative z-20">
       {step === 1 && (
         <div className="w-full flex flex-col items-center">
+          {/* Input Field */}
           <div className="w-full relative group">
             <input 
               type="text" 
@@ -191,7 +188,7 @@ export default function TerminalConsole() {
             </div>
           </div>
 
-          {/* TOMBOL - RESPONSIVE */}
+          {/* Tombol Demo & ZIP Upload — Responsif */}
           <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             <button 
               onClick={() => setShowPopup(true)}
@@ -208,7 +205,7 @@ export default function TerminalConsole() {
           </div>
 
           {/* ============================================================ */}
-          {/* POPUP - RESPONSIF & FULL-WIDTH BUTTON */}
+          {/* POPUP — RESPONSIF & FULL-WIDTH */}
           {/* ============================================================ */}
           {showPopup && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
