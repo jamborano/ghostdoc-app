@@ -44,7 +44,7 @@ export default function TerminalConsole() {
   }, [logs]);
 
   // ============================================================
-  // SCAN SIMULATION — REDIRECT KE /demo-preview
+  // SCAN SIMULATION
   // ============================================================
   const simulateScan = async (url?: string, repoId?: string) => {
     const targetUrl = url || repoUrl;
@@ -121,7 +121,7 @@ export default function TerminalConsole() {
     } finally {
       setIsScanning(false);
       // ============================================================
-      // REDIRECT KE /demo-preview?repo=xxx (BUKAN /demo)
+      // REDIRECT KE /demo-preview?repo=xxx
       // ============================================================
       if (isDemoMode && targetRepoId) {
         setTimeout(() => {
@@ -142,7 +142,6 @@ export default function TerminalConsole() {
     setSelectedRepoId(repo.id);
     setIsDemoMode(true);
     setShowPopup(false);
-    // Langsung scan dengan parameter
     simulateScan(repo.url, repo.id);
   };
 

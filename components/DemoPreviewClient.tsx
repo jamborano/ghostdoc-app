@@ -19,6 +19,7 @@ export default function DemoPreviewClient() {
   const [content, setContent] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
+  // Update selectedRepo jika query param berubah
   useEffect(() => {
     if (repoParam === 'juice-shop' || repoParam === 'calcom' || repoParam === 'supabase') {
       setSelectedRepo(repoParam);
@@ -63,6 +64,7 @@ export default function DemoPreviewClient() {
 
   const activeRepo = repoConfig[selectedRepo];
 
+  // Load markdown content
   useEffect(() => {
     const loadContent = async () => {
       setLoading(true);
@@ -95,6 +97,7 @@ export default function DemoPreviewClient() {
     loadContent();
   }, [selectedRepo, activeTab]);
 
+  // Render Markdown
   const renderMarkdown = (markdown: string) => {
     if (!markdown) return null;
 
