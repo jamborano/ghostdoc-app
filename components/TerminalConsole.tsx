@@ -44,7 +44,7 @@ export default function TerminalConsole() {
   }, [logs]);
 
   // ============================================================
-  // SCAN SIMULATION
+  // SCAN SIMULATION — REDIRECT KE /demo?repo=xxx
   // ============================================================
   const simulateScan = async (url?: string, repoId?: string) => {
     const targetUrl = url || repoUrl;
@@ -121,11 +121,11 @@ export default function TerminalConsole() {
     } finally {
       setIsScanning(false);
       // ============================================================
-      // REDIRECT KE /demo-preview?repo=xxx
+      // REDIRECT KE /demo?repo=xxx (SESUAI DENGAN STRUKTUR FOLDER)
       // ============================================================
       if (isDemoMode && targetRepoId) {
         setTimeout(() => {
-          window.location.href = `/demo-preview?repo=${targetRepoId}`;
+          window.location.href = `/demo?repo=${targetRepoId}`;
         }, 1500);
       } else if (!isDemoMode) {
         // Mode normal → pindah ke step 3 (checkout)
