@@ -11,9 +11,7 @@ export default function Home() {
         <div className="h-[600px] w-[900px] bg-blue-700/10 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
-      {/* ========================================== */}
       {/* HEADER */}
-      {/* ========================================== */}
       <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0c0d12]/80 backdrop-blur-md border-b border-neutral-900/40">
         <div className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
           <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
@@ -35,9 +33,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* ========================================== */}
-      {/* HERO SECTION */}
-      {/* ========================================== */}
+      {/* HERO */}
       <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center mt-32 p-4 text-center">
         <h1 className="text-3xl md:text-5xl text-[#F5F5DC] font-light tracking-wide mb-4 leading-tight">
           Ship code. We write the docs. <br />
@@ -54,27 +50,20 @@ export default function Home() {
           <span>Bank-Grade Security: Zero-retention ephemeral nodes</span>
         </div>
 
+        {/* CTA - HANYA SATU TOMBOL */}
         <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
           <Link
-            href="#pricing"
+            href="https://github.com/jamborano/ghostdoc-app/blob/main/README.md"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-full font-bold text-sm transition-all duration-300 shadow-lg shadow-blue-600/25 hover:shadow-blue-600/50"
           >
             Start Documentation →
           </Link>
-          <Link
-            href="https://github.com/jamborano/ghostdoc-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-8 py-3 border border-neutral-700 hover:border-blue-500 rounded-full font-bold text-sm transition-all duration-300"
-          >
-            View GitHub
-          </Link>
         </div>
       </section>
 
-      {/* ========================================== */}
-      {/* FEATURES SECTION */}
-      {/* ========================================== */}
+      {/* FEATURES */}
       <section className="relative z-10 max-w-5xl mx-auto px-6 py-24 border-t border-neutral-900/60 mt-12 w-full">
         <h2 className="text-2xl md:text-4xl font-black text-center tracking-tight mb-4">
           Engineered for Enterprise Security &amp; Speed
@@ -110,9 +99,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ========================================== */}
-      {/* TESTIMONIAL / SOCIAL PROOF */}
-      {/* ========================================== */}
+      {/* TESTIMONIAL */}
       <section className="relative z-10 max-w-4xl mx-auto px-6 py-16 border-t border-neutral-900/60 w-full">
         <h2 className="sr-only">Testimonials</h2>
         <blockquote className="text-center text-neutral-300 italic text-lg md:text-xl max-w-3xl mx-auto">
@@ -128,9 +115,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ========================================== */}
-      {/* FAQ / AUTHORITY SECTION */}
-      {/* ========================================== */}
+      {/* FAQ */}
       <section className="relative z-10 max-w-4xl mx-auto px-6 py-16 border-t border-neutral-900/60 w-full">
         <h2 className="text-2xl font-bold text-center mb-12">Frequently Asked Questions</h2>
         <dl className="space-y-6">
@@ -149,9 +134,7 @@ export default function Home() {
         </dl>
       </section>
 
-      {/* ========================================== */}
-      {/* FOOTER - UPDATED PROFESSIONAL */}
-      {/* ========================================== */}
+      {/* FOOTER */}
       <footer className="relative z-10 w-full border-t border-neutral-900/60 py-8 text-center text-xs text-neutral-500">
         <p>&copy; {new Date().getFullYear()} GhostDoc — Jamborano Tech Studio. All rights reserved.</p>
         <p className="mt-1 text-neutral-600 font-medium tracking-wide">
