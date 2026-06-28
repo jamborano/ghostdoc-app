@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* ===== GLOBAL STYLE GHOSTDOC ===== */
 body {
   background: #0c0d12;
   color: #F5F5DC;
@@ -40,7 +39,7 @@ body {
   background: #3b82f6;
 }
 
-/* Firefox scrollbar (jika diperlukan) */
+/* Firefox */
 * {
   scrollbar-width: thin;
   scrollbar-color: #2a2b2e transparent;

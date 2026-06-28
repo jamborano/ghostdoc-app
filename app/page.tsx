@@ -11,8 +11,8 @@ export default function Home() {
         <div className="h-[600px] w-[900px] bg-blue-700/10 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
-      {/* HEADER — rata tengah */}
-      <header className="fixed top-0 w-full p-6 flex items-center justify-between z-40 bg-[#0c0d12]/80 backdrop-blur-md border-b border-neutral-900/40">
+      {/* HEADER — tanpa Testimonials link */}
+      <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0c0d12]/80 backdrop-blur-md border-b border-neutral-900/40">
         <Link href="/" className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
           <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
             <Image 
@@ -28,9 +28,6 @@ export default function Home() {
           </div>
         </Link>
         <div className="flex items-center gap-6">
-          <Link href="/testimonials" className="hidden md:block text-xs text-neutral-400 hover:text-white transition-colors font-mono">
-            Testimonials
-          </Link>
           <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/10 border border-blue-500/20">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
             <span className="text-xs font-bold text-blue-400 tracking-wider">API OPERATIONAL</span>
@@ -38,7 +35,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* HERO — center */}
+      {/* HERO */}
       <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 pt-28 pb-16 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl md:text-5xl text-[#F5F5DC] font-light tracking-wide mb-4 leading-tight">
@@ -58,7 +55,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== PLANS — center ===== */}
+      {/* ===== PLANS ===== */}
       <section className="relative z-10 w-full px-6 py-16 border-t border-neutral-900/60">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-2xl md:text-4xl font-black tracking-tight mb-4">
@@ -167,7 +164,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FEATURES — center */}
+      {/* FEATURES */}
       <section className="relative z-10 w-full px-6 py-16 border-t border-neutral-900/60">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-2xl md:text-4xl font-black tracking-tight mb-4">
@@ -205,7 +202,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIAL — center */}
+      {/* TESTIMONIAL */}
       <section className="relative z-10 w-full px-6 py-16 border-t border-neutral-900/60">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="sr-only">Testimonials</h2>
@@ -228,7 +225,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FAQ — center */}
+      {/* FAQ */}
       <section className="relative z-10 w-full px-6 py-16 border-t border-neutral-900/60">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-center mb-12">Frequently Asked Questions</h2>
@@ -249,7 +246,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER — center */}
+      {/* FOOTER */}
       <footer className="relative z-10 w-full border-t border-neutral-900/60 py-8 text-center text-xs text-neutral-500">
         <div className="max-w-4xl mx-auto">
           <p>&copy; {new Date().getFullYear()} GhostDoc — Jamborano Tech Studio. All rights reserved.</p>
