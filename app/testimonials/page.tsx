@@ -83,7 +83,7 @@ export default function TestimonialsPage() {
         <div className="h-[600px] w-[900px] bg-blue-700/10 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
-      {/* HEADER — konsisten dengan home (tanpa Demo) */}
+      {/* HEADER — tanpa Testimonials link */}
       <header className="fixed top-0 w-full p-6 flex items-center justify-between z-40 bg-[#0c0d12]/80 backdrop-blur-md border-b border-neutral-900/40">
         <Link href="/" className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
           <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
@@ -100,9 +100,6 @@ export default function TestimonialsPage() {
           </div>
         </Link>
         <div className="flex items-center gap-6">
-          <Link href="/testimonials" className="text-xs text-blue-400 font-mono border-b border-blue-500/50">
-            Testimonials
-          </Link>
           <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/10 border border-blue-500/20">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
             <span className="text-xs font-bold text-blue-400 tracking-wider">API OPERATIONAL</span>
@@ -110,7 +107,7 @@ export default function TestimonialsPage() {
         </div>
       </header>
 
-      {/* HERO — center */}
+      {/* HERO — tetap center */}
       <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 pt-32 pb-12 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
@@ -123,7 +120,6 @@ export default function TestimonialsPage() {
             Real reviews from teams who ship faster with GhostDoc. All reviews are from verified users.
           </p>
 
-          {/* Stats */}
           <div className="flex flex-wrap items-center justify-center gap-8 mb-16">
             <div className="flex items-center gap-3">
               <span className="text-4xl font-black text-white">4.9</span>
@@ -146,7 +142,7 @@ export default function TestimonialsPage() {
         </div>
       </section>
 
-      {/* REVIEWS GRID */}
+      {/* REVIEWS GRID — tanpa CTA Share */}
       <section className="relative z-10 max-w-5xl mx-auto px-6 pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {reviews.map((review) => (
@@ -181,25 +177,6 @@ export default function TestimonialsPage() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* ===== SHARE YOUR EXPERIENCE — CTA ===== */}
-        <div className="mt-16 text-center p-8 bg-blue-950/10 rounded-2xl border border-blue-500/20 max-w-2xl mx-auto">
-          <h2 className="text-lg font-bold text-white mb-2">Share Your Experience</h2>
-          <p className="text-sm text-neutral-400 mb-6 font-mono">
-            Login to Gumroad, find GhostDoc in your purchases, and leave a review.
-          </p>
-          <a
-            href="https://gumroad.com/products"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-full transition-all shadow-lg shadow-blue-600/25 hover:shadow-blue-600/50"
-          >
-            Share Your Experience →
-          </a>
-          <p className="text-[10px] text-neutral-600 mt-3 font-mono">
-            All reviews are manually verified before being published on this page.
-          </p>
         </div>
 
         {/* Back to Home */}
