@@ -31,9 +31,6 @@ export default function Home() {
           <Link href="/testimonials" className="hidden md:block text-xs text-neutral-400 hover:text-white transition-colors font-mono">
             Testimonials
           </Link>
-          <Link href="/demo?repo=supabase" className="hidden md:block text-xs text-neutral-400 hover:text-white transition-colors font-mono">
-            Demo
-          </Link>
           <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/10 border border-blue-500/20">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
             <span className="text-xs font-bold text-blue-400 tracking-wider">API OPERATIONAL</span>
@@ -41,7 +38,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* HERO — perbaiki jarak */}
+      {/* HERO */}
       <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 pt-28 pb-16 text-center">
         <h1 className="text-3xl md:text-5xl text-[#F5F5DC] font-light tracking-wide mb-4 leading-tight">
           Ship code. We write the docs. <br />
@@ -165,7 +162,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Footer kecil */}
         <p className="text-[10px] text-neutral-600 text-center mt-8 font-mono">
           🔒 End‑to‑end encrypted • No training data • Zero retention
         </p>
