@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -15,14 +15,12 @@ export default function DemoPreviewClient() {
       : 'supabase'
   );
   const [activeTab, setActiveTab] = useState<'readme' | 'api' | 'security' | 'executive'>('readme');
-  const [content, setContent] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    if (repoParam === 'juice-shop' || repoParam === 'calcom' || repoParam === 'supabase') {
-      setSelectedRepo(repoParam);
-    }
-  }, [repoParam]);
+  
+  // Cache content per tab
+  const [contentCache, setContentCache] = useState<Record<string, string>>({});
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const repoConfig = {
     'juice-shop': {
@@ -41,17 +39,25 @@ export default function DemoPreviewClient() {
 
   const activeRepo = repoConfig[selectedRepo];
 
+  // Load content — tapi tanpa state loading, pakai cache + transition
   useEffect(() => {
     const loadContent = async () => {
-      setLoading(true);
       const fileMap = {
         'readme': 'README.md',
         'api': 'API_Reference.md',
         'security': 'Vulnerability_Report.md',
         'executive': 'Executive_Summary.md',
       };
+
       const fileName = fileMap[activeTab];
       const folder = activeRepo.folder;
+      const cacheKey = `${folder}/${fileName}`;
+
+      // Kalau udah ada di cache, langsung tampilkan
+      if (contentCache[cacheKey]) {
+        return;
+      }
+
       const url = `/demo-content/${folder}/${fileName}`;
 
       try {
@@ -60,17 +66,43 @@ export default function DemoPreviewClient() {
           throw new Error(`File not found: ${url}`);
         }
         const text = await response.text();
-        setContent(text);
+        
+        // Simpan ke cache
+        setContentCache((prev) => ({
+          ...prev,
+          [cacheKey]: text,
+        }));
       } catch (error) {
-        setContent(`# Content Not Available\n\nFile \`${fileName}\` for **${activeRepo.displayName}** is not yet uploaded.\n\nPlease add \`${fileName}\` to \`public/demo-content/${folder}/\`.`);
+        const errorMsg = `# Content Not Available\n\nFile \`${fileName}\` for **${activeRepo.displayName}** is not yet uploaded.\n\nPlease add \`${fileName}\` to \`public/demo-content/${folder}/\`.`;
+        setContentCache((prev) => ({
+          ...prev,
+          [cacheKey]: errorMsg,
+        }));
         console.error('Error loading markdown:', error);
-      } finally {
-        setLoading(false);
       }
     };
-    loadContent();
-  }, [selectedRepo, activeTab]);
 
+    loadContent();
+  }, [selectedRepo, activeTab, contentCache, activeRepo.displayName]);
+
+  // Trigger transition saat tab berubah
+  const handleTabChange = (tab: 'readme' | 'api' | 'security' | 'executive') => {
+    if (tab === activeTab) return;
+    
+    // Fade out
+    setIsTransitioning(true);
+    
+    // Ganti tab setelah animasi keluar
+    setTimeout(() => {
+      setActiveTab(tab);
+      // Fade in setelah konten siap
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 50);
+    }, 150);
+  };
+
+  // Render Markdown
   const renderMarkdown = (markdown: string) => {
     if (!markdown) return null;
     const lines = markdown.split('\n');
@@ -125,6 +157,16 @@ export default function DemoPreviewClient() {
     return <div className="space-y-1">{elements}</div>;
   };
 
+  // Ambil konten dari cache
+  const fileMap = {
+    'readme': 'README.md',
+    'api': 'API_Reference.md',
+    'security': 'Vulnerability_Report.md',
+    'executive': 'Executive_Summary.md',
+  };
+  const cacheKey = `${activeRepo.folder}/${fileMap[activeTab]}`;
+  const content = contentCache[cacheKey] || '';
+
   return (
     <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] font-sans pb-24 relative overflow-x-hidden">
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
@@ -176,7 +218,7 @@ export default function DemoPreviewClient() {
           {(['readme', 'api', 'security', 'executive'] as const).map((tab) => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => handleTabChange(tab)}
               className={`px-4 py-2.5 text-xs font-mono rounded-xl transition-colors duration-150 ${
                 activeTab === tab
                   ? 'bg-neutral-800 text-white border border-neutral-700'
@@ -191,13 +233,17 @@ export default function DemoPreviewClient() {
           ))}
         </div>
 
-        <div className="bg-[#121318] border border-neutral-800/80 p-8 rounded-2xl min-h-[350px] max-h-[600px] overflow-y-auto">
-          {loading ? (
-            <div className="flex items-center justify-center h-64">
-              <div className="text-neutral-500 text-sm font-mono animate-pulse">⏳ Loading documentation...</div>
+        {/* Content — tanpa loading text, pakai opacity transition */}
+        <div 
+          ref={contentRef}
+          className={`bg-[#121318] border border-neutral-800/80 p-8 rounded-2xl min-h-[350px] max-h-[600px] overflow-y-auto transition-opacity duration-200 ${
+            isTransitioning ? 'opacity-0' : 'opacity-100'
+          }`}
+        >
+          {content ? renderMarkdown(content) : (
+            <div className="h-64 flex items-center justify-center">
+              <span className="text-neutral-500 text-sm font-mono">Select a tab to view documentation</span>
             </div>
-          ) : (
-            renderMarkdown(content)
           )}
         </div>
 
