@@ -1,4 +1,3 @@
-// app/testimonials/page.tsx
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -104,7 +103,6 @@ export default function TestimonialsPage() {
           <Link href="/testimonials" className="text-xs text-blue-400 font-mono border-b border-blue-500/50">
             Testimonials
           </Link>
-          {/* Demo link dihapus */}
           <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/10 border border-blue-500/20">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
             <span className="text-xs font-bold text-blue-400 tracking-wider">API OPERATIONAL</span>
@@ -183,19 +181,19 @@ export default function TestimonialsPage() {
           ))}
         </div>
 
-        {/* Write a Review CTA */}
+        {/* ===== CTA BARU — Share Your Experience ===== */}
         <div className="mt-16 text-center p-8 bg-blue-950/10 rounded-2xl border border-blue-500/20 max-w-2xl mx-auto">
-          <h2 className="text-lg font-bold text-white mb-2">Have a Story to Share?</h2>
+          <h2 className="text-lg font-bold text-white mb-2">Share Your Experience</h2>
           <p className="text-sm text-neutral-400 mb-6 font-mono">
-            Help other engineering leaders discover GhostDoc. Your review could be featured here.
+            Purchase GhostDoc on Gumroad, then share your feedback to help other engineering leaders.
           </p>
           <a
-            href="https://jamborano.gumroad.com/l/ghostdoc#reviews"
+            href="https://jamborano.gumroad.com/l/ghostdoc"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-full transition-all shadow-lg shadow-blue-600/25 hover:shadow-blue-600/50"
           >
-            ⭐ Write a Review on Gumroad
+            Share Your Experience →
           </a>
           <p className="text-[10px] text-neutral-600 mt-3 font-mono">
             All reviews are manually verified before being published on this page.
