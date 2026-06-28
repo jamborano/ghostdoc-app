@@ -11,7 +11,7 @@ export default function Home() {
         <div className="h-[600px] w-[900px] bg-blue-700/10 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
-      {/* HEADER — tanpa Testimonials link */}
+      {/* HEADER — tanpa link Testimonials */}
       <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0c0d12]/80 backdrop-blur-md border-b border-neutral-900/40">
         <Link href="/" className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
           <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
@@ -243,6 +243,18 @@ export default function Home() {
               <dd className="text-neutral-400 mt-1 text-sm">Yes, we offer a free tier for open-source projects. Contact us for details.</dd>
             </div>
           </dl>
+        </div>
+      </section>
+
+      {/* ===== RISK-FREE GUARANTEE ===== */}
+      <section className="relative z-10 w-full px-6 py-10 border-t border-neutral-900/60">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="bg-blue-950/10 p-8 rounded-2xl border border-blue-500/20">
+            <p className="text-2xl font-black text-white mb-2">🛡️ Risk-Free Guarantee</p>
+            <p className="text-sm text-neutral-400 font-mono">
+              "Don't like the docs? We'll refund 100% within 7 days. No questions asked."
+            </p>
+          </div>
         </div>
       </section>
 
