@@ -83,8 +83,8 @@ export default function TestimonialsPage() {
         <div className="h-[600px] w-[900px] bg-blue-700/10 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
-      {/* Header */}
-      <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0c0d12]/80 backdrop-blur-md border-b border-neutral-900/40">
+      {/* HEADER — konsisten dengan home (tanpa Demo) */}
+      <header className="fixed top-0 w-full p-6 flex items-center justify-between z-40 bg-[#0c0d12]/80 backdrop-blur-md border-b border-neutral-900/40">
         <Link href="/" className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
           <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
             <Image 
@@ -110,41 +110,43 @@ export default function TestimonialsPage() {
         </div>
       </header>
 
-      {/* Hero */}
+      {/* HERO — center */}
       <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 pt-32 pb-12 text-center">
-        <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
-            Trusted
-          </span>
-          <span className="text-white"> by Engineering Leaders</span>
-        </h1>
-        <p className="text-neutral-400 text-sm md:text-base max-w-2xl mb-12 font-mono">
-          Real reviews from teams who ship faster with GhostDoc. All reviews are from verified users.
-        </p>
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
+              Trusted
+            </span>
+            <span className="text-white"> by Engineering Leaders</span>
+          </h1>
+          <p className="text-neutral-400 text-sm md:text-base max-w-2xl mx-auto mb-12 font-mono">
+            Real reviews from teams who ship faster with GhostDoc. All reviews are from verified users.
+          </p>
 
-        {/* Stats */}
-        <div className="flex flex-wrap items-center justify-center gap-8 mb-16">
-          <div className="flex items-center gap-3">
-            <span className="text-4xl font-black text-white">4.9</span>
-            <div>
-              <div className="flex gap-0.5">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <svg key={star} className="w-5 h-5 text-yellow-500 fill-yellow-500" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
+          {/* Stats */}
+          <div className="flex flex-wrap items-center justify-center gap-8 mb-16">
+            <div className="flex items-center gap-3">
+              <span className="text-4xl font-black text-white">4.9</span>
+              <div>
+                <div className="flex gap-0.5">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <svg key={star} className="w-5 h-5 text-yellow-500 fill-yellow-500" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <span className="text-xs text-neutral-500 font-mono">Based on 127 verified reviews</span>
               </div>
-              <span className="text-xs text-neutral-500 font-mono">Based on 127 verified reviews</span>
             </div>
-          </div>
-          <div className="flex items-center gap-6 text-xs text-neutral-500">
-            <span className="flex items-center gap-1">🔒 Zero-Retention</span>
-            <span className="flex items-center gap-1">🚀 10k+ repos analyzed</span>
+            <div className="flex items-center gap-6 text-xs text-neutral-500">
+              <span className="flex items-center gap-1">🔒 Zero-Retention</span>
+              <span className="flex items-center gap-1">🚀 10k+ repos analyzed</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Reviews Grid */}
+      {/* REVIEWS GRID */}
       <section className="relative z-10 max-w-5xl mx-auto px-6 pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {reviews.map((review) => (
@@ -181,14 +183,14 @@ export default function TestimonialsPage() {
           ))}
         </div>
 
-        {/* ===== CTA BARU — Share Your Experience ===== */}
+        {/* ===== SHARE YOUR EXPERIENCE — CTA ===== */}
         <div className="mt-16 text-center p-8 bg-blue-950/10 rounded-2xl border border-blue-500/20 max-w-2xl mx-auto">
           <h2 className="text-lg font-bold text-white mb-2">Share Your Experience</h2>
           <p className="text-sm text-neutral-400 mb-6 font-mono">
-            Purchase GhostDoc on Gumroad, then share your feedback to help other engineering leaders.
+            Login to Gumroad, find GhostDoc in your purchases, and leave a review.
           </p>
           <a
-            href="https://jamborano.gumroad.com/l/ghostdoc"
+            href="https://gumroad.com/products"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-full transition-all shadow-lg shadow-blue-600/25 hover:shadow-blue-600/50"
@@ -208,12 +210,14 @@ export default function TestimonialsPage() {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* FOOTER */}
       <footer className="relative z-10 w-full border-t border-neutral-900/60 py-8 text-center text-xs text-neutral-500">
-        <p>&copy; {new Date().getFullYear()} GhostDoc — Jamborano Tech Studio. All rights reserved.</p>
-        <p className="mt-1 text-neutral-600 font-medium tracking-wide">
-          Zero Retention. Zero Compromise. Enterprise Grade Documentation.
-        </p>
+        <div className="max-w-4xl mx-auto">
+          <p>&copy; {new Date().getFullYear()} GhostDoc — Jamborano Tech Studio. All rights reserved.</p>
+          <p className="mt-1 text-neutral-600 font-medium tracking-wide">
+            Zero Retention. Zero Compromise. Enterprise Grade Documentation.
+          </p>
+        </div>
       </footer>
     </main>
   );
