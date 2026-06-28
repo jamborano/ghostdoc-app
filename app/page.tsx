@@ -11,7 +11,7 @@ export default function Home() {
         <div className="h-[600px] w-[900px] bg-blue-700/10 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
-      {/* HEADER — tanpa link Testimonials */}
+      {/* HEADER — tanpa Resources */}
       <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0c0d12]/80 backdrop-blur-md border-b border-neutral-900/40">
         <Link href="/" className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
           <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
@@ -27,11 +27,9 @@ export default function Home() {
             <span>Ghost</span><span className="text-blue-500">Doc</span>
           </div>
         </Link>
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/10 border border-blue-500/20">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-            <span className="text-xs font-bold text-blue-400 tracking-wider">API OPERATIONAL</span>
-          </div>
+        <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/10 border border-blue-500/20">
+          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+          <span className="text-xs font-bold text-blue-400 tracking-wider">API OPERATIONAL</span>
         </div>
       </header>
 
@@ -246,7 +244,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== RISK-FREE GUARANTEE ===== */}
+      {/* RISK-FREE GUARANTEE */}
       <section className="relative z-10 w-full px-6 py-10 border-t border-neutral-900/60">
         <div className="max-w-3xl mx-auto text-center">
           <div className="bg-blue-950/10 p-8 rounded-2xl border border-blue-500/20">
@@ -258,13 +256,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* FOOTER — dengan link Resources */}
       <footer className="relative z-10 w-full border-t border-neutral-900/60 py-8 text-center text-xs text-neutral-500">
         <div className="max-w-4xl mx-auto">
           <p>&copy; {new Date().getFullYear()} GhostDoc — Jamborano Tech Studio. All rights reserved.</p>
           <p className="mt-1 text-neutral-600 font-medium tracking-wide">
             Zero Retention. Zero Compromise. Enterprise Grade Documentation.
           </p>
+          <div className="mt-3 flex justify-center gap-6 text-[11px]">
+            <Link href="/guides" className="hover:text-white transition-colors">
+              Engineering Resources
+            </Link>
+            <Link href="/testimonials" className="hover:text-white transition-colors">
+              Testimonials
+            </Link>
+          </div>
         </div>
       </footer>
     </main>
