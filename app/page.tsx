@@ -76,6 +76,7 @@ export default function Home() {
             <p className="text-sm text-neutral-400 mb-6 font-mono">Stop writing READMEs. Start shipping.</p>
             <p className="text-xs text-neutral-500 mb-6 font-mono">We analyze. We document. We vanish.</p>
 
+            {/* ✅ Core: README + API + Light Security Audit */}
             <div className="space-y-4 flex-1">
               <div className="bg-[#0c0d12] p-4 rounded-xl border border-neutral-800/60">
                 <p className="text-xs text-neutral-500 font-mono">📄 README.md</p>
@@ -85,13 +86,9 @@ export default function Home() {
                 <p className="text-xs text-neutral-500 font-mono">⚙️ API_Reference.md</p>
                 <p className="text-sm text-neutral-300 mt-1">Every endpoint, payload schema, and edge case — documented. Period.</p>
               </div>
-              <div className="bg-[#0c0d12] p-4 rounded-xl border border-neutral-800/60 opacity-60">
-                <p className="text-xs text-neutral-500 font-mono">🛡️ DevSecOps Audit</p>
-                <p className="text-sm text-neutral-400 mt-1">OWASP‑grade vulnerability scan with exact code‑patch remediations.</p>
-              </div>
-              <div className="bg-[#0c0d12] p-4 rounded-xl border border-neutral-800/60 opacity-60">
-                <p className="text-xs text-neutral-500 font-mono">📊 Executive Pitch Deck</p>
-                <p className="text-sm text-neutral-400 mt-1">Business‑driven summary for non‑tech stakeholders.</p>
+              <div className="bg-[#0c0d12] p-4 rounded-xl border border-blue-500/20">
+                <p className="text-xs text-blue-400 font-mono">🛡️ Security Audit (Light)</p>
+                <p className="text-sm text-neutral-300 mt-1">OWASP Top 10 scan + high-level risk summary with actionable recommendations.</p>
               </div>
             </div>
 
@@ -133,7 +130,7 @@ export default function Home() {
                 <p className="text-sm text-neutral-300 mt-1">Production‑ready architectural mapping for massive codebases.</p>
               </div>
               <div className="bg-[#0c0d12] p-4 rounded-xl border border-neutral-800/60">
-                <p className="text-xs text-neutral-500 font-mono">🛡️ DevSecOps Audit</p>
+                <p className="text-xs text-neutral-500 font-mono">🛡️ DevSecOps Audit (Deep)</p>
                 <p className="text-sm text-neutral-300 mt-1">Advanced OWASP scan with exact code‑patch remediations.</p>
               </div>
               <div className="bg-[#0c0d12] p-4 rounded-xl border border-neutral-800/60">
