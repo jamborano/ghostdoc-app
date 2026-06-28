@@ -41,19 +41,19 @@ export default function Home() {
         </div>
       </header>
 
-      {/* HERO */}
-      <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 pt-28 pb-12 text-center">
+      {/* HERO — perbaiki jarak */}
+      <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 pt-28 pb-16 text-center">
         <h1 className="text-3xl md:text-5xl text-[#F5F5DC] font-light tracking-wide mb-4 leading-tight">
           Ship code. We write the docs. <br />
           <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">Then we vanish.</span>
         </h1>
-        <p className="text-neutral-500 text-sm md:text-base max-w-xl mb-8 font-medium">
+        <p className="text-neutral-500 text-sm md:text-base max-w-xl mb-10 font-medium">
           Automated production-grade system architecture blueprints and code manuals for Next.js, Python, and microservice stacks.
         </p>
         
         <TerminalConsole />
 
-        <div className="flex items-center justify-center gap-2.5 text-sm font-medium text-neutral-400 mt-6">
+        <div className="flex items-center justify-center gap-2.5 text-sm font-medium text-neutral-400 mt-8">
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span>
           <span>Bank-Grade Security: Zero-retention ephemeral nodes</span>
         </div>

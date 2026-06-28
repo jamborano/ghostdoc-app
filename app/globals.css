@@ -12,18 +12,36 @@ body {
   color: white;
 }
 
-/* Scrollbar kustom */
+/* Scrollbar kustom — tipis dan hanya muncul saat hover */
 ::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background: transparent;
+  transition: width 0.2s ease;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2b2e;
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+/* Saat mouse di atas area scroll, scrollbar muncul lebih jelas */
+*:hover::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
-::-webkit-scrollbar-track {
-  background: #1e1f20;
-}
-::-webkit-scrollbar-thumb {
-  background: #3b82f6;
-  border-radius: 10px;
-}
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #60a5fa;
+  background: #3b82f6;
+}
+
+/* Firefox scrollbar (jika diperlukan) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2a2b2e transparent;
 }
