@@ -101,23 +101,9 @@ export default function TerminalConsole() {
       const totalFiles = treeData.tree ? treeData.tree.filter((file: any) => file.type === 'blob').length : 0;
 
       const validExtensions = [
-        '.js',
-        '.ts',
-        '.jsx',
-        '.tsx',
-        '.py',
-        '.go',
-        '.rs',
-        '.java',
-        '.c',
-        '.cpp',
-        '.cs',
-        '.php',
-        '.rb',
-        '.md',
-        '.html',
-        '.css',
-        '.json',
+        '.js', '.ts', '.jsx', '.tsx', '.py', '.go', '.rs',
+        '.java', '.c', '.cpp', '.cs', '.php', '.rb', '.md',
+        '.html', '.css', '.json',
       ];
 
       const validFiles = treeData.tree
@@ -183,7 +169,6 @@ export default function TerminalConsole() {
   const handleCheckout = () => {
     const isEnterprise = repoStats.files > ENTERPRISE_THRESHOLD;
 
-    // ENTERPRISE: langsung ke Gumroad, tanpa email
     if (isEnterprise) {
       const url = `https://jamborano.gumroad.com/l/ghostdoc-enterprise?repo_url=${encodeURIComponent(
         repoUrl
@@ -192,7 +177,6 @@ export default function TerminalConsole() {
       return;
     }
 
-    // CORE: wajib email
     if (deliveryEmail.trim() === '') {
       alert('⚠️ FATAL: A valid delivery email is required.');
       return;
@@ -245,8 +229,9 @@ export default function TerminalConsole() {
               </button>
             </div>
 
+            {/* =============== POPUP — z-index 9999 =============== */}
             {showPopup && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+              <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-4">
                 <div className="bg-[#1e1f20] border border-neutral-800 rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl transition-opacity duration-150 ease-out opacity-100 will-change-transform transform translateZ(0)">
                   <div className="flex justify-between items-center mb-6">
                     <h3 className="text-xl font-black text-white tracking-tight">Select Demo Repository</h3>
