@@ -1,3 +1,4 @@
+// app/testimonials/page.tsx
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -103,9 +104,7 @@ export default function TestimonialsPage() {
           <Link href="/testimonials" className="text-xs text-blue-400 font-mono border-b border-blue-500/50">
             Testimonials
           </Link>
-          <Link href="/demo?repo=supabase" className="hidden md:block text-xs text-neutral-400 hover:text-white transition-colors font-mono">
-            Demo
-          </Link>
+          {/* Demo link dihapus */}
           <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/10 border border-blue-500/20">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
             <span className="text-xs font-bold text-blue-400 tracking-wider">API OPERATIONAL</span>

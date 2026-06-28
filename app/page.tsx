@@ -54,6 +54,18 @@ export default function Home() {
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span>
           <span>Bank-Grade Security: Zero-retention ephemeral nodes</span>
         </div>
+
+        {/* CTA — Start Documentation → ke Gumroad Core ($9) */}
+        <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+          <a
+            href="https://jamborano.gumroad.com/l/ghostdoc"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-full font-bold text-sm transition-all duration-300 shadow-lg shadow-blue-600/25 hover:shadow-blue-600/50"
+          >
+            Start Documentation →
+          </a>
+        </div>
       </section>
 
       {/* ===== PLANS ===== */}
