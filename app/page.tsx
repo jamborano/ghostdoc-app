@@ -68,7 +68,7 @@ export default function Home() {
             <div className="bg-[#1e1f20]/60 p-8 rounded-2xl border border-neutral-800/80 hover:border-blue-500/30 transition-all duration-300 flex flex-col">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-2xl font-black text-white tracking-tight">GhostDoc Core</h3>
-                <span className="text-3xl font-black text-blue-500">$9</span>
+                <span className="text-4xl font-black text-blue-500">$9</span>
               </div>
               <p className="text-sm text-neutral-400 mb-6 font-mono">Stop writing READMEs. Start shipping.</p>
               <p className="text-xs text-neutral-500 mb-6 font-mono">We analyze. We document. We vanish.</p>
@@ -99,7 +99,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="mt-4 w-full block text-center py-4 bg-blue-600 hover:bg-blue-500 text-white font-black text-sm rounded-xl transition-all uppercase tracking-widest"
                 >
-                  Initialize Engine → ($9)
+                  Initialize Engine →
                 </a>
               </div>
             </div>
@@ -111,7 +111,7 @@ export default function Home() {
               </div>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-2xl font-black text-white tracking-tight">Enterprise Vault</h3>
-                <span className="text-3xl font-black text-blue-500">$99</span>
+                <span className="text-4xl font-black text-blue-500">$99</span>
               </div>
               <p className="text-sm text-neutral-400 mb-6 font-mono">Built for monolithic scale, corporate agencies, and proprietary codebases.</p>
               <p className="text-xs text-neutral-500 mb-6 font-mono">No GitHub links. No API tokens. No public repository access required.</p>
@@ -150,7 +150,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="mt-4 w-full block text-center py-4 bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-white font-black text-sm rounded-xl transition-all uppercase tracking-widest"
                 >
-                  Initialize Enterprise → ($99)
+                  Initialize Enterprise →
                 </a>
               </div>
             </div>
@@ -219,7 +219,6 @@ export default function Home() {
             <Link href="/testimonials" className="text-blue-400 hover:text-blue-300 text-sm font-mono">
               Read more reviews →
             </Link>
-            {/* ===== RESOURCES DI SINI ===== */}
             <Link href="/guides" className="text-blue-400 hover:text-blue-300 text-sm font-mono">
               Engineering Resources →
             </Link>

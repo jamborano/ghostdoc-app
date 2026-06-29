@@ -219,17 +219,16 @@ export default function TerminalConsole() {
                 onClick={() => setShowPopup(true)}
                 className="text-green-400 hover:text-green-300 text-sm border border-green-500/30 px-6 py-3 rounded-full hover:bg-green-900/10 transition-all font-mono w-full sm:w-auto text-center"
               >
-                ⚡ Try Instant Demo ($0)
+                ⚡ Try Instant Demo
               </button>
               <button
                 onClick={() => window.location.href = 'https://jamborano.gumroad.com/l/ghostdoc-enterprise'}
                 className="text-blue-400 hover:text-blue-300 text-sm border border-blue-500/30 px-6 py-3 rounded-full hover:bg-blue-900/20 transition-all w-full sm:w-auto text-center"
               >
-                🔒 Upload Secure ZIP ($99)
+                🔒 Upload Secure ZIP · $99
               </button>
             </div>
 
-            {/* =============== POPUP — z-index 9999 =============== */}
             {showPopup && (
               <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-4">
                 <div className="bg-[#1e1f20] border border-neutral-800 rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl transition-opacity duration-150 ease-out opacity-100 will-change-transform transform translateZ(0)">
@@ -341,7 +340,7 @@ export default function TerminalConsole() {
                 onClick={handleCheckout}
                 className="w-full py-5 bg-blue-600 hover:bg-blue-500 text-white font-black text-lg rounded-xl transition-all uppercase tracking-widest"
               >
-                {isEnterprise ? 'Initialize Enterprise Vault ($99)' : 'Initialize Generation ($9)'}
+                {isEnterprise ? 'Initialize Enterprise Vault' : 'Initialize Generation'}
               </button>
 
               {isEnterprise && (
