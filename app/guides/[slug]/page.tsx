@@ -3,11 +3,10 @@
 
 import { useEffect, useState } from 'react';
 import { marked } from 'marked';
-import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import Footer from '@/components/Footer';
 import BackHomeButton from '@/components/BackHomeButton';
-import LoadingDots from '@/components/LoadingDots'; // <-- import komponen
+import LoadingDots from '@/components/LoadingDots';
 
 type GuideContent = {
   title: string;
@@ -46,7 +45,7 @@ export default function GuidePage() {
   if (loading) {
     return (
       <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] flex items-center justify-center">
-        <LoadingDots /> {/* <-- pakai komponen */}
+        <LoadingDots />
       </main>
     );
   }
@@ -70,13 +69,6 @@ export default function GuidePage() {
         <div className="h-[600px] w-[900px] bg-blue-700/10 rounded-full blur-[200px] opacity-70"></div>
       </div>
       <div className="max-w-4xl mx-auto px-6 pt-32 pb-24 relative z-10">
-        <Link
-          href="/guides"
-          className="text-blue-400 hover:text-blue-300 text-sm font-mono mb-6 inline-block"
-        >
-          ← Back to Resources
-        </Link>
-
         <h1 className="text-4xl font-black text-white mb-4">{guide.title}</h1>
         {guide.date && <p className="text-sm text-neutral-500 font-mono mb-8">{guide.date}</p>}
 
@@ -84,15 +76,6 @@ export default function GuidePage() {
           className="prose prose-invert prose-blue max-w-none terminal"
           dangerouslySetInnerHTML={{ __html: htmlContent }}
         />
-
-        <div className="mt-12 pt-8 border-t border-neutral-800/60">
-          <Link
-            href="/guides"
-            className="text-blue-400 hover:text-blue-300 text-sm font-mono"
-          >
-            ← All Resources
-          </Link>
-        </div>
       </div>
       <BackHomeButton />
       <Footer />
