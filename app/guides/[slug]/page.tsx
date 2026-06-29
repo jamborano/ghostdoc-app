@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { marked } from 'marked';
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import Footer from '@/components/Footer';
 import BackHomeButton from '@/components/BackHomeButton';
@@ -69,6 +70,28 @@ export default function GuidePage() {
         <div className="h-[600px] w-[900px] bg-blue-700/10 rounded-full blur-[200px] opacity-70"></div>
       </div>
       <div className="max-w-4xl mx-auto px-6 pt-32 pb-24 relative z-10">
+        {/* Tombol back ke daftar guides */}
+        <Link
+          href="/guides"
+          className="inline-flex items-center gap-2 text-[#4d6cf7] hover:text-[#6b86f9] text-sm font-mono mb-6 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-4 h-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+            />
+          </svg>
+          Back to Guides
+        </Link>
+
         <h1 className="text-4xl font-black text-white mb-4">{guide.title}</h1>
         {guide.date && <p className="text-sm text-neutral-500 font-mono mb-8">{guide.date}</p>}
 

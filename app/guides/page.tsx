@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Footer from '@/components/Footer';
 import BackHomeButton from '@/components/BackHomeButton';
-import LoadingDots from '@/components/LoadingDots'; // <-- import komponen
+import LoadingDots from '@/components/LoadingDots';
 
 type Guide = {
   slug: string;
@@ -14,6 +14,24 @@ type Guide = {
   description: string;
   date: string;
 };
+
+// Ikon maximize (panah diagonal)
+const MaximizeIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={2}
+    stroke="currentColor"
+    className="w-5 h-5 text-neutral-500 group-hover:text-[#4d6cf7] transition-colors"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9.75M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 14.25M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9.75M20.25 20.25h-4.5m4.5 0v-4.5m0 4.5L15 14.25"
+    />
+  </svg>
+);
 
 export default function GuidesPage() {
   const [guides, setGuides] = useState<Guide[]>([]);
@@ -36,13 +54,13 @@ export default function GuidesPage() {
         <div className="h-[600px] w-[900px] bg-[#4d6cf7]/5 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
-      {/* HEADER — seragam dengan halaman lain */}
+      {/* HEADER */}
       <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0c0d12]">
         <Link href="/" className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
           <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
-            <Image 
+            <Image
               src="/logo.svg"
-              alt="GhostDoc Logo" 
+              alt="GhostDoc Logo"
               fill
               className="object-contain"
               priority
@@ -58,12 +76,12 @@ export default function GuidesPage() {
         </div>
       </header>
 
-      {/* KONTEN — rata tengah */}
+      {/* CONTENT */}
       <div className="max-w-5xl mx-auto px-6 pt-32 pb-24 relative z-10">
+        {/* HEADING 2 WARNA: Engineering putih, Resources biru */}
         <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-6 text-center">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4d6cf7] to-[#6b86f9]">
-            Engineering Resources
-          </span>
+          <span className="text-[#4d6cf7]">Engineering </span>
+          <span className="text-white">Resources</span>
         </h1>
         <p className="text-neutral-400 text-sm md:text-base max-w-2xl mx-auto mb-12 font-mono text-center">
           Guides, best practices, and deep dives into automated documentation,
@@ -72,7 +90,7 @@ export default function GuidesPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <LoadingDots /> {/* <-- pakai komponen */}
+            <LoadingDots />
           </div>
         ) : guides.length === 0 ? (
           <p className="text-neutral-500 font-mono text-sm text-center">No guides yet.</p>
@@ -82,9 +100,14 @@ export default function GuidesPage() {
               <Link
                 key={guide.slug}
                 href={`/guides/${guide.slug}`}
-                className="bg-[#1e1f20]/60 p-6 rounded-2xl border border-neutral-800/80 hover:border-[#4d6cf7]/30 transition-all duration-300 text-center"
+                className="group bg-[#1e1f20]/60 p-6 rounded-2xl border border-neutral-800/80 hover:border-[#4d6cf7]/30 transition-all duration-300 relative block"
               >
-                <h2 className="text-xl font-bold text-white mb-2">{guide.title}</h2>
+                {/* Ikon maximize di pojok kanan atas */}
+                <div className="absolute top-4 right-4">
+                  <MaximizeIcon />
+                </div>
+
+                <h2 className="text-xl font-bold text-white mb-2 pr-8">{guide.title}</h2>
                 <p className="text-sm text-neutral-400">{guide.description}</p>
                 {guide.date && (
                   <p className="text-xs text-neutral-500 mt-3 font-mono">{guide.date}</p>
@@ -93,11 +116,6 @@ export default function GuidesPage() {
             ))}
           </div>
         )}
-
-        <div className="mt-12 text-center">
-          <Link href="/" className="text-[#4d6cf7] hover:text-[#6b86f9] text-sm font-mono">
-          </Link>
-        </div>
       </div>
 
       <BackHomeButton />
