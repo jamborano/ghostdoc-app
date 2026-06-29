@@ -11,23 +11,30 @@ type Guide = {
 };
 
 export default function GuidesPage() {
-  // Baca file langsung di server (tanpa fetch)
-  const guidesDirectory = path.join(process.cwd(), 'content/guides');
+  const guidesDirectory = path.join(process.cwd(), 'public/guides');
   let guides: Guide[] = [];
 
   if (fs.existsSync(guidesDirectory)) {
     const filenames = fs.readdirSync(guidesDirectory);
-    guides = filenames.map((filename) => {
-      const filePath = path.join(guidesDirectory, filename);
-      const fileContent = fs.readFileSync(filePath, 'utf8');
-      const { data } = matter(fileContent);
-      return {
-        slug: filename.replace(/\.md$/, ''),
-        title: data.title || 'Untitled',
-        description: data.description || '',
-        date: data.date || '',
-      };
-    });
+    guides = filenames
+      .filter((f) => f.endsWith('.md'))
+      .map((filename) => {
+        const filePath = path.join(guidesDirectory, filename);
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        const { data } = matter(fileContent);
+        return {
+          slug: filename.replace(/\.md$/, ''),
+          title: data.title || 'Untitled',
+          description: data.description || '',
+          date: data.date || '',
+        };
+      })
+      // 🔽 URUTKAN DARI TANGGAL TERBARU
+      .sort((a, b) => {
+        if (!a.date) return 1;
+        if (!b.date) return -1;
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      });
   }
 
   return (
