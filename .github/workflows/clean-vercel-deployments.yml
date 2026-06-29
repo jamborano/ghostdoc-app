@@ -1,4 +1,3 @@
-@"
 name: Clean Old Vercel Deployments
 
 on:
@@ -10,21 +9,81 @@ jobs:
   clean-deployments:
     runs-on: ubuntu-latest
     steps:
+      - name: Check dependencies
+        run: |
+          echo "🔍 Checking dependencies..."
+          command -v curl || (echo "curl missing" && exit 1)
+          command -v jq || (echo "jq missing, installing..." && sudo apt-get update && sudo apt-get install -y jq)
+          echo "✅ All good"
+
+      - name: Debug secrets (masked)
+        run: |
+          echo "VERCEL_TOKEN length: ${#VERCEL_TOKEN}"
+          echo "VERCEL_PROJECT_ID: ${VERCEL_PROJECT_ID:0:5}... (masked)"
+          echo "VERCEL_ORG_ID: ${VERCEL_ORG_ID:0:5}... (masked)"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+
       - name: Delete old Vercel deployments
         env:
-          VERCEL_TOKEN: `${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT_ID: `${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_ORG_ID: `${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
         run: |
-          DEPLOYMENTS=$(curl -s -X GET "https://api.vercel.com/v6/deployments?projectId=`$VERCEL_PROJECT_ID&limit=100" -H "Authorization: Bearer `$VERCEL_TOKEN" -H "Content-Type: application/json")
-          if echo "`$DEPLOYMENTS" | grep -q '"error"'; then
-            echo "❌ Error fetching deployments: `$DEPLOYMENTS"
+          echo "📡 Fetching deployments from Vercel API..."
+          
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X GET \
+            "https://api.vercel.com/v6/deployments?projectId=${VERCEL_PROJECT_ID}&limit=100" \
+            -H "Authorization: Bearer ${VERCEL_TOKEN}" \
+            -H "Content-Type: application/json")
+          
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+          
+          echo "HTTP Status: $HTTP_CODE"
+          
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ API Error (HTTP $HTTP_CODE):"
+            echo "$BODY" | jq '.' || echo "$BODY"
             exit 1
           fi
+          
+          # Check if jq is available
+          if ! command -v jq &> /dev/null; then
+            echo "❌ jq not found, cannot parse JSON"
+            exit 1
+          fi
+          
+          # Count total deployments
+          TOTAL=$(echo "$BODY" | jq '.deployments | length')
+          echo "📦 Total deployments found: $TOTAL"
+          
+          # Calculate cutoff (14 days ago in milliseconds)
           CUTOFF=$(date -d '14 days ago' +%s%3N)
-          echo "`$DEPLOYMENTS" | jq -r '.deployments[] | select(.createdAt < '`$CUTOFF') | .uid' | while read -r id; do
-            echo "🗑️ Menghapus deployment: `$id"
-            curl -s -X DELETE "https://api.vercel.com/v6/deployments/`$id" -H "Authorization: Bearer `$VERCEL_TOKEN" -H "Content-Type: application/json"
+          echo "📅 Cutoff timestamp: $CUTOFF"
+          
+          # Get old deployment IDs
+          OLD_IDS=$(echo "$BODY" | jq -r ".deployments[] | select(.createdAt < $CUTOFF) | .uid")
+          
+          if [ -z "$OLD_IDS" ]; then
+            echo "✅ No deployments older than 14 days found."
+            exit 0
+          fi
+          
+          echo "🗑️ Deleting old deployments..."
+          for id in $OLD_IDS; do
+            echo "   Removing: $id"
+            DELETE_RESPONSE=$(curl -s -w "\n%{http_code}" -X DELETE \
+              "https://api.vercel.com/v6/deployments/$id" \
+              -H "Authorization: Bearer ${VERCEL_TOKEN}")
+            DELETE_HTTP=$(echo "$DELETE_RESPONSE" | tail -n1)
+            if [ "$DELETE_HTTP" = "200" ] || [ "$DELETE_HTTP" = "204" ]; then
+              echo "   ✅ Deleted $id"
+            else
+              echo "   ❌ Failed to delete $id (HTTP $DELETE_HTTP)"
+            fi
           done
-          echo "✅ Selesai. Deployment yang lebih dari 14 hari sudah dihapus."
-"@ | Out-File -FilePath ".github\workflows\clean-vercel-deployments.yml" -Encoding utf8
+          
+          echo "✅ Cleanup complete!"
