@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Footer from '@/components/Footer';
 import BackHomeButton from '@/components/BackHomeButton';
+import LoadingDots from '@/components/LoadingDots'; // <-- import komponen
 
 type Guide = {
   slug: string;
@@ -71,11 +72,7 @@ export default function GuidesPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="loading-dots">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
+            <LoadingDots /> {/* <-- pakai komponen */}
           </div>
         ) : guides.length === 0 ? (
           <p className="text-neutral-500 font-mono text-sm text-center">No guides yet.</p>

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { LightningIcon, LockIcon, CloseIcon } from '@/components/Icons';
+import LoadingDots from './LoadingDots';
 
 const SendUpArrowIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -440,11 +441,7 @@ export default function TerminalConsole() {
 
       {showGumroadLoading && (
         <div className="fixed inset-0 z-[999999] bg-[#0c0d12] flex flex-col items-center justify-center">
-          <div className="loading-dots">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+          <LoadingDots />
           <p className="text-neutral-400 text-sm mt-4 font-mono">Redirecting to secure checkout...</p>
         </div>
       )}

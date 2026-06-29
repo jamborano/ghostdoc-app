@@ -1,4 +1,5 @@
-﻿'use client';
+﻿// app/guides/[slug]/page.tsx
+'use client';
 
 import { useEffect, useState } from 'react';
 import { marked } from 'marked';
@@ -6,6 +7,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import Footer from '@/components/Footer';
 import BackHomeButton from '@/components/BackHomeButton';
+import LoadingDots from '@/components/LoadingDots'; // <-- import komponen
 
 type GuideContent = {
   title: string;
@@ -44,11 +46,7 @@ export default function GuidePage() {
   if (loading) {
     return (
       <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] flex items-center justify-center">
-        <div className="loading-dots">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+        <LoadingDots /> {/* <-- pakai komponen */}
       </main>
     );
   }
