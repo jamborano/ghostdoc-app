@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+:root {
+  --ghost-blue: #4d6cf7;
+  --ghost-blue-hover: #3b5de7;
+  --ghost-blue-dark: #2a4cd4;
+  --ghost-blue-light: #6b86f9;
+  --ghost-blue-transparent: rgba(77, 108, 247, 0.15);
+}
+
 body {
   background: #0c0d12;
   color: #F5F5DC;
@@ -7,125 +15,49 @@ body {
 }
 
 ::selection {
-  background: rgba(59, 130, 246, 0.3);
+  background: var(--ghost-blue-transparent);
   color: white;
 }
 
-/* Scrollbar kustom — tipis dan hanya muncul saat hover */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
-  background: transparent;
-  transition: width 0.2s ease;
-}
-
-::-webkit-scrollbar-track {
   background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #2a2b2e;
   border-radius: 10px;
-  transition: background 0.2s ease;
-}
-
-/* Saat mouse di atas area scroll, scrollbar muncul lebih jelas */
-*:hover::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3b82f6;
+  background: var(--ghost-blue);
 }
 
-/* Firefox */
 * {
   scrollbar-width: thin;
   scrollbar-color: #2a2b2e transparent;
 }
 
-/* app/globals.css — tambahkan di akhir */
-
-/* ===== PERBAIKAN TABEL UNTUK GUIDE ===== */
-.prose table {
-  display: block;
-  overflow-x: auto;
-  white-space: nowrap;
-  border-collapse: collapse;
-  width: 100%;
-  font-size: 0.8rem;
-  margin: 1.5rem 0;
-  background: #121318;
-  border-radius: 8px;
-  border: 1px solid #30363d;
-}
-
-.prose thead {
-  background: #1e1f20;
-}
-
-.prose th,
-.prose td {
-  padding: 0.75rem 1rem;
-  border: 1px solid #30363d;
-  text-align: left;
-  color: #c9d1d9;
-  min-width: 100px;
-}
-
-.prose th {
-  color: #ffffff;
-  font-weight: 700;
-  background: #16171a;
-}
-
-.prose tr:nth-child(even) {
-  background: #0d0f12;
-}
-
-/* Kolom pertama (Feature) lebih lebar */
-.prose td:first-child,
-.prose th:first-child {
-  min-width: 140px;
-  font-weight: 600;
-  color: #e4e4e7;
-}
-
-/* Kolom lainnya */
-.prose td:nth-child(2),
-.prose th:nth-child(2),
-.prose td:nth-child(3),
-.prose th:nth-child(3),
-.prose td:nth-child(4),
-.prose th:nth-child(4) {
-  min-width: 120px;
-}
-
-/* Warna status */
-.prose td:contains("Yes"),
-.prose td:contains("Enterprise") {
-  color: #4ade80;
-}
-
-.prose td:contains("No") {
-  color: #f87171;
-}
-
-/* ===== GUIDE CONTENT ===== */
+/* Markdown */
 .prose {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-.prose h1, .prose h2, .prose h3 {
+.prose h1, .prose h2, .prose h3, .prose h4 {
   font-weight: 700 !important;
   letter-spacing: -0.02em;
+  color: #ffffff !important;
 }
 
 .prose p, .prose li, .prose td, .prose th {
   color: #e4e4e7 !important;
+  line-height: 1.7;
 }
 
 .prose table {
@@ -139,66 +71,175 @@ body {
   background: #121318;
   border-radius: 8px;
   border: 1px solid #30363d;
+  table-layout: fixed;
 }
 
-.prose thead {
+.prose table thead {
   background: #1e1f20;
 }
 
-.prose th,
-.prose td {
-  padding: 0.75rem 1rem;
+.prose table th,
+.prose table td {
+  padding: 0.75rem 0.5rem;
   border: 1px solid #30363d;
   text-align: left;
+  vertical-align: middle;
+  word-wrap: break-word;
   color: #c9d1d9;
-  min-width: 100px;
 }
 
-.prose th {
+.prose table th {
   color: #ffffff;
   font-weight: 700;
   background: #16171a;
 }
 
-.prose tr:nth-child(even) {
+.prose table tr:nth-child(even) {
   background: #0d0f12;
 }
 
-.prose td:first-child,
-.prose th:first-child {
-  min-width: 140px;
-  font-weight: 600;
-  color: #e4e4e7;
+.prose table th,
+.prose table td {
+  width: 25%;
 }
 
-.prose td:nth-child(2),
-.prose th:nth-child(2),
-.prose td:nth-child(3),
-.prose th:nth-child(3),
-.prose td:nth-child(4),
-.prose th:nth-child(4) {
-  min-width: 120px;
+/* Terminal theme */
+.prose.terminal {
+  font-family: 'Consolas', 'Cascadia Code', 'Courier New', monospace !important;
+  background: transparent !important;
+  color: #d4d4d4 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
-.prose td:contains("Yes"),
-.prose td:contains("Enterprise") {
-  color: #4ade80;
+.prose.terminal h1,
+.prose.terminal h2,
+.prose.terminal h3,
+.prose.terminal h4,
+.prose.terminal h5,
+.prose.terminal h6 {
+  color: #d4d4d4 !important;
+  font-family: 'Consolas', 'Cascadia Code', monospace !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
 }
 
-.prose td:contains("No") {
-  color: #f87171;
+.prose.terminal p,
+.prose.terminal li,
+.prose.terminal td,
+.prose.terminal th,
+.prose.terminal blockquote {
+  color: #d4d4d4 !important;
+  font-family: 'Consolas', 'Cascadia Code', monospace !important;
 }
 
-/* ===== TULISAN LEBIH TAJAM ===== */
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  font-weight: 400;
+.prose.terminal a {
+  color: var(--ghost-blue) !important;
+  text-decoration: underline !important;
 }
 
-.prose p, .prose li, .prose td, .prose th {
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  color: #e4e4e7 !important;
+.prose.terminal pre,
+.prose.terminal code {
+  background: #1e1e1e !important;
+  color: #d4d4d4 !important;
+  border: 1px solid #404040 !important;
+  border-radius: 4px !important;
+  padding: 0.2rem 0.4rem !important;
+  font-family: 'Consolas', 'Cascadia Code', monospace !important;
+}
+
+.prose.terminal pre {
+  padding: 1rem !important;
+  overflow-x: auto !important;
+}
+
+.prose.terminal table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  background: transparent !important;
+  border: 1px solid #404040 !important;
+}
+
+.prose.terminal th,
+.prose.terminal td {
+  border: 1px solid #404040 !important;
+  padding: 0.5rem !important;
+  color: #d4d4d4 !important;
+  font-family: 'Consolas', 'Cascadia Code', monospace !important;
+}
+
+.prose.terminal th {
+  background: #1e1e1e !important;
+}
+
+.prose.terminal ul,
+.prose.terminal ol {
+  padding-left: 1.5rem !important;
+}
+
+.prose.terminal li {
+  list-style-type: disc !important;
+  color: #d4d4d4 !important;
+}
+
+.prose.terminal blockquote {
+  border-left: 3px solid var(--ghost-blue) !important;
+  padding-left: 1rem !important;
+  color: #d4d4d4 !important;
+}
+
+.prose.terminal::after {
+  content: "█";
+  animation: blink 1s step-end infinite;
+  color: var(--ghost-blue);
+  margin-left: 0.2rem;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Loading dots */
+.loading-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.loading-dots span {
+  width: 8px;
+  height: 8px;
+  background: var(--ghost-blue);
+  border-radius: 50%;
+  animation: dotBounce 1.2s ease-in-out infinite;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dotBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.2;
+  }
+  30% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+}
+
+/* app/globals.css — tambahkan di akhir */
+header, footer, .sticky {
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
 }

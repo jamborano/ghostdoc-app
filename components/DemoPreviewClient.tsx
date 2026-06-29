@@ -4,6 +4,9 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import Footer from '@/components/Footer';
+import BackHomeButton from '@/components/BackHomeButton';
+import { DocumentIcon, ApiIcon, ShieldIcon, ChartIcon, LightningIcon } from '@/components/Icons';
 
 export default function DemoPreviewClient() {
   const searchParams = useSearchParams();
@@ -15,24 +18,13 @@ export default function DemoPreviewClient() {
       : 'supabase'
   );
   const [activeTab, setActiveTab] = useState<'readme' | 'api' | 'security' | 'executive'>('readme');
-  
-  // State untuk semua konten (preloaded)
   const [contents, setContents] = useState<Record<string, string>>({});
   const [isReady, setIsReady] = useState(false);
 
   const repoConfig = {
-    'juice-shop': {
-      displayName: 'OWASP Juice Shop',
-      folder: 'juice-shop',
-    },
-    'calcom': {
-      displayName: 'Cal.com',
-      folder: 'calcom',
-    },
-    'supabase': {
-      displayName: 'Supabase',
-      folder: 'supabase',
-    }
+    'juice-shop': { displayName: 'OWASP Juice Shop', folder: 'juice-shop' },
+    'calcom': { displayName: 'Cal.com', folder: 'calcom' },
+    'supabase': { displayName: 'Supabase', folder: 'supabase' }
   };
 
   const activeRepo = repoConfig[selectedRepo];
@@ -43,61 +35,47 @@ export default function DemoPreviewClient() {
     'executive': 'Executive_Summary.md',
   };
 
-  // ============================================================
-  // PRELOAD SEMUA KONTEN SEKALIGUS SAAT KOMPONEN MOUNT
-  // ============================================================
   useEffect(() => {
     const preloadAllContent = async () => {
       const folder = activeRepo.folder;
       const allFiles = Object.values(fileMap);
       const cacheKey = `${folder}/all`;
-
-      // Kalau udah pernah di-preload untuk repo ini, skip
       if (contents[cacheKey]) {
         setIsReady(true);
         return;
       }
 
-      const fetchPromises = allFiles.map(async (fileName) => {
-        const url = `/demo-content/${folder}/${fileName}`;
-        try {
-          const response = await fetch(url);
-          if (!response.ok) {
-            throw new Error(`File not found: ${url}`);
+      const results = await Promise.all(
+        allFiles.map(async (fileName) => {
+          const url = `/demo-content/${folder}/${fileName}`;
+          try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`File not found: ${url}`);
+            const text = await response.text();
+            return { fileName, text };
+          } catch (error) {
+            console.error(`Error loading ${fileName}:`, error);
+            return { 
+              fileName, 
+              text: `# Content Not Available\n\nFile \`${fileName}\` for **${activeRepo.displayName}** is not yet uploaded.`
+            };
           }
-          const text = await response.text();
-          return { fileName, text };
-        } catch (error) {
-          console.error(`Error loading ${fileName}:`, error);
-          return { 
-            fileName, 
-            text: `# Content Not Available\n\nFile \`${fileName}\` for **${activeRepo.displayName}** is not yet uploaded.`
-          };
-        }
-      });
+        })
+      );
 
-      const results = await Promise.all(fetchPromises);
-      
-      // Gabungkan hasil ke state
       const newContents: Record<string, string> = {};
       results.forEach(({ fileName, text }) => {
         const key = `${folder}/${fileName}`;
         newContents[key] = text;
       });
-      
-      // Tandai bahwa semua konten untuk repo ini sudah dimuat
       newContents[cacheKey] = 'loaded';
-      
-      setContents((prev) => ({ ...prev, ...newContents }));
+      setContents(prev => ({ ...prev, ...newContents }));
       setIsReady(true);
     };
 
     preloadAllContent();
-  }, [selectedRepo]); // Hanya reload saat pindah repo
+  }, [selectedRepo]);
 
-  // ============================================================
-  // RENDER MARKDOWN (sama seperti sebelumnya)
-  // ============================================================
   const renderMarkdown = (markdown: string) => {
     if (!markdown) return null;
     const lines = markdown.split('\n');
@@ -135,7 +113,7 @@ export default function DemoPreviewClient() {
       } else if (line.startsWith('## ')) {
         elements.push(<h2 key={i} className="text-xl font-bold text-white mt-5 mb-2">{line.replace('## ', '')}</h2>);
       } else if (line.startsWith('### ')) {
-        elements.push(<h3 key={i} className="text-lg font-bold text-blue-400 mt-4 mb-2">{line.replace('### ', '')}</h3>);
+        elements.push(<h3 key={i} className="text-lg font-bold text-[#4d6cf7] mt-4 mb-2">{line.replace('### ', '')}</h3>);
       } else if (line.startsWith('**') && line.endsWith('**')) {
         elements.push(<p key={i} className="text-sm font-bold text-neutral-200 my-2">{line.replace(/\*\*/g, '')}</p>);
       } else if (line.startsWith('- ')) {
@@ -152,49 +130,48 @@ export default function DemoPreviewClient() {
     return <div className="space-y-1">{elements}</div>;
   };
 
-  // Ambil konten dari cache (udah preloaded)
   const cacheKey = `${activeRepo.folder}/${fileMap[activeTab]}`;
   const content = contents[cacheKey] || '';
 
   return (
     <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] font-sans pb-24 relative overflow-x-hidden">
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
-        <div className="h-[600px] w-[1000px] bg-blue-600/5 rounded-full blur-[250px] opacity-60"></div>
+        <div className="h-[600px] w-[1000px] bg-[#4d6cf7]/5 rounded-full blur-[250px] opacity-60"></div>
       </div>
 
-      <div className="sticky top-0 w-full bg-[#0c0d12]/95 backdrop-blur-md border-b border-blue-500/20 p-4 text-center z-50">
+      <div className="sticky top-0 w-full bg-[#0c0d12] p-4 text-center z-50">
         <div className="flex items-center justify-center gap-2">
           <div className="relative w-5 h-5">
             <Image src="/logo.png" alt="GhostDoc Logo" width={20} height={20} />
           </div>
           <p className="text-xs font-mono text-neutral-400">
-            ⚡ <b className="text-blue-400">GHOSTDOC SANDBOX:</b> {activeRepo.displayName}
+            <LightningIcon className="w-3 h-3 inline-block mr-1 text-[#4d6cf7]" />
+            <b className="text-[#4d6cf7]">GHOSTDOC SANDBOX:</b> {activeRepo.displayName}
           </p>
         </div>
       </div>
 
       <div className="max-w-5xl mx-auto px-6 mt-12 relative z-10">
-        {/* Pilih Repo */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-2 bg-[#1e1f20]/60 border border-neutral-800/80 rounded-2xl mb-8">
-          {(['juice-shop', 'calcom', 'supabase'] as const).map((repo) => (
+          {(['juice-shop', 'calcom', 'supabase'] as const).map(repo => (
             <button
               key={repo}
               onClick={() => { setSelectedRepo(repo); setActiveTab('readme'); }}
               className={`text-xs font-mono py-4 px-3 rounded-xl transition-colors duration-150 ${
                 selectedRepo === repo
-                  ? 'bg-blue-600 text-white font-bold shadow-lg shadow-blue-900/40'
+                  ? 'bg-[#4d6cf7] text-white font-bold shadow-lg shadow-[#4d6cf7]/40'
                   : 'text-neutral-400 hover:text-white hover:bg-neutral-800/50'
               }`}
             >
-              {repo === 'juice-shop' && '📦 Juice Shop'}
-              {repo === 'calcom' && '📅 Cal.com'}
-              {repo === 'supabase' && '⚡ Supabase'}
+              {repo === 'juice-shop' && 'Juice Shop'}
+              {repo === 'calcom' && 'Cal.com'}
+              {repo === 'supabase' && 'Supabase'}
             </button>
           ))}
         </div>
 
-        <div className="p-6 rounded-2xl border border-blue-500/20 bg-blue-950/10 mb-8">
-          <div className="text-[10px] font-bold uppercase tracking-widest font-mono text-blue-400">
+        <div className="p-6 rounded-2xl border border-[#4d6cf7]/20 bg-[#4d6cf7]/5 mb-8 text-center">
+          <div className="text-[10px] font-bold uppercase tracking-widest font-mono text-[#4d6cf7]">
             STATUS // DEMO PREVIEW
           </div>
           <div className="text-xl font-black text-white mt-0.5">{activeRepo.displayName}</div>
@@ -203,9 +180,8 @@ export default function DemoPreviewClient() {
           </div>
         </div>
 
-        {/* Tab Navigation — tanps efek berdenyut */}
         <div className="flex flex-wrap gap-2 border-b border-neutral-800/80 pb-3 mb-6">
-          {(['readme', 'api', 'security', 'executive'] as const).map((tab) => (
+          {(['readme', 'api', 'security', 'executive'] as const).map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -215,25 +191,41 @@ export default function DemoPreviewClient() {
                   : 'text-neutral-500 hover:text-neutral-300 hover:bg-neutral-800/40'
               }`}
             >
-              {tab === 'readme' && '📄 README.md'}
-              {tab === 'api' && '⚙️ API Contract'}
-              {tab === 'security' && '🛡️ SecOps Findings'}
-              {tab === 'executive' && '📊 Strategic Summary'}
+              {tab === 'readme' && (
+                <span className="flex items-center gap-1">
+                  <DocumentIcon className="w-3 h-3" />
+                  README.md
+                </span>
+              )}
+              {tab === 'api' && (
+                <span className="flex items-center gap-1">
+                  <ApiIcon className="w-3 h-3" />
+                  API Contract
+                </span>
+              )}
+              {tab === 'security' && (
+                <span className="flex items-center gap-1">
+                  <ShieldIcon className="w-3 h-3" />
+                  SecOps Findings
+                </span>
+              )}
+              {tab === 'executive' && (
+                <span className="flex items-center gap-1">
+                  <ChartIcon className="w-3 h-3" />
+                  Strategic Summary
+                </span>
+              )}
             </button>
           ))}
         </div>
 
-        {/* Content — INSTAN, tanpa loading */}
         <div className="bg-[#121318] border border-neutral-800/80 p-8 rounded-2xl min-h-[350px] max-h-[600px] overflow-y-auto">
           {content && renderMarkdown(content)}
         </div>
-
-        <footer className="mt-20 text-center border-t border-neutral-800/60 pt-10">
-          <Link href="/" className="text-blue-400 hover:text-blue-300 text-sm font-mono">
-            ← Back to Home
-          </Link>
-        </footer>
       </div>
+
+      <BackHomeButton />
+      <Footer />
     </main>
   );
 }

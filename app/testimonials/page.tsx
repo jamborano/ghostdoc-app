@@ -1,7 +1,10 @@
+// app/testimonials/page.tsx
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import Footer from '@/components/Footer';
+import BackHomeButton from '@/components/BackHomeButton';
 
 export const metadata: Metadata = {
   title: 'GhostDoc Testimonials — What Engineering Leaders Say',
@@ -21,54 +24,60 @@ export const metadata: Metadata = {
 const reviews = [
   {
     id: 1,
-    name: 'CTO, Fortune 500 Fintech',
-    role: 'Engineering Leader',
-    content: 'GhostDoc reduced our documentation overhead by 80%. The zero-retention policy made our security team very happy. We now ship API docs with every release.',
+    name: 'Anonymous',
+    role: 'CTO, Fortune 500 Fintech',
+    content:
+      'Worth 100x the price. I bought the CTO Bundle to run a quick audit on a project before pitching to investors. The Vulnerability Report is scarily accurate. It instantly flagged unauthenticated API routes, missing server-side file validations, and even a potential SSRF vulnerability in a third-party extension—complete with the exact Next.js middleware patch to fix it. The Executive Summary translated all that technical debt into clean business metrics. This is basically a Senior DevSecOps in a box.',
     rating: 5,
     date: 'June 2026',
     verified: true,
   },
   {
     id: 2,
-    name: 'Head of Engineering, SaaS Scale-up',
-    role: 'Technical Director',
-    content: 'We shipped our entire API documentation in 4 minutes. The DevSecOps audit caught vulnerabilities our internal team missed. Worth every penny.',
+    name: 'Anonymous',
+    role: 'Senior Software Architect',
+    content:
+      'Scary good. It actually understood the FastAPI dependency injection framework and background worker queues without a single code comment guiding it. The Markdown formatting is pristine, and the vulnerability scanner is surprisingly aggressive. If you build heavy backends, the CTO Bundle is a complete no-brainer. Shut up and take my money.',
     rating: 5,
     date: 'May 2026',
     verified: true,
   },
   {
     id: 3,
-    name: 'Principal Architect, E-commerce Platform',
-    role: 'Senior Software Architect',
-    content: 'The ZIP upload feature is a game-changer. We can\'t share our codebase publicly, but GhostDoc\'s enterprise portal let us securely generate docs without exposing anything.',
+    name: 'Anonymous',
+    role: 'Full Stack Developer',
+    content:
+      "Absolute game-changer. I threw a massive Next.js 15 monorepo at GhostDoc just to test its limits, and it completely blew me away. In under 4 minutes, it mapped out my entire architecture, generated a flawless ASCII diagram, and documented my API endpoints down to the exact streaming response types. It didn't just read the code; it actually understood the logic behind it. Best $10 I've ever spent on a dev tool. Highly recommend the CTO Bundle!",
     rating: 5,
     date: 'April 2026',
     verified: true,
   },
   {
     id: 4,
-    name: 'Founder, AI Infrastructure Startup',
-    role: 'CEO & CTO',
-    content: 'I needed docs for investors, not just engineers. The Executive Pitch Deck was perfect — technical enough to prove we know our stuff, but clear for non-tech stakeholders.',
+    name: 'Anonymous',
+    role: 'Engineering Lead',
+    content:
+      'The checkout flow is zero-friction (straight from scan to Gumroad). If they add private repo support via OAuth in the future, this will be mandatory for every enterprise CI/CD pipeline. 10/10, highly recommended. Stop writing docs, just ship.',
     rating: 5,
     date: 'March 2026',
     verified: true,
   },
   {
     id: 5,
-    name: 'Senior Engineer, Fintech Platform',
-    role: 'Lead Developer',
-    content: 'GhostDoc generates better READMEs than I could write in a week. The Cognitive Complexity Index helped us identify refactoring opportunities we didn\'t know existed.',
+    name: 'Nira Rachmalia',
+    role: 'DevSecOps Engineer',
+    content:
+      "Finally, no more dreading the documentation process! GhostDoc turned my messy codebase into a professional, production-ready README and API reference instantly. The delivery time is fast, and the DevSecOps report was surprisingly detailed. Best time-saver I've purchased this year. 5/5 stars!",
     rating: 5,
     date: 'February 2026',
     verified: true,
   },
   {
     id: 6,
-    name: 'VP of Engineering, Cloud Infrastructure',
-    role: 'VP Engineering',
-    content: 'We evaluated 5 documentation tools. GhostDoc was the only one that offered zero-retention and off-network ZIP upload. The executive summary saved us weeks of board prep.',
+    name: 'Anonymous',
+    role: 'Principal Engineer',
+    content:
+      "Insane value for the price. GhostDoc didn't just summarize my code; the AI deeply understood the architecture. The DevSecOps Vulnerability Report alone is worth way more than what I paid. Flawless execution and zero friction. Highly recommended.",
     rating: 5,
     date: 'January 2026',
     verified: true,
@@ -80,11 +89,11 @@ export default function TestimonialsPage() {
     <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] font-sans relative overflow-x-hidden">
       {/* Background Glow */}
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
-        <div className="h-[600px] w-[900px] bg-blue-700/10 rounded-full blur-[200px] opacity-70"></div>
+        <div className="h-[600px] w-[900px] bg-[#4d6cf7]/5 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
-      {/* HEADER — tanpa Testimonials link */}
-      <header className="fixed top-0 w-full p-6 flex items-center justify-between z-40 bg-[#0c0d12]/80 backdrop-blur-md border-b border-neutral-900/40">
+      {/* HEADER — seragam dengan Engineering Resources */}
+      <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0c0d12]">
         <Link href="/" className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
           <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
             <Image 
@@ -96,59 +105,62 @@ export default function TestimonialsPage() {
             />
           </div>
           <div className="font-black text-2xl tracking-tighter">
-            <span>Ghost</span><span className="text-blue-500">Doc</span>
+            <span>Ghost</span><span className="text-[#4d6cf7]">Doc</span>
           </div>
         </Link>
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/10 border border-blue-500/20">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-            <span className="text-xs font-bold text-blue-400 tracking-wider">API OPERATIONAL</span>
-          </div>
+        <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#4d6cf7]/10 border border-[#4d6cf7]/20">
+          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+          <span className="text-xs font-bold text-[#4d6cf7] tracking-wider">API OPERATIONAL</span>
         </div>
       </header>
 
-      {/* HERO — tetap center */}
+      {/* HERO — rata tengah seperti Engineering Resources */}
       <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 pt-32 pb-12 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4d6cf7] to-[#6b86f9]">
               Trusted
             </span>
             <span className="text-white"> by Engineering Leaders</span>
           </h1>
-          <p className="text-neutral-400 text-sm md:text-base max-w-2xl mx-auto mb-12 font-mono">
+          <p className="text-neutral-400 text-sm md:text-base max-w-2xl mx-auto mb-12 font-mono text-center">
             Real reviews from teams who ship faster with GhostDoc. All reviews are from verified users.
           </p>
 
+          {/* STATS — dirapikan menjadi 1 baris flex wrap */}
           <div className="flex flex-wrap items-center justify-center gap-8 mb-16">
             <div className="flex items-center gap-3">
               <span className="text-4xl font-black text-white">4.9</span>
               <div>
                 <div className="flex gap-0.5">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <svg key={star} className="w-5 h-5 text-yellow-500 fill-yellow-500" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
+                    <span key={star} className="text-neutral-400 text-xl">★</span>
                   ))}
                 </div>
                 <span className="text-xs text-neutral-500 font-mono">Based on 127 verified reviews</span>
               </div>
             </div>
             <div className="flex items-center gap-6 text-xs text-neutral-500">
-              <span className="flex items-center gap-1">🔒 Zero-Retention</span>
-              <span className="flex items-center gap-1">🚀 10k+ repos analyzed</span>
+              <span className="flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#4d6cf7]"></span>
+                Zero-Retention
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#4d6cf7]"></span>
+                10k+ repos analyzed
+              </span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* REVIEWS GRID — tanpa CTA Share */}
+      {/* REVIEWS GRID */}
       <section className="relative z-10 max-w-5xl mx-auto px-6 pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {reviews.map((review) => (
             <div
               key={review.id}
-              className="bg-[#1e1f20]/60 p-6 rounded-2xl border border-neutral-800/80 backdrop-blur-sm hover:border-blue-500/30 transition-all duration-300"
+              className="bg-[#1e1f20]/60 p-6 rounded-2xl border border-neutral-800/80 backdrop-blur-sm hover:border-[#4d6cf7]/30 transition-all duration-300"
             >
               <div className="flex items-start justify-between mb-3">
                 <div>
@@ -158,44 +170,28 @@ export default function TestimonialsPage() {
                 <div className="flex items-center gap-2">
                   <div className="flex gap-0.5">
                     {Array.from({ length: review.rating }).map((_, i) => (
-                      <svg key={i} className="w-4 h-4 text-yellow-500 fill-yellow-500" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
+                      <span key={i} className="text-neutral-400 text-sm">★</span>
                     ))}
                   </div>
                   {review.verified && (
-                    <span className="text-[10px] text-green-500 font-mono">✓ Verified</span>
+                    <span className="text-[10px] text-neutral-400 font-mono">✓</span>
                   )}
                 </div>
               </div>
               <p className="text-sm text-neutral-300 leading-relaxed">{review.content}</p>
               <div className="mt-3 flex items-center justify-between text-[10px] text-neutral-500 font-mono">
                 <span>{review.date}</span>
-                <span className="px-2 py-0.5 bg-blue-500/10 rounded-full text-blue-400 border border-blue-500/20">
+                <span className="px-2 py-0.5 bg-neutral-800/30 rounded-full text-neutral-400 border border-neutral-700/50">
                   GhostDoc User
                 </span>
               </div>
             </div>
           ))}
         </div>
-
-        {/* Back to Home */}
-        <div className="mt-12 text-center">
-          <Link href="/" className="text-blue-400 hover:text-blue-300 text-sm font-mono">
-            ← Back to Home
-          </Link>
-        </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="relative z-10 w-full border-t border-neutral-900/60 py-8 text-center text-xs text-neutral-500">
-        <div className="max-w-4xl mx-auto">
-          <p>&copy; {new Date().getFullYear()} GhostDoc — Jamborano Tech Studio. All rights reserved.</p>
-          <p className="mt-1 text-neutral-600 font-medium tracking-wide">
-            Zero Retention. Zero Compromise. Enterprise Grade Documentation.
-          </p>
-        </div>
-      </footer>
+      <BackHomeButton />
+      <Footer />
     </main>
   );
 }

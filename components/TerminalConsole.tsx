@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { LightningIcon, LockIcon, CloseIcon } from '@/components/Icons';
 
 const SendUpArrowIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -23,6 +24,27 @@ const DEMO_REPOS = [
 
 const ENTERPRISE_THRESHOLD = 2000;
 
+const DEMO_DATA: Record<string, { fileCount: number; totalFiles: number; tierName: string; credits: number }> = {
+  'juice-shop': {
+    fileCount: 412,
+    totalFiles: 520,
+    tierName: 'Standard Codebase Detected',
+    credits: 412 * 184,
+  },
+  'calcom': {
+    fileCount: 2450,
+    totalFiles: 3000,
+    tierName: 'Monolithic Scale Detected',
+    credits: 2450 * 184,
+  },
+  'supabase': {
+    fileCount: 5757,
+    totalFiles: 7690,
+    tierName: 'Monolithic Scale Detected',
+    credits: 5757 * 184,
+  },
+};
+
 export default function TerminalConsole() {
   const [step, setStep] = useState(1);
   const [repoUrl, setRepoUrl] = useState('');
@@ -38,8 +60,36 @@ export default function TerminalConsole() {
   const [selectedRepoId, setSelectedRepoId] = useState<string>('');
   const [isScanning, setIsScanning] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [showGumroadLoading, setShowGumroadLoading] = useState(false);
 
   const terminalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (showPopup) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.height = '100vh';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${window.scrollY}px`;
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = '';
+      document.body.style.height = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      }
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.height = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    };
+  }, [showPopup]);
 
   useEffect(() => {
     setMounted(true);
@@ -52,12 +102,44 @@ export default function TerminalConsole() {
     }
   }, [logs]);
 
+  const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
   const simulateScan = async (url?: string, repoId?: string, isDemo: boolean = false) => {
     const targetUrl = url || repoUrl;
     const targetRepoId = repoId || selectedRepoId;
 
     if (!targetUrl) {
       alert('System requires a valid GitHub Repository URL to proceed.');
+      return;
+    }
+
+    if (isDemo && targetRepoId && DEMO_DATA[targetRepoId]) {
+      const dummy = DEMO_DATA[targetRepoId];
+      setIsScanning(true);
+      setStep(2);
+      setLogs([]);
+      const logMessages = [
+        '[SYSTEM] Bootstrapping zero-retention ephemeral worker node...',
+        `[INFO] Authenticating and mapping GitHub API for ${targetUrl}...`,
+        '[INFO] Crawling repository tree...',
+        `[INFO] Pruning boilerplate and lockfiles. Valid logic files: ${dummy.fileCount}...`,
+        '[SUCCESS] Architecture mapped successfully.',
+      ];
+      for (let i = 0; i < logMessages.length; i++) {
+        const delay = i === 0 ? 300 : 700;
+        await sleep(delay);
+        setLogs((prev) => [...prev, logMessages[i]]);
+      }
+      setRepoStats({
+        tierName: dummy.tierName,
+        files: dummy.fileCount,
+        credits: dummy.credits,
+        totalFiles: dummy.totalFiles,
+      });
+      setIsScanning(false);
+      setTimeout(() => {
+        window.location.href = `/demo?repo=${targetRepoId}`;
+      }, 2000);
       return;
     }
 
@@ -75,7 +157,7 @@ export default function TerminalConsole() {
     setLogs(['[SYSTEM] Bootstrapping zero-retention ephemeral worker node...']);
 
     try {
-      await new Promise((r) => setTimeout(r, 600));
+      await sleep(600);
       setLogs((prev) => [...prev, `[INFO] Authenticating and mapping GitHub API for ${owner}/${repo}...`]);
 
       const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
@@ -90,7 +172,7 @@ export default function TerminalConsole() {
       const repoData = await repoRes.json();
       const defaultBranch = repoData.default_branch;
 
-      await new Promise((r) => setTimeout(r, 800));
+      await sleep(800);
       setLogs((prev) => [...prev, `[INFO] Crawling repository tree on branch: ${defaultBranch}...`]);
 
       const treeRes = await fetch(
@@ -123,7 +205,7 @@ export default function TerminalConsole() {
 
       const fileCount = validFiles.length;
 
-      await new Promise((r) => setTimeout(r, 600));
+      await sleep(600);
       setLogs((prev) => [...prev, `[INFO] Pruning boilerplate and lockfiles. Valid logic files: ${fileCount}...`]);
 
       let tier = 'Micro-Architecture';
@@ -139,7 +221,7 @@ export default function TerminalConsole() {
         totalFiles,
       });
 
-      await new Promise((r) => setTimeout(r, 800));
+      await sleep(800);
       setLogs((prev) => [...prev, '[SUCCESS] Architecture mapped successfully.']);
     } catch (err: any) {
       setLogs((prev) => [...prev, `[ERROR] ${err.message}`]);
@@ -170,10 +252,9 @@ export default function TerminalConsole() {
     const isEnterprise = repoStats.files > ENTERPRISE_THRESHOLD;
 
     if (isEnterprise) {
-      const url = `https://jamborano.gumroad.com/l/ghostdoc-enterprise?repo_url=${encodeURIComponent(
-        repoUrl
-      )}&output_mode=enterprise`;
-      window.location.href = url;
+      setShowGumroadLoading(true);
+      const url = `https://jamborano.gumroad.com/l/ghostdoc-enterprise?repo_url=${encodeURIComponent(repoUrl)}&output_mode=enterprise`;
+      setTimeout(() => { window.location.href = url; }, 500);
       return;
     }
 
@@ -182,10 +263,9 @@ export default function TerminalConsole() {
       return;
     }
 
-    const url = `https://jamborano.gumroad.com/l/ghostdoc?email=${encodeURIComponent(
-      deliveryEmail
-    )}&repo_url=${encodeURIComponent(repoUrl)}&output_mode=standard`;
-    window.location.href = url;
+    setShowGumroadLoading(true);
+    const url = `https://jamborano.gumroad.com/l/ghostdoc?email=${encodeURIComponent(deliveryEmail)}&repo_url=${encodeURIComponent(repoUrl)}&output_mode=standard`;
+    setTimeout(() => { window.location.href = url; }, 500);
   };
 
   const isEnterprise = repoStats.files > ENTERPRISE_THRESHOLD;
@@ -207,7 +287,7 @@ export default function TerminalConsole() {
               <div className="absolute right-3 top-1/2 -translate-y-1/2">
                 <button
                   onClick={() => simulateScan()}
-                  className="w-10 h-10 flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white rounded-full transition-all active:scale-95"
+                  className="w-10 h-10 flex items-center justify-center bg-[#4d6cf7] hover:bg-[#3b5de7] text-white rounded-full transition-all active:scale-95"
                 >
                   <SendUpArrowIcon />
                 </button>
@@ -217,31 +297,33 @@ export default function TerminalConsole() {
             <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
               <button
                 onClick={() => setShowPopup(true)}
-                className="text-green-400 hover:text-green-300 text-sm border border-green-500/30 px-6 py-3 rounded-full hover:bg-green-900/10 transition-all font-mono w-full sm:w-auto text-center"
+                className="text-[#4d6cf7] hover:text-[#6b86f9] text-sm border border-[#4d6cf7]/30 px-6 py-3 rounded-full hover:bg-[#4d6cf7]/10 transition-all font-mono w-full sm:w-auto text-center"
               >
-                ⚡ Try Instant Demo
+                <LightningIcon className="w-4 h-4 inline-block mr-1 text-[#4d6cf7]" />
+                Try Instant Demo
               </button>
               <button
                 onClick={() => window.location.href = 'https://jamborano.gumroad.com/l/ghostdoc-enterprise'}
-                className="text-blue-400 hover:text-blue-300 text-sm border border-blue-500/30 px-6 py-3 rounded-full hover:bg-blue-900/20 transition-all w-full sm:w-auto text-center"
+                className="text-[#4d6cf7] hover:text-[#6b86f9] text-sm border border-[#4d6cf7]/30 px-6 py-3 rounded-full hover:bg-[#4d6cf7]/20 transition-all w-full sm:w-auto text-center"
               >
-                🔒 Upload Secure ZIP · $99
+                <LockIcon className="w-4 h-4 inline-block mr-1 text-[#4d6cf7]" />
+                Upload Secure ZIP · $99
               </button>
             </div>
 
             {showPopup && (
-              <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-4">
-                <div className="bg-[#1e1f20] border border-neutral-800 rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl transition-opacity duration-150 ease-out opacity-100 will-change-transform transform translateZ(0)">
+              <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/90 p-4 overflow-y-auto overscroll-contain">
+                <div className="bg-[#1e1f20] border border-neutral-800 rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl text-center">
                   <div className="flex justify-between items-center mb-6">
-                    <h3 className="text-xl font-black text-white tracking-tight">Select Demo Repository</h3>
+                    <h3 className="text-xl font-black text-white tracking-tight flex-1">Select Demo Repository</h3>
                     <button
                       onClick={() => setShowPopup(false)}
-                      className="text-neutral-400 hover:text-white text-2xl leading-none transition-colors duration-100"
+                      className="text-neutral-400 hover:text-white text-2xl leading-none"
                     >
-                      ✕
+                      <CloseIcon className="w-5 h-5" />
                     </button>
                   </div>
-                  <p className="text-sm text-neutral-400 mb-6 font-mono">
+                  <p className="text-sm text-neutral-400 mb-6 font-mono text-center">
                     Choose a repo to instantly populate the URL and run a live architecture scan.
                   </p>
                   <div className="space-y-3">
@@ -249,7 +331,7 @@ export default function TerminalConsole() {
                       <button
                         key={repo.id}
                         onClick={() => handleSelectDemo(repo)}
-                        className="w-full text-left bg-[#0c0d12] hover:bg-[#2a2b2e] border border-neutral-800 hover:border-blue-500/50 rounded-xl px-5 py-4 transition-all duration-100 ease-in-out will-change-transform transform translateZ(0) cursor-pointer"
+                        className="w-full text-center bg-[#0c0d12] hover:bg-[#2a2b2e] border border-neutral-800 hover:border-[#4d6cf7]/50 rounded-xl px-5 py-4 cursor-pointer"
                       >
                         <div className="text-white font-bold text-sm">{repo.label}</div>
                         <div className="text-xs text-neutral-500 font-mono truncate">{repo.url}</div>
@@ -257,8 +339,9 @@ export default function TerminalConsole() {
                     ))}
                   </div>
                   <div className="mt-6 pt-4 border-t border-neutral-800/60">
-                    <p className="text-[10px] text-neutral-600 font-mono text-center">
-                      🔒 Zero-retention • No data stored • Redirects to sandbox after scan
+                    <p className="text-[10px] text-neutral-600 font-mono text-center flex items-center justify-center gap-1">
+                      <LockIcon className="w-3 h-3 text-neutral-600" />
+                      Zero-retention · No data stored · Redirects to sandbox after scan
                     </p>
                   </div>
                 </div>
@@ -282,7 +365,7 @@ export default function TerminalConsole() {
                   key={i}
                   className={
                     log.includes('[SUCCESS]')
-                      ? 'text-blue-400 font-bold'
+                      ? 'text-[#4d6cf7] font-bold'
                       : log.includes('[ERROR]')
                       ? 'text-red-400'
                       : ''
@@ -299,22 +382,23 @@ export default function TerminalConsole() {
 
       {step === 3 && mounted && createPortal(
         <div className="fixed inset-0 z-[999] bg-[#0c0d12] flex items-center justify-center p-4">
-          <div className="w-full max-w-2xl mx-auto bg-[#1e1f20] rounded-2xl p-8 shadow-2xl border border-neutral-800 relative">
+          <div className="w-full max-w-md mx-auto bg-[#1e1f20] rounded-2xl p-6 sm:p-8 shadow-2xl border border-neutral-800 relative pt-8 sm:pt-10">
             <button
               onClick={() => window.location.href = '/'}
-              className="absolute top-4 left-4 text-neutral-400 hover:text-white text-sm font-mono transition-colors bg-[#0c0d12]/60 px-3 py-1.5 rounded-md border border-neutral-800/50 hover:border-neutral-600"
+              className="absolute top-5 right-5 text-neutral-400 hover:text-white text-2xl leading-none transition-colors duration-100"
+              aria-label="Close"
             >
-              ← Back to Home
+              ✕
             </button>
 
             <div className="mt-6">
-              <div className="bg-[#0c0d12] p-5 rounded-xl flex items-center gap-5 mb-6 border border-green-500/20">
-                <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center shrink-0">
+              <div className="bg-[#0c0d12] p-4 rounded-xl flex items-center gap-4 mb-6 border border-green-500/20">
+                <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center shrink-0">
                   <CheckIcon />
                 </div>
                 <div>
-                  <div className="font-black text-xl text-[#F5F5DC]">{repoStats.tierName}</div>
-                  <div className="text-sm text-neutral-400 font-mono">
+                  <div className="font-black text-lg text-[#F5F5DC]">{repoStats.tierName}</div>
+                  <div className="text-xs text-neutral-400 font-mono">
                     {repoStats.files.toLocaleString()} Source Files Mapped
                     {repoStats.totalFiles > 0 && (
                       <span className="text-neutral-600"> (of {repoStats.totalFiles.toLocaleString()} total files)</span>
@@ -324,34 +408,45 @@ export default function TerminalConsole() {
               </div>
 
               {!isEnterprise && (
-                <div className="mb-6">
+                <div className="mb-5">
                   <input
                     type="email"
                     placeholder="Enter delivery email..."
                     value={deliveryEmail}
                     onChange={(e) => setDeliveryEmail(e.target.value)}
-                    className="w-full bg-[#0c0d12] border border-neutral-800 rounded-xl px-5 py-4 text-[#F5F5DC] text-lg focus:outline-none focus:border-blue-500 placeholder:text-neutral-600"
-                    required
+                    className="w-full bg-[#0c0d12] border border-neutral-800 rounded-xl px-4 py-3 text-[#F5F5DC] text-base focus:outline-none focus:border-[#4d6cf7] placeholder:text-neutral-600"
                   />
                 </div>
               )}
 
               <button
                 onClick={handleCheckout}
-                className="w-full py-5 bg-blue-600 hover:bg-blue-500 text-white font-black text-lg rounded-xl transition-all uppercase tracking-widest"
+                className="w-full py-3.5 bg-[#4d6cf7] hover:bg-[#3b5de7] text-white font-black text-sm rounded-full transition-all uppercase tracking-widest"
               >
                 {isEnterprise ? 'Initialize Enterprise Vault' : 'Initialize Generation'}
               </button>
 
               {isEnterprise && (
                 <p className="text-[10px] text-amber-400/70 text-center mt-3 font-mono">
-                  ⚡ Monolithic scale detected — auto‑upgraded to Enterprise Vault
+                  <LightningIcon className="w-3 h-3 inline-block mr-1 text-amber-400" />
+                  Monolithic scale detected — auto‑upgraded to Enterprise Vault
                 </p>
               )}
             </div>
           </div>
         </div>,
         document.body
+      )}
+
+      {showGumroadLoading && (
+        <div className="fixed inset-0 z-[999999] bg-[#0c0d12] flex flex-col items-center justify-center">
+          <div className="loading-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <p className="text-neutral-400 text-sm mt-4 font-mono">Redirecting to secure checkout...</p>
+        </div>
       )}
     </>
   );

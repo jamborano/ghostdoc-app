@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { marked } from 'marked';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import Footer from '@/components/Footer';
+import BackHomeButton from '@/components/BackHomeButton';
 
 type GuideContent = {
   title: string;
@@ -42,7 +44,11 @@ export default function GuidePage() {
   if (loading) {
     return (
       <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] flex items-center justify-center">
-        <p className="text-neutral-400 font-mono">Loading...</p>
+        <div className="loading-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </main>
     );
   }
@@ -55,8 +61,10 @@ export default function GuidePage() {
     );
   }
 
-  // ✅ Aktifkan GFM untuk tabel yang lebih baik
-  const htmlContent = marked.parse(guide.content || '', { gfm: true, breaks: true });
+  const htmlContent = marked.parse(guide.content || '', {
+    gfm: true,
+    breaks: true,
+  });
 
   return (
     <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] font-sans relative overflow-x-hidden">
@@ -64,7 +72,10 @@ export default function GuidePage() {
         <div className="h-[600px] w-[900px] bg-blue-700/10 rounded-full blur-[200px] opacity-70"></div>
       </div>
       <div className="max-w-4xl mx-auto px-6 pt-32 pb-24 relative z-10">
-        <Link href="/guides" className="text-blue-400 hover:text-blue-300 text-sm font-mono mb-6 inline-block">
+        <Link
+          href="/guides"
+          className="text-blue-400 hover:text-blue-300 text-sm font-mono mb-6 inline-block"
+        >
           ← Back to Resources
         </Link>
 
@@ -72,16 +83,21 @@ export default function GuidePage() {
         {guide.date && <p className="text-sm text-neutral-500 font-mono mb-8">{guide.date}</p>}
 
         <div
-          className="prose prose-invert prose-blue max-w-none"
+          className="prose prose-invert prose-blue max-w-none terminal"
           dangerouslySetInnerHTML={{ __html: htmlContent }}
         />
 
         <div className="mt-12 pt-8 border-t border-neutral-800/60">
-          <Link href="/guides" className="text-blue-400 hover:text-blue-300 text-sm font-mono">
+          <Link
+            href="/guides"
+            className="text-blue-400 hover:text-blue-300 text-sm font-mono"
+          >
             ← All Resources
           </Link>
         </div>
       </div>
+      <BackHomeButton />
+      <Footer />
     </main>
   );
 }
