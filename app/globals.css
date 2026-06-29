@@ -44,3 +44,147 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #2a2b2e transparent;
 }
+
+/* app/globals.css — tambahkan di akhir */
+
+/* ===== PERBAIKAN TABEL UNTUK GUIDE ===== */
+.prose table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.8rem;
+  margin: 1.5rem 0;
+  background: #121318;
+  border-radius: 8px;
+  border: 1px solid #30363d;
+}
+
+.prose thead {
+  background: #1e1f20;
+}
+
+.prose th,
+.prose td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #30363d;
+  text-align: left;
+  color: #c9d1d9;
+  min-width: 100px;
+}
+
+.prose th {
+  color: #ffffff;
+  font-weight: 700;
+  background: #16171a;
+}
+
+.prose tr:nth-child(even) {
+  background: #0d0f12;
+}
+
+/* Kolom pertama (Feature) lebih lebar */
+.prose td:first-child,
+.prose th:first-child {
+  min-width: 140px;
+  font-weight: 600;
+  color: #e4e4e7;
+}
+
+/* Kolom lainnya */
+.prose td:nth-child(2),
+.prose th:nth-child(2),
+.prose td:nth-child(3),
+.prose th:nth-child(3),
+.prose td:nth-child(4),
+.prose th:nth-child(4) {
+  min-width: 120px;
+}
+
+/* Warna status */
+.prose td:contains("Yes"),
+.prose td:contains("Enterprise") {
+  color: #4ade80;
+}
+
+.prose td:contains("No") {
+  color: #f87171;
+}
+
+/* ===== GUIDE CONTENT ===== */
+.prose {
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.prose h1, .prose h2, .prose h3 {
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+}
+
+.prose p, .prose li, .prose td, .prose th {
+  color: #e4e4e7 !important;
+}
+
+.prose table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.8rem;
+  margin: 1.5rem 0;
+  background: #121318;
+  border-radius: 8px;
+  border: 1px solid #30363d;
+}
+
+.prose thead {
+  background: #1e1f20;
+}
+
+.prose th,
+.prose td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #30363d;
+  text-align: left;
+  color: #c9d1d9;
+  min-width: 100px;
+}
+
+.prose th {
+  color: #ffffff;
+  font-weight: 700;
+  background: #16171a;
+}
+
+.prose tr:nth-child(even) {
+  background: #0d0f12;
+}
+
+.prose td:first-child,
+.prose th:first-child {
+  min-width: 140px;
+  font-weight: 600;
+  color: #e4e4e7;
+}
+
+.prose td:nth-child(2),
+.prose th:nth-child(2),
+.prose td:nth-child(3),
+.prose th:nth-child(3),
+.prose td:nth-child(4),
+.prose th:nth-child(4) {
+  min-width: 120px;
+}
+
+.prose td:contains("Yes"),
+.prose td:contains("Enterprise") {
+  color: #4ade80;
+}
+
+.prose td:contains("No") {
+  color: #f87171;
+}
