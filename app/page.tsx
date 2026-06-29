@@ -11,7 +11,7 @@ export default function Home() {
         <div className="h-[600px] w-[900px] bg-blue-700/10 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
-      {/* HEADER — tanpa Resources */}
+      {/* HEADER — tanpa Resources, tanpa Testimonials */}
       <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0c0d12]/80 backdrop-blur-md border-b border-neutral-900/40">
         <Link href="/" className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
           <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
@@ -200,7 +200,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIAL */}
+      {/* ===== TESTIMONIAL + RESOURCES LINK ===== */}
       <section className="relative z-10 w-full px-6 py-16 border-t border-neutral-900/60">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="sr-only">Testimonials</h2>
@@ -215,9 +215,13 @@ export default function Home() {
             <span className="flex items-center gap-1">🔒 SOC2 Compliant</span>
             <span className="flex items-center gap-1">🚀 10k+ repos analyzed</span>
           </div>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-col items-center gap-3">
             <Link href="/testimonials" className="text-blue-400 hover:text-blue-300 text-sm font-mono">
               Read more reviews →
+            </Link>
+            {/* ===== RESOURCES DI SINI ===== */}
+            <Link href="/guides" className="text-blue-400 hover:text-blue-300 text-sm font-mono">
+              Engineering Resources →
             </Link>
           </div>
         </div>
@@ -256,21 +260,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER — dengan link Resources */}
+      {/* FOOTER — tanpa Testimonials & Resources */}
       <footer className="relative z-10 w-full border-t border-neutral-900/60 py-8 text-center text-xs text-neutral-500">
         <div className="max-w-4xl mx-auto">
           <p>&copy; {new Date().getFullYear()} GhostDoc — Jamborano Tech Studio. All rights reserved.</p>
           <p className="mt-1 text-neutral-600 font-medium tracking-wide">
             Zero Retention. Zero Compromise. Enterprise Grade Documentation.
           </p>
-          <div className="mt-3 flex justify-center gap-6 text-[11px]">
-            <Link href="/guides" className="hover:text-white transition-colors">
-              Engineering Resources
-            </Link>
-            <Link href="/testimonials" className="hover:text-white transition-colors">
-              Testimonials
-            </Link>
-          </div>
         </div>
       </footer>
     </main>
