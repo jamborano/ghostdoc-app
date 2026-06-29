@@ -55,7 +55,8 @@ export default function GuidePage() {
     );
   }
 
-  const htmlContent = marked.parse(guide.content || '');
+  // ✅ Aktifkan GFM untuk tabel yang lebih baik
+  const htmlContent = marked.parse(guide.content || '', { gfm: true, breaks: true });
 
   return (
     <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] font-sans relative overflow-x-hidden">

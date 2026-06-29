@@ -188,3 +188,17 @@ body {
 .prose td:contains("No") {
   color: #f87171;
 }
+
+/* ===== TULISAN LEBIH TAJAM ===== */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-weight: 400;
+}
+
+.prose p, .prose li, .prose td, .prose th {
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: #e4e4e7 !important;
+}
