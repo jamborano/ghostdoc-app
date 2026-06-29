@@ -1,9 +1,8 @@
-﻿'use client';
+﻿import Link from 'next/link';
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-
-// ✅ Definisikan tipe Guide
 type Guide = {
   slug: string;
   title: string;
@@ -12,18 +11,24 @@ type Guide = {
 };
 
 export default function GuidesPage() {
-  const [guides, setGuides] = useState<Guide[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Baca file langsung di server (tanpa fetch)
+  const guidesDirectory = path.join(process.cwd(), 'content/guides');
+  let guides: Guide[] = [];
 
-  useEffect(() => {
-    fetch('/api/guides')
-      .then((res) => res.json())
-      .then((data) => {
-        setGuides(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
+  if (fs.existsSync(guidesDirectory)) {
+    const filenames = fs.readdirSync(guidesDirectory);
+    guides = filenames.map((filename) => {
+      const filePath = path.join(guidesDirectory, filename);
+      const fileContent = fs.readFileSync(filePath, 'utf8');
+      const { data } = matter(fileContent);
+      return {
+        slug: filename.replace(/\.md$/, ''),
+        title: data.title || 'Untitled',
+        description: data.description || '',
+        date: data.date || '',
+      };
+    });
+  }
 
   return (
     <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] font-sans relative overflow-x-hidden">
@@ -41,8 +46,8 @@ export default function GuidesPage() {
           zero-retention security, and DevSecOps audits.
         </p>
 
-        {loading ? (
-          <p className="text-neutral-500 font-mono text-sm">Loading guides...</p>
+        {guides.length === 0 ? (
+          <p className="text-neutral-500 font-mono text-sm">No guides yet.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {guides.map((guide) => (
