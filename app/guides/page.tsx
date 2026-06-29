@@ -1,7 +1,8 @@
-﻿import Link from 'next/link';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+﻿// app/guides/page.tsx
+'use client';
+
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 type Guide = {
   slug: string;
@@ -11,31 +12,18 @@ type Guide = {
 };
 
 export default function GuidesPage() {
-  const guidesDirectory = path.join(process.cwd(), 'public/guides');
-  let guides: Guide[] = [];
+  const [guides, setGuides] = useState<Guide[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  if (fs.existsSync(guidesDirectory)) {
-    const filenames = fs.readdirSync(guidesDirectory);
-    guides = filenames
-      .filter((f) => f.endsWith('.md'))
-      .map((filename) => {
-        const filePath = path.join(guidesDirectory, filename);
-        const fileContent = fs.readFileSync(filePath, 'utf8');
-        const { data } = matter(fileContent);
-        return {
-          slug: filename.replace(/\.md$/, ''),
-          title: data.title || 'Untitled',
-          description: data.description || '',
-          date: data.date || '',
-        };
+  useEffect(() => {
+    fetch('/api/guides')
+      .then((res) => res.json())
+      .then((data) => {
+        setGuides(data);
+        setLoading(false);
       })
-      // 🔽 URUTKAN DARI TANGGAL TERBARU
-      .sort((a, b) => {
-        if (!a.date) return 1;
-        if (!b.date) return -1;
-        return new Date(b.date).getTime() - new Date(a.date).getTime();
-      });
-  }
+      .catch(() => setLoading(false));
+  }, []);
 
   return (
     <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] font-sans relative overflow-x-hidden">
@@ -53,7 +41,9 @@ export default function GuidesPage() {
           zero-retention security, and DevSecOps audits.
         </p>
 
-        {guides.length === 0 ? (
+        {loading ? (
+          <p className="text-neutral-500 font-mono text-sm">Loading guides...</p>
+        ) : guides.length === 0 ? (
           <p className="text-neutral-500 font-mono text-sm">No guides yet.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

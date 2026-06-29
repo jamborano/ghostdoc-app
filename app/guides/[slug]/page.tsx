@@ -1,7 +1,9 @@
-﻿import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+﻿'use client';
+
+import { useEffect, useState } from 'react';
+import { marked } from 'marked';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 type GuideContent = {
   title: string;
@@ -10,24 +12,42 @@ type GuideContent = {
   content: string;
 };
 
-export default function GuidePage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
-  const filePath = path.join(process.cwd(), 'content/guides', `${slug}.md`);
+export default function GuidePage() {
+  const params = useParams();
+  const slug = params.slug as string;
+  const [guide, setGuide] = useState<GuideContent | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  let data: GuideContent | null = null;
+  useEffect(() => {
+    if (!slug) {
+      setLoading(false);
+      return;
+    }
 
-  if (fs.existsSync(filePath)) {
-    const fileContent = fs.readFileSync(filePath, 'utf8');
-    const { data: frontmatter, content } = matter(fileContent);
-    data = {
-      title: frontmatter.title || 'Untitled',
-      description: frontmatter.description || '',
-      date: frontmatter.date || '',
-      content: content,
-    };
+    fetch(`/api/guides/${slug}`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Not found');
+        return res.json();
+      })
+      .then((data) => {
+        setGuide(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+        setGuide(null);
+      });
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] flex items-center justify-center">
+        <p className="text-neutral-400 font-mono">Loading...</p>
+      </main>
+    );
   }
 
-  if (!data) {
+  if (!guide) {
     return (
       <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] flex items-center justify-center">
         <p className="text-neutral-400 font-mono">Guide not found.</p>
@@ -35,7 +55,8 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
     );
   }
 
-  const contentLines = data.content ? data.content.split('\n') : ['No content available.'];
+  // Render markdown content
+  const htmlContent = marked.parse(guide.content || '');
 
   return (
     <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] font-sans relative overflow-x-hidden">
@@ -46,13 +67,17 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
         <Link href="/guides" className="text-blue-400 hover:text-blue-300 text-sm font-mono mb-6 inline-block">
           ← Back to Resources
         </Link>
-        <h1 className="text-4xl font-black text-white mb-4">{data.title}</h1>
-        {data.date && <p className="text-sm text-neutral-500 font-mono mb-8">{data.date}</p>}
-        <div className="prose prose-invert prose-blue max-w-none">
-          {contentLines.map((line, i) => (
-            <p key={i} className="text-neutral-300 text-sm leading-relaxed">{line}</p>
-          ))}
-        </div>
+
+        <h1 className="text-4xl font-black text-white mb-4">{guide.title}</h1>
+        {guide.date && (
+          <p className="text-sm text-neutral-500 font-mono mb-8">{guide.date}</p>
+        )}
+
+        <div
+          className="prose prose-invert prose-blue max-w-none"
+          dangerouslySetInnerHTML={{ __html: htmlContent }}
+        />
+
         <div className="mt-12 pt-8 border-t border-neutral-800/60">
           <Link href="/guides" className="text-blue-400 hover:text-blue-300 text-sm font-mono">
             ← All Resources

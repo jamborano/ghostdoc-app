@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import React from 'react';
-import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/react';
 import "./globals.css";
 
@@ -111,10 +110,8 @@ export default function RootLayout({
   return (
     <html lang="id" className="dark">
       <head>
-        <Script
-          id="json-ld-ghostdoc"
+        <script
           type="application/ld+json"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -126,9 +123,11 @@ export default function RootLayout({
       </head>
       <body className="antialiased bg-[#0c0d12] text-[#F5F5DC] selection:bg-blue-500/30 selection:text-white">
         {children}
-        <Script 
-          src="https://gumroad.com/js/gumroad.js" 
-          strategy="beforeInteractive" 
+        {/* ✅ Gumroad JS — pakai script biasa (tanpa Next.js Script) */}
+        <script
+          async
+          defer
+          src="https://gumroad.com/js/gumroad.js"
         />
         <Analytics />
       </body>
