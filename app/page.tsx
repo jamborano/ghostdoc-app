@@ -11,7 +11,7 @@ export default function Home() {
         <div className="h-[600px] w-[900px] bg-blue-700/10 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
-      {/* HEADER — tanpa Resources, tanpa Testimonials */}
+      {/* HEADER */}
       <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0c0d12]/80 backdrop-blur-md border-b border-neutral-900/40">
         <Link href="/" className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
           <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
@@ -104,7 +104,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* ===== ENTERPRISE ($99) ===== */}
+            {/* ===== ENTERPRISE ($99) — TOMBOL HIJAU ===== */}
             <div className="bg-[#1e1f20]/80 p-8 rounded-2xl border border-blue-500/30 hover:border-blue-400/60 transition-all duration-300 flex flex-col relative">
               <div className="absolute -top-3 right-6 bg-blue-600 text-white text-[10px] font-black px-4 py-1 rounded-full tracking-widest uppercase">
                 Most Complete
@@ -148,7 +148,8 @@ export default function Home() {
                   href="https://jamborano.gumroad.com/l/ghostdoc-enterprise"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 w-full block text-center py-4 bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-white font-black text-sm rounded-xl transition-all uppercase tracking-widest"
+                  // ✅ TOMBOL HIJAU (SAMA KAYAK INSTANT DEMO)
+                  className="mt-4 w-full block text-center py-4 bg-green-600 hover:bg-green-500 text-white font-black text-sm rounded-xl transition-all uppercase tracking-widest"
                 >
                   Initialize Enterprise →
                 </a>
@@ -200,7 +201,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== TESTIMONIAL + RESOURCES LINK ===== */}
+      {/* ===== TESTIMONIAL + TOMBOL BIRU ===== */}
       <section className="relative z-10 w-full px-6 py-16 border-t border-neutral-900/60">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="sr-only">Testimonials</h2>
@@ -215,11 +216,19 @@ export default function Home() {
             <span className="flex items-center gap-1">🔒 SOC2 Compliant</span>
             <span className="flex items-center gap-1">🚀 10k+ repos analyzed</span>
           </div>
-          <div className="mt-8 flex flex-col items-center gap-3">
-            <Link href="/testimonials" className="text-blue-400 hover:text-blue-300 text-sm font-mono">
+          
+          {/* ✅ TOMBOL BIRU */}
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/testimonials"
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-full transition-all shadow-lg shadow-blue-600/25 hover:shadow-blue-600/50"
+            >
               Read more reviews →
             </Link>
-            <Link href="/guides" className="text-blue-400 hover:text-blue-300 text-sm font-mono">
+            <Link
+              href="/guides"
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-full transition-all shadow-lg shadow-blue-600/25 hover:shadow-blue-600/50"
+            >
               Engineering Resources →
             </Link>
           </div>
@@ -259,7 +268,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER — tanpa Testimonials & Resources */}
+      {/* FOOTER */}
       <footer className="relative z-10 w-full border-t border-neutral-900/60 py-8 text-center text-xs text-neutral-500">
         <div className="max-w-4xl mx-auto">
           <p>&copy; {new Date().getFullYear()} GhostDoc — Jamborano Tech Studio. All rights reserved.</p>
