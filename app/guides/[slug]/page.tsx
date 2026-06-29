@@ -55,7 +55,6 @@ export default function GuidePage() {
     );
   }
 
-  // Render markdown content
   const htmlContent = marked.parse(guide.content || '');
 
   return (
@@ -69,9 +68,7 @@ export default function GuidePage() {
         </Link>
 
         <h1 className="text-4xl font-black text-white mb-4">{guide.title}</h1>
-        {guide.date && (
-          <p className="text-sm text-neutral-500 font-mono mb-8">{guide.date}</p>
-        )}
+        {guide.date && <p className="text-sm text-neutral-500 font-mono mb-8">{guide.date}</p>}
 
         <div
           className="prose prose-invert prose-blue max-w-none"

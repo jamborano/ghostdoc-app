@@ -1,17 +1,17 @@
-﻿import { NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
 export async function GET(
-  req: Request,
-  { params }: { params: Promise<{ slug: string }> }
+  request: NextRequest,
+  context: { params: Promise<{ slug: string }> }
 ) {
-  const { slug } = await params;
+  const { slug } = await context.params;
   const filePath = path.join(process.cwd(), 'public/guides', `${slug}.md`);
 
   if (!fs.existsSync(filePath)) {
-    return NextResponse.json(null, { status: 404 });
+    return NextResponse.json({ error: 'Guide not found' }, { status: 404 });
   }
 
   const fileContent = fs.readFileSync(filePath, 'utf8');
