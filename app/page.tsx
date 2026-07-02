@@ -3,24 +3,23 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import TerminalConsole from '@/components/TerminalConsole';
 import Footer from '@/components/Footer';
 import HowToUseModal from '@/components/HowToUseModal';
-// SEMENTARA DI-NONAKTIFKAN: import TerminalConsole from '@/components/TerminalConsole';
 
 export default function Home() {
   const [showHowToUse, setShowHowToUse] = useState(false);
 
   return (
     <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] flex flex-col font-sans relative overflow-x-hidden">
-      {/* Background Glow */}
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
         <div className="h-[600px] w-[900px] bg-[#4d6cf7]/5 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
-      {/* HEADER */}
+      {/* HEADER — Zero Delay */}
       <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0c0d12]">
         <Link href="/" className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
-          <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
+          <div className="relative w-8 h-8 transition-transform duration-0 group-hover:scale-110">
             <Image 
               src="/logo.svg"
               alt="GhostDoc Logo" 
@@ -39,7 +38,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 pt-28 pb-16 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl md:text-5xl text-[#F5F5DC] font-light tracking-wide mb-4 leading-tight">
@@ -50,7 +49,7 @@ export default function Home() {
             Automated production-grade system architecture blueprints and code manuals for Next.js, Python, and microservice stacks.
           </p>
           
-          {/* SEMENTARA DI-NONAKTIFKAN: <TerminalConsole /> */}
+          <TerminalConsole />
 
           <div className="flex items-center justify-center gap-2.5 text-sm font-medium text-neutral-400 mt-8">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span>
@@ -59,7 +58,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PRICING SECTION (disederhanakan) */}
+      {/* PRICING — Zero Delay + HOW IT WORKS DI BAWAHNYA */}
       <section className="relative z-10 w-full px-6 py-16 border-t border-neutral-900/60">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-2xl md:text-4xl font-black tracking-tight mb-4">Choose Your Documentation Engine</h2>
@@ -68,8 +67,8 @@ export default function Home() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-            {/* Core */}
-            <div className="bg-[#1e1f20]/60 p-8 rounded-2xl border border-neutral-800/80 hover:border-[#4d6cf7]/30 transition-all duration-300 flex flex-col">
+            {/* Core Card */}
+            <div className="bg-[#1e1f20]/60 p-8 rounded-2xl border border-neutral-800/80 hover:border-[#4d6cf7]/30 transition-colors duration-0 flex flex-col">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-2xl font-black text-white tracking-tight">GhostDoc Core</h3>
                 <span className="text-4xl font-black text-[#4d6cf7]">$9</span>
@@ -94,14 +93,14 @@ export default function Home() {
                   <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                   <span>Zero‑Retention · One‑time</span>
                 </div>
-                <a href="https://jamborano.gumroad.com/l/ghostdoc" target="_blank" rel="noopener noreferrer" className="mt-4 w-full block text-center py-4 bg-[#4d6cf7] hover:bg-[#3b5de7] text-white font-black text-sm rounded-full transition-all uppercase tracking-widest">
+                <a href="https://jamborano.gumroad.com/l/ghostdoc" target="_blank" rel="noopener noreferrer" className="mt-4 w-full block text-center py-4 bg-[#4d6cf7] hover:bg-[#3b5de7] text-white font-black text-sm rounded-full transition-colors duration-0 uppercase tracking-widest">
                   Initialize Engine
                 </a>
               </div>
             </div>
 
-            {/* Enterprise */}
-            <div className="bg-[#1e1f20]/80 p-8 rounded-2xl border border-[#4d6cf7]/30 hover:border-[#4d6cf7]/60 transition-all duration-300 flex flex-col relative">
+            {/* Enterprise Card */}
+            <div className="bg-[#1e1f20]/80 p-8 rounded-2xl border border-[#4d6cf7]/30 hover:border-[#4d6cf7]/60 transition-colors duration-0 flex flex-col relative">
               <div className="absolute -top-3 right-6 bg-[#4d6cf7] text-white text-[10px] font-black px-4 py-1 rounded-full tracking-widest uppercase">Most Complete</div>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-2xl font-black text-white tracking-tight">Enterprise Vault</h3>
@@ -135,31 +134,44 @@ export default function Home() {
                   <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                   <span>One‑time · NDA compliant</span>
                 </div>
-                <a href="https://jamborano.gumroad.com/l/ghostdoc-enterprise" target="_blank" rel="noopener noreferrer" className="mt-4 w-full block text-center py-4 bg-[#4d6cf7] hover:bg-[#3b5de7] text-white font-black text-sm rounded-full transition-all uppercase tracking-widest">
+                <a href="https://jamborano.gumroad.com/l/ghostdoc-enterprise" target="_blank" rel="noopener noreferrer" className="mt-4 w-full block text-center py-4 bg-[#4d6cf7] hover:bg-[#3b5de7] text-white font-black text-sm rounded-full transition-colors duration-0 uppercase tracking-widest">
                   Initialize Enterprise
                 </a>
               </div>
             </div>
           </div>
+
+          {/* ===== HOW IT WORKS — DI SINI (DI BAWAH PRICING) ===== */}
+          <div className="mt-12 pt-8 border-t border-neutral-800/60">
+            <button
+              onClick={() => setShowHowToUse(true)}
+              className="px-8 py-3 bg-[#4d6cf7] hover:bg-[#3b5de7] text-white font-bold text-sm rounded-full transition-colors duration-0 shadow-lg shadow-[#4d6cf7]/25 hover:shadow-[#4d6cf7]/50"
+            >
+              How It Works
+            </button>
+            <p className="text-[12px] text-neutral-600 text-center mt-4 font-mono">
+              End‑to‑end encrypted · No training data · Zero retention
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* FEATURES SECTION (disederhanakan) */}
+      {/* FEATURES SECTION */}
       <section className="relative z-10 w-full px-6 py-16 border-t border-neutral-900/60">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-2xl md:text-4xl font-black tracking-tight mb-4">Engineered for Enterprise Security &amp; Speed</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-            <article className="bg-[#1e1f20]/40 p-8 rounded-2xl border border-neutral-800/80">
+            <article className="bg-[#1e1f20]/40 p-8 rounded-2xl border border-neutral-800/80 hover:border-[#4d6cf7]/30 transition-colors duration-0">
               <div className="text-[#4d6cf7] font-bold text-xl mb-3">01 / Ephemeral Compute</div>
               <h3 className="text-lg font-bold mb-2 text-[#F5F5DC]">Zero Data Retention</h3>
               <p className="text-sm text-neutral-400">Our worker nodes spin dynamically for each scan.</p>
             </article>
-            <article className="bg-[#1e1f20]/40 p-8 rounded-2xl border border-neutral-800/80">
+            <article className="bg-[#1e1f20]/40 p-8 rounded-2xl border border-neutral-800/80 hover:border-[#4d6cf7]/30 transition-colors duration-0">
               <div className="text-[#4d6cf7] font-bold text-xl mb-3">02 / Deep Intelligence</div>
               <h3 className="text-lg font-bold mb-2 text-[#F5F5DC]">Cognitive Indexing</h3>
               <p className="text-sm text-neutral-400">Advanced parsing patterns read code complexities.</p>
             </article>
-            <article className="bg-[#1e1f20]/40 p-8 rounded-2xl border border-neutral-800/80">
+            <article className="bg-[#1e1f20]/40 p-8 rounded-2xl border border-neutral-800/80 hover:border-[#4d6cf7]/30 transition-colors duration-0">
               <div className="text-[#4d6cf7] font-bold text-xl mb-3">03 / Frictionless Pricing</div>
               <h3 className="text-lg font-bold mb-2 text-[#F5F5DC]">Flat-Rate Licensing</h3>
               <p className="text-sm text-neutral-400">Pay an accessible flat $9 per repository.</p>
@@ -168,7 +180,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIALS SECTION */}
+      {/* TESTIMONIALS */}
       <section className="relative z-10 w-full px-6 py-16 border-t border-neutral-900/60">
         <div className="max-w-4xl mx-auto text-center">
           <blockquote className="text-center text-neutral-300 italic text-lg md:text-xl max-w-3xl mx-auto">
@@ -181,13 +193,17 @@ export default function Home() {
             <span>10k+ repos analyzed</span>
           </div>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/testimonials" className="px-6 py-3 bg-[#4d6cf7] hover:bg-[#3b5de7] text-white font-bold text-sm rounded-full">Read more reviews</Link>
-            <Link href="/guides" className="px-6 py-3 bg-[#4d6cf7] hover:bg-[#3b5de7] text-white font-bold text-sm rounded-full">Engineering Resources</Link>
+            <Link href="/testimonials" className="px-6 py-3 bg-[#4d6cf7] hover:bg-[#3b5de7] text-white font-bold text-sm rounded-full transition-colors duration-0">
+              Read more reviews
+            </Link>
+            <Link href="/guides" className="px-6 py-3 bg-[#4d6cf7] hover:bg-[#3b5de7] text-white font-bold text-sm rounded-full transition-colors duration-0">
+              Engineering Resources
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* FAQ SECTION */}
+      {/* FAQ */}
       <section className="relative z-10 w-full px-6 py-16 border-t border-neutral-900/60">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-center mb-12">Frequently Asked Questions</h2>
@@ -218,21 +234,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HOW IT WORKS BUTTON — MEMICU MODAL */}
-      <section className="relative z-10 w-full px-6 py-10 border-t border-neutral-900/60">
-        <div className="max-w-3xl mx-auto text-center">
-          <button
-            onClick={() => setShowHowToUse(true)}
-            className="px-8 py-3 bg-[#4d6cf7] hover:bg-[#3b5de7] text-white font-bold text-sm rounded-full transition-all shadow-lg shadow-[#4d6cf7]/25 hover:shadow-[#4d6cf7]/50"
-          >
-            How It Works
-          </button>
-        </div>
-      </section>
-
       <Footer />
-
-      {/* MODAL AKTIF */}
       <HowToUseModal isOpen={showHowToUse} onClose={() => setShowHowToUse(false)} />
     </main>
   );

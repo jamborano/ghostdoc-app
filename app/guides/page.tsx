@@ -2,6 +2,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Footer from '@/components/Footer';
@@ -15,7 +16,7 @@ type Guide = {
   date: string;
 };
 
-// Ikon maximize (panah diagonal)
+// Ikon maximize (panah diagonal) — tanpa delay
 const MaximizeIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +24,7 @@ const MaximizeIcon = () => (
     viewBox="0 0 24 24"
     strokeWidth={2}
     stroke="currentColor"
-    className="w-5 h-5 text-neutral-500 group-hover:text-[#4d6cf7] transition-colors"
+    className="w-5 h-5 text-neutral-500 group-hover:text-[#4d6cf7] transition-colors duration-0"
   >
     <path
       strokeLinecap="round"
@@ -34,6 +35,7 @@ const MaximizeIcon = () => (
 );
 
 export default function GuidesPage() {
+  const router = useRouter();
   const [guides, setGuides] = useState<Guide[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -47,6 +49,15 @@ export default function GuidesPage() {
       .catch(() => setLoading(false));
   }, []);
 
+  // Prefetch semua detail guide setelah data dimuat
+  useEffect(() => {
+    if (guides.length > 0) {
+      guides.forEach((guide) => {
+        router.prefetch(`/guides/${guide.slug}`);
+      });
+    }
+  }, [guides, router]);
+
   return (
     <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] font-sans relative overflow-x-hidden">
       {/* Background Glow */}
@@ -57,7 +68,7 @@ export default function GuidesPage() {
       {/* HEADER */}
       <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0c0d12]">
         <Link href="/" className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
-          <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
+          <div className="relative w-8 h-8 transition-transform duration-0 group-hover:scale-110">
             <Image
               src="/logo.svg"
               alt="GhostDoc Logo"
@@ -78,7 +89,6 @@ export default function GuidesPage() {
 
       {/* CONTENT */}
       <div className="max-w-5xl mx-auto px-6 pt-32 pb-24 relative z-10">
-        {/* HEADING 2 WARNA: Engineering putih, Resources biru */}
         <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-6 text-center">
           <span className="text-[#4d6cf7]">Engineering </span>
           <span className="text-white">Resources</span>
@@ -100,13 +110,12 @@ export default function GuidesPage() {
               <Link
                 key={guide.slug}
                 href={`/guides/${guide.slug}`}
-                className="group bg-[#1e1f20]/60 p-6 rounded-2xl border border-neutral-800/80 hover:border-[#4d6cf7]/30 transition-all duration-300 relative block"
+                prefetch={true} // Explicit prefetch (juga sudah di-prefetch via router)
+                className="group bg-[#1e1f20]/60 p-6 rounded-2xl border border-neutral-800/80 hover:border-[#4d6cf7]/30 transition-colors duration-0 relative block"
               >
-                {/* Ikon maximize di pojok kanan atas */}
                 <div className="absolute top-4 right-4">
                   <MaximizeIcon />
                 </div>
-
                 <h2 className="text-xl font-bold text-white mb-2 pr-8">{guide.title}</h2>
                 <p className="text-sm text-neutral-400">{guide.description}</p>
                 {guide.date && (
