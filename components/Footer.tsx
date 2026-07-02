@@ -6,7 +6,10 @@ export default function Footer() {
       <div className="max-w-4xl mx-auto">
         <p>&copy; {new Date().getFullYear()} GhostDoc — Jamborano Tech Studio. All rights reserved.</p>
         <p className="mt-1 text-neutral-600 font-medium tracking-wide">
-          Zero Retention. Zero Compromise. Enterprise Grade Documentation.
+          Zero Retention. Zero Compromise.
+        </p>
+        <p className="text-neutral-600 font-medium tracking-wide">
+          Enterprise Grade Documentation.
         </p>
       </div>
     </footer>

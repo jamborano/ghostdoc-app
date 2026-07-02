@@ -340,8 +340,7 @@ export default function TerminalConsole() {
                     ))}
                   </div>
                   <div className="mt-6 pt-4 border-t border-neutral-800/60">
-                    <p className="text-[10px] text-neutral-600 font-mono text-center flex items-center justify-center gap-1">
-                      <LockIcon className="w-3 h-3 text-neutral-600" />
+                    <p className="text-[10px] text-neutral-600 font-mono text-center">
                       Zero-retention · No data stored · Redirects to sandbox after scan
                     </p>
                   </div>
