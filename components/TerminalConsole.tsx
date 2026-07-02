@@ -266,7 +266,10 @@ export default function TerminalConsole() {
                 Try Instant Demo
               </button>
               <button
-                onClick={() => window.location.href = 'https://jamborano.gumroad.com/l/ghostdoc-enterprise'}
+                onClick={() => {
+                  const url = `https://jamborano.gumroad.com/l/ghostdoc-enterprise?repo_url=${encodeURIComponent(repoUrl)}&output_mode=enterprise`;
+                  window.location.href = url;
+                }}
                 className="text-[#4d6cf7] hover:text-[#6b86f9] text-sm border border-[#4d6cf7]/30 px-6 py-3 rounded-full hover:bg-[#4d6cf7]/20 transition-all w-full sm:w-auto text-center"
               >
                 <LockIcon className="w-4 h-4 inline-block mr-1 text-[#4d6cf7]" />
