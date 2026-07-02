@@ -31,6 +31,9 @@ const DEMO_DATA: Record<string, { fileCount: number; totalFiles: number; tierNam
   'supabase': { fileCount: 5757, totalFiles: 7690, tierName: 'Monolithic Scale Detected', credits: 5757 * 184 },
 };
 
+const GUMROAD_ENTERPRISE_BASE = 'https://jamborano.gumroad.com/l/ghostdoc-enterprise?_gl=1*17k4oa4*_ga*MTUzODI2Ny4xNzgxMTk5MDM2*_ga_6LJN6D94N6*czE3ODI5ODU0NzgkbzY4JGcxJHQxNzgyOTg3MTAzJGo2MCRsMCRoMA..';
+const GUMROAD_CORE_BASE = 'https://jamborano.gumroad.com/l/ghostdoc?_gl=1*17k4oa4*_ga*MTUzODI2Ny4xNzgxMTk5MDM2*_ga_6LJN6D94N6*czE3ODI5ODU0NzgkbzY4JGcxJHQxNzgyOTg3MTAzJGo2MCRsMCRoMA..';
+
 export default function TerminalConsole() {
   const [step, setStep] = useState(1);
   const [repoUrl, setRepoUrl] = useState('');
@@ -216,7 +219,7 @@ export default function TerminalConsole() {
 
     if (isEnterprise) {
       setShowGumroadLoading(true);
-      const url = `https://jamborano.gumroad.com/l/ghostdoc-enterprise?repo_url=${encodeURIComponent(repoUrl)}&output_mode=enterprise`;
+      const url = `${GUMROAD_ENTERPRISE_BASE}&repo_url=${encodeURIComponent(repoUrl)}&output_mode=enterprise`;
       window.location.href = url;
       return;
     }
@@ -227,7 +230,7 @@ export default function TerminalConsole() {
     }
 
     setShowGumroadLoading(true);
-    const url = `https://jamborano.gumroad.com/l/ghostdoc?email=${encodeURIComponent(deliveryEmail)}&repo_url=${encodeURIComponent(repoUrl)}&output_mode=standard`;
+    const url = `${GUMROAD_CORE_BASE}&email=${encodeURIComponent(deliveryEmail)}&repo_url=${encodeURIComponent(repoUrl)}&output_mode=standard`;
     window.location.href = url;
   };
 
@@ -267,7 +270,7 @@ export default function TerminalConsole() {
               </button>
               <button
                 onClick={() => {
-                  const url = `https://jamborano.gumroad.com/l/ghostdoc-enterprise?repo_url=${encodeURIComponent(repoUrl)}&output_mode=enterprise`;
+                  const url = `${GUMROAD_ENTERPRISE_BASE}&repo_url=${encodeURIComponent(repoUrl)}&output_mode=enterprise`;
                   window.location.href = url;
                 }}
                 className="text-[#4d6cf7] hover:text-[#6b86f9] text-sm border border-[#4d6cf7]/30 px-6 py-3 rounded-full hover:bg-[#4d6cf7]/20 transition-all w-full sm:w-auto text-center"
