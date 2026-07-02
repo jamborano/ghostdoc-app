@@ -11,33 +11,111 @@ export default function HowToUseModal({ isOpen, onClose }: HowToUseModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
-      <div className="bg-[#1e1f20] border border-neutral-800 rounded-2xl p-6 sm:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto relative">
-        <button onClick={onClose} className="absolute top-5 right-5 text-neutral-400 hover:text-white text-2xl">✕</button>
-        <h3 className="text-xl font-black text-white text-center mb-6">How to Use GhostDoc</h3>
-        <div className="space-y-6 text-sm text-neutral-300">
-          <div>
-            <h4 className="text-base font-bold text-[#4d6cf7] mb-3 text-center">GhostDoc Core ($9)</h4>
-            <div className="space-y-3">
-              <div className="flex items-start gap-3"><span className="w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-xs flex items-center justify-center">1</span><div><p className="font-bold text-white">Paste GitHub URL</p><p className="text-neutral-400 text-xs">Enter your public GitHub repository URL.</p></div></div>
-              <div className="flex items-start gap-3"><span className="w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-xs flex items-center justify-center">2</span><div><p className="font-bold text-white">AI Scans &amp; Maps</p><p className="text-neutral-400 text-xs">Engine analyzes architecture.</p></div></div>
-              <div className="flex items-start gap-3"><span className="w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-xs flex items-center justify-center">3</span><div><p className="font-bold text-white">Enter Email &amp; Checkout</p><p className="text-neutral-400 text-xs">$9 payment via Gumroad.</p></div></div>
-              <div className="flex items-start gap-3"><span className="w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-xs flex items-center justify-center">4</span><div><p className="font-bold text-white">Docs in Your Inbox</p><p className="text-neutral-400 text-xs">Within ~4 minutes.</p></div></div>
+    <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 overflow-y-auto overscroll-contain">
+      <div className="bg-[#1e1f20] border border-neutral-800 rounded-2xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl max-h-[90vh] overflow-y-auto relative">
+        
+        {/* Tombol Close */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-neutral-400 hover:text-white text-2xl leading-none transition-colors duration-100"
+          aria-label="Close"
+        >
+          ✕
+        </button>
+
+        {/* Judul */}
+        <h3 className="text-2xl font-black text-white tracking-tight text-center mb-2">
+          How to Use GhostDoc
+        </h3>
+        <p className="text-sm text-neutral-400 text-center mb-8 font-mono">
+          Two engines. One mission. Zero retention.
+        </p>
+
+        {/* Grid 2 Kolom: Core & Enterprise */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          {/* ===== GHOSTDOC CORE ===== */}
+          <div className="bg-[#0c0d12]/60 p-5 rounded-xl border border-neutral-800/60">
+            <h4 className="text-lg font-bold text-[#4d6cf7] text-center mb-4">
+              GhostDoc Core
+              <span className="block text-sm font-mono text-neutral-400">$9</span>
+            </h4>
+            <div className="space-y-4 text-sm">
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">1</span>
+                <div>
+                  <p className="font-bold text-white">Paste GitHub URL</p>
+                  <p className="text-neutral-400 text-xs">Enter your public GitHub repo URL.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">2</span>
+                <div>
+                  <p className="font-bold text-white">AI Scans &amp; Maps</p>
+                  <p className="text-neutral-400 text-xs">Architecture, dependencies, endpoints analyzed.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">3</span>
+                <div>
+                  <p className="font-bold text-white">Email &amp; Checkout</p>
+                  <p className="text-neutral-400 text-xs">Enter email → $9 via Gumroad.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">4</span>
+                <div>
+                  <p className="font-bold text-white">Docs in Inbox</p>
+                  <p className="text-neutral-400 text-xs">README + API + Light Security Audit (~4 min).</p>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="border-t border-neutral-800/60"></div>
-          <div>
-            <h4 className="text-base font-bold text-[#4d6cf7] mb-3 text-center">Enterprise Vault ($99)</h4>
-            <div className="space-y-3">
-              <div className="flex items-start gap-3"><span className="w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-xs flex items-center justify-center">1</span><div><p className="font-bold text-white">Click &quot;Initialize Enterprise&quot;</p><p className="text-neutral-400 text-xs">$99 payment via Gumroad.</p></div></div>
-              <div className="flex items-start gap-3"><span className="w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-xs flex items-center justify-center">2</span><div><p className="font-bold text-white">Receive Portal Link</p><p className="text-neutral-400 text-xs">One‑time secure link.</p></div></div>
-              <div className="flex items-start gap-3"><span className="w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-xs flex items-center justify-center">3</span><div><p className="font-bold text-white">Upload .zip &amp; Enter Email</p><p className="text-neutral-400 text-xs">Proprietary archive.</p></div></div>
-              <div className="flex items-start gap-3"><span className="w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-xs flex items-center justify-center">4</span><div><p className="font-bold text-white">Deep Audit + Docs + Pitch</p><p className="text-neutral-400 text-xs">Full package.</p></div></div>
+
+          {/* ===== ENTERPRISE VAULT ===== */}
+          <div className="bg-[#0c0d12]/60 p-5 rounded-xl border border-[#4d6cf7]/20">
+            <h4 className="text-lg font-bold text-[#4d6cf7] text-center mb-4">
+              Enterprise Vault
+              <span className="block text-sm font-mono text-neutral-400">$99</span>
+            </h4>
+            <div className="space-y-4 text-sm">
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">1</span>
+                <div>
+                  <p className="font-bold text-white">Initialize Enterprise</p>
+                  <p className="text-neutral-400 text-xs">Click Enterprise card → $99 via Gumroad.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">2</span>
+                <div>
+                  <p className="font-bold text-white">Portal Link via Email</p>
+                  <p className="text-neutral-400 text-xs">One‑time secure link to upload .zip.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">3</span>
+                <div>
+                  <p className="font-bold text-white">Upload .zip + Email</p>
+                  <p className="text-neutral-400 text-xs">NDA compliant. No public exposure.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#4d6cf7] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">4</span>
+                <div>
+                  <p className="font-bold text-white">Deep Audit + Docs + Pitch</p>
+                  <p className="text-neutral-400 text-xs">Full DevSecOps audit + Executive Pitch.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Footer */}
         <div className="mt-6 pt-4 border-t border-neutral-800/60 text-center">
-          <p className="text-[10px] text-neutral-500">Zero-retention · No data stored</p>
+          <p className="text-[10px] text-neutral-500 font-mono">
+            🔒 Zero-retention · No data stored · Results delivered to your email
+          </p>
         </div>
       </div>
     </div>

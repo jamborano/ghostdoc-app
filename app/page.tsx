@@ -3,15 +3,16 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-// SEMENTARA DI-NONAKTIFKAN: import TerminalConsole from '@/components/TerminalConsole';
-// SEMENTARA DI-NONAKTIFKAN: import HowToUseModal from '@/components/HowToUseModal';
 import Footer from '@/components/Footer';
+import HowToUseModal from '@/components/HowToUseModal';
+// SEMENTARA DI-NONAKTIFKAN: import TerminalConsole from '@/components/TerminalConsole';
 
 export default function Home() {
   const [showHowToUse, setShowHowToUse] = useState(false);
 
   return (
     <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] flex flex-col font-sans relative overflow-x-hidden">
+      {/* Background Glow */}
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
         <div className="h-[600px] w-[900px] bg-[#4d6cf7]/5 rounded-full blur-[200px] opacity-70"></div>
       </div>
@@ -38,7 +39,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* HERO */}
+      {/* HERO SECTION */}
       <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 pt-28 pb-16 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl md:text-5xl text-[#F5F5DC] font-light tracking-wide mb-4 leading-tight">
@@ -58,7 +59,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PRICING (pindah ke sini dari kode sebelumnya, tetapi kita sederhanakan) */}
+      {/* PRICING SECTION (disederhanakan) */}
       <section className="relative z-10 w-full px-6 py-16 border-t border-neutral-900/60">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-2xl md:text-4xl font-black tracking-tight mb-4">Choose Your Documentation Engine</h2>
@@ -143,7 +144,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* REST OF THE PAGE - FEATURES, TESTIMONIALS, FAQ, FOOTER, ETC. */}
+      {/* FEATURES SECTION (disederhanakan) */}
       <section className="relative z-10 w-full px-6 py-16 border-t border-neutral-900/60">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-2xl md:text-4xl font-black tracking-tight mb-4">Engineered for Enterprise Security &amp; Speed</h2>
@@ -167,6 +168,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* TESTIMONIALS SECTION */}
       <section className="relative z-10 w-full px-6 py-16 border-t border-neutral-900/60">
         <div className="max-w-4xl mx-auto text-center">
           <blockquote className="text-center text-neutral-300 italic text-lg md:text-xl max-w-3xl mx-auto">
@@ -185,6 +187,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FAQ SECTION */}
       <section className="relative z-10 w-full px-6 py-16 border-t border-neutral-900/60">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-center mb-12">Frequently Asked Questions</h2>
@@ -205,6 +208,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* RISK-FREE GUARANTEE */}
       <section className="relative z-10 w-full px-6 py-10 border-t border-neutral-900/60">
         <div className="max-w-3xl mx-auto text-center">
           <div className="bg-[#4d6cf7]/5 p-8 rounded-2xl border border-[#4d6cf7]/20">
@@ -214,11 +218,12 @@ export default function Home() {
         </div>
       </section>
 
+      {/* HOW IT WORKS BUTTON — MEMICU MODAL */}
       <section className="relative z-10 w-full px-6 py-10 border-t border-neutral-900/60">
         <div className="max-w-3xl mx-auto text-center">
           <button
             onClick={() => setShowHowToUse(true)}
-            className="px-8 py-3 bg-[#4d6cf7] hover:bg-[#3b5de7] text-white font-bold text-sm rounded-full"
+            className="px-8 py-3 bg-[#4d6cf7] hover:bg-[#3b5de7] text-white font-bold text-sm rounded-full transition-all shadow-lg shadow-[#4d6cf7]/25 hover:shadow-[#4d6cf7]/50"
           >
             How It Works
           </button>
@@ -226,7 +231,9 @@ export default function Home() {
       </section>
 
       <Footer />
-      {/* SEMENTARA DI-NONAKTIFKAN: <HowToUseModal isOpen={showHowToUse} onClose={() => setShowHowToUse(false)} /> */}
+
+      {/* MODAL AKTIF */}
+      <HowToUseModal isOpen={showHowToUse} onClose={() => setShowHowToUse(false)} />
     </main>
   );
 }
