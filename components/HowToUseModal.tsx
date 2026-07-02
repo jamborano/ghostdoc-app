@@ -14,7 +14,6 @@ export default function HowToUseModal({ isOpen, onClose }: HowToUseModalProps) {
     <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 overflow-y-auto overscroll-contain">
       <div className="bg-[#1e1f20] border border-neutral-800 rounded-2xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl max-h-[90vh] overflow-y-auto relative">
         
-        {/* Tombol Close */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-neutral-400 hover:text-white text-2xl leading-none transition-colors duration-100"
@@ -23,7 +22,6 @@ export default function HowToUseModal({ isOpen, onClose }: HowToUseModalProps) {
           ✕
         </button>
 
-        {/* Judul */}
         <h3 className="text-2xl font-black text-white tracking-tight text-center mb-2">
           How to Use GhostDoc
         </h3>
@@ -31,10 +29,8 @@ export default function HowToUseModal({ isOpen, onClose }: HowToUseModalProps) {
           Two engines. One mission. Zero retention.
         </p>
 
-        {/* Grid 2 Kolom: Core & Enterprise */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           
-          {/* ===== GHOSTDOC CORE ===== */}
           <div className="bg-[#0c0d12]/60 p-5 rounded-xl border border-neutral-800/60">
             <h4 className="text-lg font-bold text-[#4d6cf7] text-center mb-4">
               GhostDoc Core
@@ -72,7 +68,6 @@ export default function HowToUseModal({ isOpen, onClose }: HowToUseModalProps) {
             </div>
           </div>
 
-          {/* ===== ENTERPRISE VAULT ===== */}
           <div className="bg-[#0c0d12]/60 p-5 rounded-xl border border-[#4d6cf7]/20">
             <h4 className="text-lg font-bold text-[#4d6cf7] text-center mb-4">
               Enterprise Vault
@@ -111,10 +106,9 @@ export default function HowToUseModal({ isOpen, onClose }: HowToUseModalProps) {
           </div>
         </div>
 
-        {/* Footer */}
         <div className="mt-6 pt-4 border-t border-neutral-800/60 text-center">
           <p className="text-[10px] text-neutral-500 font-mono">
-            🔒 Zero-retention · No data stored · Results delivered to your email
+            Zero-retention · No data stored · Results delivered to your email
           </p>
         </div>
       </div>

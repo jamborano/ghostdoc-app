@@ -3,12 +3,11 @@ import React from 'react';
 
 const LoadingDots = () => {
   return (
-    <span className="inline-flex items-center gap-1">
-      Loading
-      <span className="animate-bounce [animation-delay:-0.3s]">.</span>
-      <span className="animate-bounce [animation-delay:-0.15s]">.</span>
-      <span className="animate-bounce [animation-delay:0s]">.</span>
-    </span>
+    <div className="flex items-center justify-center gap-1.5">
+      <span className="w-2.5 h-2.5 bg-[#4d6cf7] rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+      <span className="w-2.5 h-2.5 bg-[#4d6cf7] rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+      <span className="w-2.5 h-2.5 bg-[#4d6cf7] rounded-full animate-bounce [animation-delay:0s]"></span>
+    </div>
   );
 };
 
