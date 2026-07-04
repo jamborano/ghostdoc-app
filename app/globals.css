@@ -1,25 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --ghost-blue: #4d6cf7;
-  --ghost-blue-hover: #3b5de7;
-  --ghost-blue-dark: #2a4cd4;
-  --ghost-blue-light: #6b86f9;
-  --ghost-blue-transparent: rgba(77, 108, 247, 0.15);
+  --background: #0d1117;
+  --foreground: #e6edf3;
+  --accent: #58a6ff;
 }
 
 body {
-  background: #0c0d12;
-  color: #F5F5DC;
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 ::selection {
-  background: var(--ghost-blue-transparent);
+  background: rgba(88, 166, 255, 0.3);
   color: white;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
@@ -27,20 +24,19 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2a2b2e;
+  background: #30363d;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--ghost-blue);
+  background: #58a6ff;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #2a2b2e transparent;
+  scrollbar-color: #30363d transparent;
 }
 
-/* Markdown */
 .prose {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   font-smooth: always;
@@ -52,11 +48,11 @@ body {
 .prose h1, .prose h2, .prose h3, .prose h4 {
   font-weight: 700 !important;
   letter-spacing: -0.02em;
-  color: #ffffff !important;
+  color: #e6edf3 !important;
 }
 
 .prose p, .prose li, .prose td, .prose th {
-  color: #e4e4e7 !important;
+  color: #e6edf3 !important;
   line-height: 1.7;
 }
 
@@ -68,14 +64,14 @@ body {
   width: 100%;
   font-size: 0.8rem;
   margin: 1.5rem 0;
-  background: #121318;
+  background: #0d1117;
   border-radius: 8px;
   border: 1px solid #30363d;
   table-layout: fixed;
 }
 
 .prose table thead {
-  background: #1e1f20;
+  background: #161b22;
 }
 
 .prose table th,
@@ -85,29 +81,23 @@ body {
   text-align: left;
   vertical-align: middle;
   word-wrap: break-word;
-  color: #c9d1d9;
+  color: #e6edf3;
 }
 
 .prose table th {
-  color: #ffffff;
+  color: #e6edf3;
   font-weight: 700;
-  background: #16171a;
+  background: #161b22;
 }
 
 .prose table tr:nth-child(even) {
-  background: #0d0f12;
+  background: #0d1117;
 }
 
-.prose table th,
-.prose table td {
-  width: 25%;
-}
-
-/* Terminal theme */
 .prose.terminal {
   font-family: 'Consolas', 'Cascadia Code', 'Courier New', monospace !important;
   background: transparent !important;
-  color: #d4d4d4 !important;
+  color: #e6edf3 !important;
   padding: 0 !important;
   border-radius: 0 !important;
   border: none !important;
@@ -120,7 +110,7 @@ body {
 .prose.terminal h4,
 .prose.terminal h5,
 .prose.terminal h6 {
-  color: #d4d4d4 !important;
+  color: #e6edf3 !important;
   font-family: 'Consolas', 'Cascadia Code', monospace !important;
   font-weight: 700 !important;
   letter-spacing: 0 !important;
@@ -132,20 +122,20 @@ body {
 .prose.terminal td,
 .prose.terminal th,
 .prose.terminal blockquote {
-  color: #d4d4d4 !important;
+  color: #e6edf3 !important;
   font-family: 'Consolas', 'Cascadia Code', monospace !important;
 }
 
 .prose.terminal a {
-  color: var(--ghost-blue) !important;
+  color: #58a6ff !important;
   text-decoration: underline !important;
 }
 
 .prose.terminal pre,
 .prose.terminal code {
-  background: #1e1e1e !important;
-  color: #d4d4d4 !important;
-  border: 1px solid #404040 !important;
+  background: #161b22 !important;
+  color: #e6edf3 !important;
+  border: 1px solid #30363d !important;
   border-radius: 4px !important;
   padding: 0.2rem 0.4rem !important;
   font-family: 'Consolas', 'Cascadia Code', monospace !important;
@@ -160,19 +150,19 @@ body {
   border-collapse: collapse !important;
   width: 100% !important;
   background: transparent !important;
-  border: 1px solid #404040 !important;
+  border: 1px solid #30363d !important;
 }
 
 .prose.terminal th,
 .prose.terminal td {
-  border: 1px solid #404040 !important;
+  border: 1px solid #30363d !important;
   padding: 0.5rem !important;
-  color: #d4d4d4 !important;
+  color: #e6edf3 !important;
   font-family: 'Consolas', 'Cascadia Code', monospace !important;
 }
 
 .prose.terminal th {
-  background: #1e1e1e !important;
+  background: #161b22 !important;
 }
 
 .prose.terminal ul,
@@ -182,19 +172,19 @@ body {
 
 .prose.terminal li {
   list-style-type: disc !important;
-  color: #d4d4d4 !important;
+  color: #e6edf3 !important;
 }
 
 .prose.terminal blockquote {
-  border-left: 3px solid var(--ghost-blue) !important;
+  border-left: 3px solid #58a6ff !important;
   padding-left: 1rem !important;
-  color: #d4d4d4 !important;
+  color: #e6edf3 !important;
 }
 
 .prose.terminal::after {
   content: "█";
   animation: blink 1s step-end infinite;
-  color: var(--ghost-blue);
+  color: #58a6ff;
   margin-left: 0.2rem;
 }
 
@@ -203,7 +193,6 @@ body {
   50% { opacity: 0; }
 }
 
-/* Loading dots */
 .loading-dots {
   display: inline-flex;
   align-items: center;
@@ -213,7 +202,7 @@ body {
 .loading-dots span {
   width: 8px;
   height: 8px;
-  background: var(--ghost-blue);
+  background: #58a6ff;
   border-radius: 50%;
   animation: dotBounce 1.2s ease-in-out infinite;
 }
@@ -237,7 +226,6 @@ body {
   }
 }
 
-/* app/globals.css — tambahkan di akhir */
 header, footer, .sticky {
   border: none !important;
   box-shadow: none !important;

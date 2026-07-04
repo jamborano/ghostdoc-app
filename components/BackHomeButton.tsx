@@ -7,10 +7,9 @@ export default function BackHomeButton() {
     <Link
       href="/"
       prefetch={true}
-      className="fixed bottom-6 left-6 z-50 p-3 bg-[#1e1f20] border border-neutral-800 rounded-full hover:bg-[#2a2b2e] transition-colors duration-0 shadow-lg"
+      className="fixed bottom-6 left-6 z-50 p-3 bg-[#161b22] border border-[#30363d] rounded-full hover:bg-[#30363d] transition-colors duration-0 shadow-lg"
       aria-label="Back to Home"
     >
-      {/* ICON RUMAH MONOCHROME */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

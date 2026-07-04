@@ -1,5 +1,4 @@
-﻿// app/guides/[slug]/page.tsx
-'use client';
+﻿'use client';
 
 import { useEffect, useState } from 'react';
 import { marked } from 'marked';
@@ -45,7 +44,7 @@ export default function GuidePage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] flex items-center justify-center">
+      <main className="min-h-screen bg-[#0d1117] text-[#e6edf3] flex items-center justify-center">
         <LoadingDots />
       </main>
     );
@@ -53,7 +52,7 @@ export default function GuidePage() {
 
   if (!guide) {
     return (
-      <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] flex items-center justify-center">
+      <main className="min-h-screen bg-[#0d1117] text-[#e6edf3] flex items-center justify-center">
         <p className="text-neutral-400 font-mono">Guide not found.</p>
       </main>
     );
@@ -65,15 +64,14 @@ export default function GuidePage() {
   });
 
   return (
-    <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] font-sans relative overflow-x-hidden">
+    <main className="min-h-screen bg-[#0d1117] text-[#e6edf3] font-sans relative overflow-x-hidden">
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
-        <div className="h-[600px] w-[900px] bg-blue-700/10 rounded-full blur-[200px] opacity-70"></div>
+        <div className="h-[600px] w-[900px] bg-[#58a6ff]/10 rounded-full blur-[200px] opacity-70"></div>
       </div>
       <div className="max-w-4xl mx-auto px-6 pt-32 pb-24 relative z-10">
-        {/* Tombol back ke daftar guides */}
         <Link
           href="/guides"
-          className="inline-flex items-center gap-2 text-[#4d6cf7] hover:text-[#6b86f9] text-sm font-mono mb-6 transition-colors"
+          className="inline-flex items-center gap-2 text-[#58a6ff] hover:text-[#79c0ff] text-sm font-mono mb-6 transition-colors duration-0"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +90,7 @@ export default function GuidePage() {
           Back to Guides
         </Link>
 
-        <h1 className="text-4xl font-black text-white mb-4">{guide.title}</h1>
+        <h1 className="text-4xl font-black text-[#e6edf3] mb-4">{guide.title}</h1>
         {guide.date && <p className="text-sm text-neutral-500 font-mono mb-8">{guide.date}</p>}
 
         <div

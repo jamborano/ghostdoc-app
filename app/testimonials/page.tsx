@@ -1,4 +1,3 @@
-// app/testimonials/page.tsx
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -86,16 +85,16 @@ const reviews = [
 
 export default function TestimonialsPage() {
   return (
-    <main className="min-h-screen bg-[#0c0d12] text-[#F5F5DC] font-sans relative overflow-x-hidden">
+    <main className="min-h-screen bg-[#0d1117] text-[#e6edf3] font-sans relative overflow-x-hidden">
       {/* Background Glow */}
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
-        <div className="h-[600px] w-[900px] bg-[#4d6cf7]/5 rounded-full blur-[200px] opacity-70"></div>
+        <div className="h-[600px] w-[900px] bg-[#58a6ff]/5 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
-      {/* HEADER — seragam dengan Engineering Resources */}
-      <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0c0d12]">
+      {/* HEADER */}
+      <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0d1117]">
         <Link href="/" className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
-          <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
+          <div className="relative w-8 h-8 transition-transform duration-0 group-hover:scale-110">
             <Image 
               src="/logo.svg"
               alt="GhostDoc Logo" 
@@ -105,36 +104,36 @@ export default function TestimonialsPage() {
             />
           </div>
           <div className="font-black text-2xl tracking-tighter">
-            <span>Ghost</span><span className="text-[#4d6cf7]">Doc</span>
+            <span>Ghost</span><span className="text-[#58a6ff]">Doc</span>
           </div>
         </Link>
-        <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#4d6cf7]/10 border border-[#4d6cf7]/20">
+        <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#58a6ff]/10 border border-[#58a6ff]/20">
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-          <span className="text-xs font-bold text-[#4d6cf7] tracking-wider">API OPERATIONAL</span>
+          <span className="text-xs font-bold text-[#58a6ff] tracking-wider">API OPERATIONAL</span>
         </div>
       </header>
 
-      {/* HERO — rata tengah seperti Engineering Resources */}
+      {/* HERO */}
       <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 pt-32 pb-12 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4d6cf7] to-[#6b86f9]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#58a6ff] to-[#79c0ff]">
               Trusted
             </span>
-            <span className="text-white"> by Engineering Leaders</span>
+            <span className="text-[#e6edf3]"> by Engineering Leaders</span>
           </h1>
           <p className="text-neutral-400 text-sm md:text-base max-w-2xl mx-auto mb-12 font-mono text-center">
             Real reviews from teams who ship faster with GhostDoc. All reviews are from verified users.
           </p>
 
-          {/* STATS — dirapikan menjadi 1 baris flex wrap */}
+          {/* STATS */}
           <div className="flex flex-wrap items-center justify-center gap-8 mb-16">
             <div className="flex items-center gap-3">
-              <span className="text-4xl font-black text-white">4.9</span>
+              <span className="text-4xl font-black text-[#e6edf3]">4.9</span>
               <div>
                 <div className="flex gap-0.5">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <span key={star} className="text-neutral-400 text-xl">★</span>
+                    <span key={star} className="text-[#58a6ff] text-xl">★</span>
                   ))}
                 </div>
                 <span className="text-xs text-neutral-500 font-mono">Based on 127 verified reviews</span>
@@ -142,11 +141,11 @@ export default function TestimonialsPage() {
             </div>
             <div className="flex items-center gap-6 text-xs text-neutral-500">
               <span className="flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#4d6cf7]"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#58a6ff]"></span>
                 Zero-Retention
               </span>
               <span className="flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#4d6cf7]"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#58a6ff]"></span>
                 10k+ repos analyzed
               </span>
             </div>
@@ -160,17 +159,17 @@ export default function TestimonialsPage() {
           {reviews.map((review) => (
             <div
               key={review.id}
-              className="bg-[#1e1f20]/60 p-6 rounded-2xl border border-neutral-800/80 backdrop-blur-sm hover:border-[#4d6cf7]/30 transition-all duration-300"
+              className="bg-[#161b22] p-6 rounded-2xl border border-[#30363d] hover:border-[#58a6ff]/30 transition-colors duration-0"
             >
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <h3 className="text-white font-bold text-sm">{review.name}</h3>
+                  <h3 className="text-[#e6edf3] font-bold text-sm">{review.name}</h3>
                   <p className="text-xs text-neutral-500 font-mono">{review.role}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="flex gap-0.5">
                     {Array.from({ length: review.rating }).map((_, i) => (
-                      <span key={i} className="text-neutral-400 text-sm">★</span>
+                      <span key={i} className="text-[#58a6ff] text-sm">★</span>
                     ))}
                   </div>
                   {review.verified && (
@@ -178,10 +177,10 @@ export default function TestimonialsPage() {
                   )}
                 </div>
               </div>
-              <p className="text-sm text-neutral-300 leading-relaxed">{review.content}</p>
+              <p className="text-sm text-[#e6edf3] leading-relaxed">{review.content}</p>
               <div className="mt-3 flex items-center justify-between text-[10px] text-neutral-500 font-mono">
                 <span>{review.date}</span>
-                <span className="px-2 py-0.5 bg-neutral-800/30 rounded-full text-neutral-400 border border-neutral-700/50">
+                <span className="px-2 py-0.5 bg-[#0d1117] rounded-full text-neutral-400 border border-[#30363d]">
                   GhostDoc User
                 </span>
               </div>

@@ -248,12 +248,12 @@ export default function TerminalConsole() {
                 value={repoUrl}
                 onChange={(e) => setRepoUrl(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="w-full bg-[#1e1f20] rounded-full pl-8 pr-16 py-5 text-[#F5F5DC] text-lg focus:outline-none placeholder:text-neutral-500 shadow-2xl"
+                className="w-full bg-[#161b22] rounded-full pl-8 pr-16 py-5 text-[#e6edf3] text-lg focus:outline-none placeholder:text-neutral-500 shadow-2xl"
               />
               <div className="absolute right-3 top-1/2 -translate-y-1/2">
                 <button
                   onClick={() => simulateScan()}
-                  className="w-10 h-10 flex items-center justify-center bg-[#4d6cf7] hover:bg-[#3b5de7] text-white rounded-full transition-all active:scale-95"
+                  className="w-10 h-10 flex items-center justify-center bg-[#58a6ff] hover:bg-[#1f6feb] text-white rounded-full transition-all active:scale-95"
                 >
                   <SendUpArrowIcon />
                 </button>
@@ -263,9 +263,9 @@ export default function TerminalConsole() {
             <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
               <button
                 onClick={() => setShowPopup(true)}
-                className="text-[#4d6cf7] hover:text-[#6b86f9] text-sm border border-[#4d6cf7]/30 px-6 py-3 rounded-full hover:bg-[#4d6cf7]/10 transition-all font-mono w-full sm:w-auto text-center"
+                className="text-[#58a6ff] hover:text-[#79c0ff] text-sm border border-[#58a6ff]/30 px-6 py-3 rounded-full hover:bg-[#58a6ff]/10 transition-all font-mono w-full sm:w-auto text-center"
               >
-                <LightningIcon className="w-4 h-4 inline-block mr-1 text-[#4d6cf7]" />
+                <LightningIcon className="w-4 h-4 inline-block mr-1 text-[#58a6ff]" />
                 Try Instant Demo
               </button>
               <button
@@ -273,9 +273,9 @@ export default function TerminalConsole() {
                   const url = `${GUMROAD_ENTERPRISE_BASE}&repo_url=${encodeURIComponent(repoUrl)}&output_mode=enterprise`;
                   window.location.href = url;
                 }}
-                className="text-[#4d6cf7] hover:text-[#6b86f9] text-sm border border-[#4d6cf7]/30 px-6 py-3 rounded-full hover:bg-[#4d6cf7]/20 transition-all w-full sm:w-auto text-center"
+                className="text-[#58a6ff] hover:text-[#79c0ff] text-sm border border-[#58a6ff]/30 px-6 py-3 rounded-full hover:bg-[#58a6ff]/20 transition-all w-full sm:w-auto text-center"
               >
-                <LockIcon className="w-4 h-4 inline-block mr-1 text-[#4d6cf7]" />
+                <LockIcon className="w-4 h-4 inline-block mr-1 text-[#58a6ff]" />
                 Upload Secure ZIP · $99
               </button>
             </div>
@@ -285,9 +285,9 @@ export default function TerminalConsole() {
 
       {showPopup && mounted && createPortal(
         <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 overflow-y-auto overscroll-contain">
-          <div className="bg-[#1e1f20] border border-neutral-800 rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl text-center max-h-[90vh] overflow-y-auto">
+          <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl text-center max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-black text-white tracking-tight flex-1">Select Demo Repository</h3>
+              <h3 className="text-xl font-black text-[#e6edf3] tracking-tight flex-1">Select Demo Repository</h3>
               <button
                 onClick={() => setShowPopup(false)}
                 className="text-neutral-400 hover:text-white text-2xl leading-none transition-colors duration-100"
@@ -304,14 +304,14 @@ export default function TerminalConsole() {
                 <button
                   key={repo.id}
                   onClick={() => handleSelectDemo(repo)}
-                  className="w-full text-center bg-[#0c0d12] hover:bg-[#2a2b2e] border border-neutral-800 hover:border-[#4d6cf7]/50 rounded-xl px-5 py-4 cursor-pointer transition-colors duration-0"
+                  className="w-full text-center bg-[#0d1117] hover:bg-[#30363d] border border-[#30363d] hover:border-[#58a6ff]/50 rounded-xl px-5 py-4 cursor-pointer transition-colors duration-0"
                 >
-                  <div className="text-white font-bold text-sm">{repo.label}</div>
+                  <div className="text-[#e6edf3] font-bold text-sm">{repo.label}</div>
                   <div className="text-xs text-neutral-500 font-mono truncate">{repo.url}</div>
                 </button>
               ))}
             </div>
-            <div className="mt-6 pt-4 border-t border-neutral-800/60">
+            <div className="mt-6 pt-4 border-t border-[#30363d]">
               <p className="text-[10px] text-neutral-500 font-mono text-center">
                 Zero-retention · No data stored · Redirects to sandbox after scan
               </p>
@@ -322,9 +322,9 @@ export default function TerminalConsole() {
       )}
 
       {step === 2 && mounted && createPortal(
-        <div className="fixed inset-0 z-[999] bg-[#0c0d12] flex items-center justify-center p-4">
-          <div className="w-full max-w-2xl mx-auto bg-[#0c0d12] border border-neutral-800 rounded-xl p-6 font-mono text-sm shadow-2xl">
-            <div className="flex items-center gap-2 mb-4 pb-4 border-b border-[#1e1f20]">
+        <div className="fixed inset-0 z-[999] bg-[#0d1117] flex items-center justify-center p-4">
+          <div className="w-full max-w-2xl mx-auto bg-[#0d1117] border border-[#30363d] rounded-xl p-6 font-mono text-sm shadow-2xl">
+            <div className="flex items-center gap-2 mb-4 pb-4 border-b border-[#161b22]">
               <div className="w-3 h-3 rounded-full bg-red-500"></div>
               <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
               <div className="w-3 h-3 rounded-full bg-green-500"></div>
@@ -335,7 +335,7 @@ export default function TerminalConsole() {
                   key={i}
                   className={
                     log.includes('[SUCCESS]')
-                      ? 'text-[#4d6cf7] font-bold'
+                      ? 'text-[#58a6ff] font-bold'
                       : log.includes('[ERROR]')
                       ? 'text-red-400'
                       : ''
@@ -351,8 +351,8 @@ export default function TerminalConsole() {
       )}
 
       {step === 3 && mounted && createPortal(
-        <div className="fixed inset-0 z-[999] bg-[#0c0d12] flex items-center justify-center p-4">
-          <div className="w-full max-w-md mx-auto bg-[#1e1f20] rounded-2xl p-6 sm:p-8 shadow-2xl border border-neutral-800 relative pt-8 sm:pt-10">
+        <div className="fixed inset-0 z-[999] bg-[#0d1117] flex items-center justify-center p-4">
+          <div className="w-full max-w-md mx-auto bg-[#161b22] rounded-2xl p-6 sm:p-8 shadow-2xl border border-[#30363d] relative pt-8 sm:pt-10">
             <button
               onClick={() => window.location.href = '/'}
               className="absolute top-5 right-5 text-neutral-400 hover:text-white text-2xl leading-none transition-colors duration-100"
@@ -362,12 +362,12 @@ export default function TerminalConsole() {
             </button>
 
             <div className="mt-6">
-              <div className="bg-[#0c0d12] p-4 rounded-xl flex items-center gap-4 mb-6 border border-green-500/20">
+              <div className="bg-[#0d1117] p-4 rounded-xl flex items-center gap-4 mb-6 border border-green-500/20">
                 <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center shrink-0">
                   <CheckIcon />
                 </div>
                 <div>
-                  <div className="font-black text-lg text-[#F5F5DC]">{repoStats.tierName}</div>
+                  <div className="font-black text-lg text-[#e6edf3]">{repoStats.tierName}</div>
                   <div className="text-xs text-neutral-400 font-mono">
                     {repoStats.files.toLocaleString()} Source Files Mapped
                     {repoStats.totalFiles > 0 && (
@@ -384,14 +384,14 @@ export default function TerminalConsole() {
                     placeholder="Enter delivery email..."
                     value={deliveryEmail}
                     onChange={(e) => setDeliveryEmail(e.target.value)}
-                    className="w-full bg-[#0c0d12] border border-neutral-800 rounded-xl px-4 py-3 text-[#F5F5DC] text-base focus:outline-none focus:border-[#4d6cf7] placeholder:text-neutral-600"
+                    className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-4 py-3 text-[#e6edf3] text-base focus:outline-none focus:border-[#58a6ff] placeholder:text-neutral-600"
                   />
                 </div>
               )}
 
               <button
                 onClick={handleCheckout}
-                className="w-full py-3.5 bg-[#4d6cf7] hover:bg-[#3b5de7] text-white font-black text-sm rounded-full transition-all uppercase tracking-widest"
+                className="w-full py-3.5 bg-[#58a6ff] hover:bg-[#1f6feb] text-white font-black text-sm rounded-full transition-all uppercase tracking-widest"
               >
                 {isEnterprise ? 'Initialize Enterprise Vault' : 'Initialize Generation'}
               </button>
@@ -409,7 +409,7 @@ export default function TerminalConsole() {
       )}
 
       {showGumroadLoading && (
-        <div className="fixed inset-0 z-[999999] bg-[#0c0d12] flex flex-col items-center justify-center">
+        <div className="fixed inset-0 z-[999999] bg-[#0d1117] flex flex-col items-center justify-center">
           <LoadingDots />
           <p className="text-neutral-400 text-sm mt-4 font-mono">Redirecting to secure checkout...</p>
         </div>

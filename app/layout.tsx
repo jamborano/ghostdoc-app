@@ -68,7 +68,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0c0d12",
+  themeColor: "#0d1117",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -121,9 +121,8 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body className="antialiased bg-[#0c0d12] text-[#F5F5DC] selection:bg-blue-500/30 selection:text-white">
+      <body className="antialiased bg-[#0d1117] text-[#e6edf3] selection:bg-blue-500/30 selection:text-white">
         {children}
-        {/* ✅ Gumroad JS — pakai script biasa (tanpa Next.js Script) */}
         <script
           async
           defer
