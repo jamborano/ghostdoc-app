@@ -12,10 +12,12 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#0d1117] text-[#e6edf3] flex flex-col font-sans relative overflow-x-hidden">
+      {/* Background Glow */}
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
         <div className="h-[600px] w-[900px] bg-[#0366d6]/5 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
+      {/* ===== HEADER ===== */}
       <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0d1117]">
         <Link href="/" className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
           <div className="relative w-8 h-8 transition-transform duration-0 group-hover:scale-110">
@@ -37,33 +39,62 @@ export default function Home() {
         </div>
       </header>
 
+      {/* ===== HERO ===== */}
       <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 pt-28 pb-16 text-center">
         <div className="max-w-4xl mx-auto">
+          <p className="text-sm font-mono text-[#0366d6] mb-4 tracking-widest uppercase">
+            by Jamborano Tech Studio
+          </p>
+
           <h1 className="text-3xl md:text-5xl text-[#e6edf3] font-light tracking-wide mb-4 leading-tight">
             Ship code. We write the docs. <br />
             <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#0366d6] to-[#0584f0]">Then we vanish.</span>
           </h1>
-          <p className="text-neutral-400 text-sm md:text-base max-w-xl mx-auto mb-10 font-medium">
-            Automated production-grade system architecture blueprints and code manuals for Next.js, Python, and microservice stacks.
-          </p>
-          
-          <TerminalConsole />
 
-          <div className="flex items-center justify-center gap-2.5 text-sm font-medium text-neutral-400 mt-8">
+          <p className="text-neutral-400 text-sm md:text-base max-w-xl mx-auto mb-4 font-medium">
+            GhostDoc is an AI-powered engine that instantly generates production-ready README, API references, and DevSecOps audits from your codebase — with zero data retention.
+          </p>
+          <p className="text-xs text-neutral-500 max-w-md mx-auto font-mono">
+            1. Paste your GitHub URL or upload a .zip → 2. AI scans architecture → 3. Docs in your inbox within minutes.
+          </p>
+
+          {/* Trust Badge */}
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-neutral-500 mt-6">
+            <span className="flex items-center gap-1">🔒 Zero-retention</span>
+            <span className="flex items-center gap-1">⚡ ~4 min average</span>
+            <span className="flex items-center gap-1">🏆 4.9/5 (127 reviews)</span>
+            <span className="flex items-center gap-1">🛡️ SOC2 compliant</span>
+          </div>
+
+          <div className="mt-8">
+            <TerminalConsole />
+          </div>
+
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-neutral-500 font-mono">
+            <span className="bg-[#161b22] px-3 py-1 rounded-full border border-[#30363d]">👨‍💻 Indie devs</span>
+            <span className="bg-[#161b22] px-3 py-1 rounded-full border border-[#30363d]">🏢 Engineering teams</span>
+            <span className="bg-[#161b22] px-3 py-1 rounded-full border border-[#30363d]">🔐 Security‑conscious CTOs</span>
+          </div>
+
+          <div className="flex items-center justify-center gap-2.5 text-sm font-medium text-neutral-400 mt-6">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span>
             <span>Bank-Grade Security: Zero-retention ephemeral nodes</span>
           </div>
         </div>
       </section>
 
+      {/* ===== PRICING ===== */}
       <section className="relative z-10 w-full px-6 py-16">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-2xl md:text-4xl font-black tracking-tight mb-4 text-[#e6edf3]">Choose Your Documentation Engine</h2>
+          <h2 className="text-2xl md:text-4xl font-black tracking-tight mb-4 text-[#e6edf3]">
+            Choose Your Documentation Engine
+          </h2>
           <p className="text-neutral-400 text-center max-w-2xl mx-auto mb-12 text-sm md:text-base">
             One‑time payment. Zero retention. Enterprise-grade documentation.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+            {/* Core Card */}
             <div className="bg-[#161b22] p-8 rounded-2xl border border-[#30363d] hover:border-[#0366d6]/30 transition-colors duration-0 flex flex-col">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-2xl font-black text-[#e6edf3] tracking-tight">GhostDoc Core</h3>
@@ -95,6 +126,7 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Enterprise Card */}
             <div className="bg-[#161b22] p-8 rounded-2xl border border-[#0366d6]/30 hover:border-[#0366d6]/60 transition-colors duration-0 flex flex-col relative">
               <div className="absolute -top-3 right-6 bg-[#0366d6] text-white text-[10px] font-black px-4 py-1 rounded-full tracking-widest uppercase">Most Complete</div>
               <div className="flex items-center justify-between mb-4">
@@ -136,6 +168,28 @@ export default function Home() {
             </div>
           </div>
 
+          {/* ===== HOW IT WORKS (Flowchart) ===== */}
+          <div className="mt-16 pt-8 border-t border-[#30363d]">
+            <h3 className="text-lg font-bold text-[#e6edf3] mb-6">How It Works in 3 Steps</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+              <div className="bg-[#161b22] p-5 rounded-xl border border-[#30363d]">
+                <div className="text-[#0366d6] font-bold text-2xl mb-2">1</div>
+                <h4 className="font-bold text-[#e6edf3]">Paste or Upload</h4>
+                <p className="text-sm text-neutral-400">Enter your GitHub URL or upload a private .zip archive.</p>
+              </div>
+              <div className="bg-[#161b22] p-5 rounded-xl border border-[#30363d]">
+                <div className="text-[#0366d6] font-bold text-2xl mb-2">2</div>
+                <h4 className="font-bold text-[#e6edf3]">AI Scans</h4>
+                <p className="text-sm text-neutral-400">Our engine analyzes architecture, dependencies, and endpoints.</p>
+              </div>
+              <div className="bg-[#161b22] p-5 rounded-xl border border-[#30363d]">
+                <div className="text-[#0366d6] font-bold text-2xl mb-2">3</div>
+                <h4 className="font-bold text-[#e6edf3]">Docs Delivered</h4>
+                <p className="text-sm text-neutral-400">You receive README, API docs, and security audit in ~4 minutes.</p>
+              </div>
+            </div>
+          </div>
+
           <div className="mt-12 pt-8 border-t border-[#30363d]">
             <button
               onClick={() => setShowHowToUse(true)}
@@ -150,6 +204,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ===== FEATURES ===== */}
       <section className="relative z-10 w-full px-6 py-16">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-2xl md:text-4xl font-black tracking-tight mb-4 text-[#e6edf3]">
@@ -175,28 +230,35 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ===== TESTIMONIALS ===== */}
       <section className="relative z-10 w-full px-6 py-16">
         <div className="max-w-4xl mx-auto text-center">
-          <blockquote className="text-center text-neutral-300 italic text-lg md:text-xl max-w-3xl mx-auto">
-            “GhostDoc reduced our documentation overhead by 80%. The zero-retention policy made our security team very happy.”
-          </blockquote>
-          <cite className="block mt-4 text-[#0366d6] font-medium not-italic">— CTO, Fortune 500 Fintech</cite>
-          <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-xs text-neutral-500">
-            <span>★ 4.9/5</span>
-            <span>SOC2 Compliant</span>
-            <span>10k+ repos analyzed</span>
-          </div>
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/testimonials" className="px-6 py-3 bg-[#0366d6] hover:bg-[#0355b4] text-white font-bold text-sm rounded-full transition-colors duration-0">
-              Read more reviews
-            </Link>
-            <Link href="/guides" className="px-6 py-3 bg-[#0366d6] hover:bg-[#0355b4] text-white font-bold text-sm rounded-full transition-colors duration-0">
-              Engineering Resources
-            </Link>
+          <div className="flex flex-col items-center">
+            <div className="w-16 h-16 rounded-full bg-[#0366d6] flex items-center justify-center text-white font-black text-2xl mb-4">
+              CT
+            </div>
+            <blockquote className="text-center text-neutral-300 italic text-lg md:text-xl max-w-3xl mx-auto">
+              “GhostDoc reduced our documentation overhead by 80%. The zero-retention policy made our security team very happy.”
+            </blockquote>
+            <cite className="block mt-4 text-[#0366d6] font-medium not-italic">— CTO, Fortune 500 Fintech</cite>
+            <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-xs text-neutral-500">
+              <span>★ 4.9/5</span>
+              <span>SOC2 Compliant</span>
+              <span>10k+ repos analyzed</span>
+            </div>
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/testimonials" className="px-6 py-3 bg-[#0366d6] hover:bg-[#0355b4] text-white font-bold text-sm rounded-full transition-colors duration-0">
+                Read more reviews
+              </Link>
+              <Link href="/guides" className="px-6 py-3 bg-[#0366d6] hover:bg-[#0355b4] text-white font-bold text-sm rounded-full transition-colors duration-0">
+                Engineering Resources
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* ===== FAQ ===== */}
       <section className="relative z-10 w-full px-6 py-16">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-center mb-12 text-[#e6edf3]">Frequently Asked Questions</h2>
@@ -217,6 +279,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ===== RISK-FREE ===== */}
       <section className="relative z-10 w-full px-6 py-10">
         <div className="max-w-3xl mx-auto text-center">
           <div className="bg-[#0366d6]/5 p-8 rounded-2xl border border-[#0366d6]/20">

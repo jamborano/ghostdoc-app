@@ -18,9 +18,9 @@ const CheckIcon = () => (
 );
 
 const DEMO_REPOS = [
-  { id: 'juice-shop', label: 'OWASP Juice Shop', url: 'https://github.com/juice-shop/juice-shop' },
-  { id: 'calcom', label: 'Cal.com', url: 'https://github.com/calcom/cal.com' },
-  { id: 'supabase', label: 'Supabase', url: 'https://github.com/supabase/supabase' },
+  { id: 'juice-shop', label: 'OWASP Juice Shop', url: 'https://github.com/juice-shop/juice-shop', desc: 'Security testing playground' },
+  { id: 'calcom', label: 'Cal.com', url: 'https://github.com/calcom/cal.com', desc: 'Open-source scheduling infrastructure' },
+  { id: 'supabase', label: 'Supabase', url: 'https://github.com/supabase/supabase', desc: 'Open-source Firebase alternative' },
 ];
 
 const ENTERPRISE_THRESHOLD = 2000;
@@ -50,6 +50,7 @@ export default function TerminalConsole() {
   const [isScanning, setIsScanning] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [showGumroadLoading, setShowGumroadLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const terminalRef = useRef<HTMLDivElement>(null);
 
@@ -82,9 +83,12 @@ export default function TerminalConsole() {
     const targetRepoId = repoId || selectedRepoId;
 
     if (!targetUrl) {
-      alert('System requires a valid GitHub Repository URL to proceed.');
+      setErrorMsg('Please paste a valid GitHub Repository URL.');
+      setTimeout(() => setErrorMsg(null), 3000);
       return;
     }
+
+    setErrorMsg(null);
 
     if (isDemo && targetRepoId && DEMO_DATA[targetRepoId]) {
       const dummy = DEMO_DATA[targetRepoId];
@@ -121,7 +125,8 @@ export default function TerminalConsole() {
 
     const match = targetUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
     if (!match) {
-      alert('Invalid format detected. Expected format: https://github.com/username/repo');
+      setErrorMsg('Invalid format. Expected: https://github.com/username/repo');
+      setTimeout(() => setErrorMsg(null), 3000);
       return;
     }
 
@@ -197,9 +202,11 @@ export default function TerminalConsole() {
       setLogs((prev) => [...prev, '[SUCCESS] Architecture mapped successfully.']);
     } catch (err: any) {
       setLogs((prev) => [...prev, `[ERROR] ${err.message}`]);
+      setErrorMsg(err.message);
+      setTimeout(() => setErrorMsg(null), 5000);
     } finally {
       setIsScanning(false);
-      setStep(3);
+      setTimeout(() => setStep(3), 1500);
     }
   };
 
@@ -225,7 +232,8 @@ export default function TerminalConsole() {
     }
 
     if (deliveryEmail.trim() === '') {
-      alert('⚠️ FATAL: A valid delivery email is required.');
+      setErrorMsg('Please enter a valid delivery email.');
+      setTimeout(() => setErrorMsg(null), 3000);
       return;
     }
 
@@ -242,13 +250,16 @@ export default function TerminalConsole() {
         <div className="w-full max-w-3xl relative z-20">
           <div className="w-full flex flex-col items-center">
             <div className="w-full relative group">
+              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500">
+                <LockIcon className="w-4 h-4" />
+              </div>
               <input
                 type="text"
-                placeholder="Paste your GitHub Repository URL..."
+                placeholder="Paste your GitHub URL or upload a .zip..."
                 value={repoUrl}
                 onChange={(e) => setRepoUrl(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="w-full bg-[#161b22] rounded-full pl-8 pr-16 py-5 text-[#e6edf3] text-lg focus:outline-none placeholder:text-neutral-500 shadow-2xl"
+                className="w-full bg-[#161b22] rounded-full pl-12 pr-16 py-5 text-[#e6edf3] text-lg focus:outline-none focus:ring-2 focus:ring-[#0366d6] placeholder:text-neutral-500 shadow-2xl"
               />
               <div className="absolute right-3 top-1/2 -translate-y-1/2">
                 <button
@@ -259,6 +270,12 @@ export default function TerminalConsole() {
                 </button>
               </div>
             </div>
+
+            {errorMsg && (
+              <div className="mt-3 text-sm text-red-400 font-mono bg-red-500/10 px-4 py-2 rounded-full border border-red-500/20">
+                ⚠️ {errorMsg}
+              </div>
+            )}
 
             <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
               <button
@@ -304,16 +321,17 @@ export default function TerminalConsole() {
                 <button
                   key={repo.id}
                   onClick={() => handleSelectDemo(repo)}
-                  className="w-full text-center bg-[#0d1117] hover:bg-[#30363d] border border-[#30363d] hover:border-[#0366d6]/50 rounded-xl px-5 py-4 cursor-pointer transition-colors duration-0"
+                  className="w-full text-left bg-[#0d1117] hover:bg-[#30363d] border border-[#30363d] hover:border-[#0366d6]/50 rounded-xl px-5 py-4 cursor-pointer transition-colors duration-0"
                 >
                   <div className="text-[#e6edf3] font-bold text-sm">{repo.label}</div>
-                  <div className="text-xs text-neutral-500 font-mono truncate">{repo.url}</div>
+                  <div className="text-xs text-neutral-500 font-mono truncate">{repo.desc}</div>
+                  <div className="text-[10px] text-neutral-600 font-mono truncate mt-1">{repo.url}</div>
                 </button>
               ))}
             </div>
             <div className="mt-6 pt-4 border-t border-[#30363d]">
               <p className="text-[10px] text-neutral-500 font-mono text-center">
-                Zero-retention · No data stored · Redirects to sandbox after scan
+                🔒 Zero-retention · No data stored · Redirects to sandbox after scan
               </p>
             </div>
           </div>
@@ -328,6 +346,7 @@ export default function TerminalConsole() {
               <div className="w-3 h-3 rounded-full bg-red-500"></div>
               <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
               <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              <span className="text-xs text-neutral-500 ml-2">ghostdoc@scan:~$</span>
             </div>
             <div ref={terminalRef} className="h-64 overflow-y-auto space-y-2 text-green-400/90">
               {logs.map((log, i) => (
@@ -344,6 +363,7 @@ export default function TerminalConsole() {
                   {log}
                 </div>
               ))}
+              {isScanning && <LoadingDots />}
             </div>
           </div>
         </div>,
@@ -379,9 +399,10 @@ export default function TerminalConsole() {
 
               {!isEnterprise && (
                 <div className="mb-5">
+                  <label className="text-xs text-neutral-500 font-mono mb-1 block">Delivery Email</label>
                   <input
                     type="email"
-                    placeholder="Enter delivery email..."
+                    placeholder="you@example.com"
                     value={deliveryEmail}
                     onChange={(e) => setDeliveryEmail(e.target.value)}
                     className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-4 py-3 text-[#e6edf3] text-base focus:outline-none focus:border-[#0366d6] placeholder:text-neutral-600"
@@ -389,11 +410,17 @@ export default function TerminalConsole() {
                 </div>
               )}
 
+              {isEnterprise && (
+                <div className="mb-5 text-sm text-neutral-400 font-mono">
+                  ✅ Enterprise Vault includes: README · API Reference · Deep Security Audit · Executive Pitch
+                </div>
+              )}
+
               <button
                 onClick={handleCheckout}
                 className="w-full py-3.5 bg-[#0366d6] hover:bg-[#0355b4] text-white font-black text-sm rounded-full transition-all uppercase tracking-widest"
               >
-                {isEnterprise ? 'Initialize Enterprise Vault' : 'Initialize Generation'}
+                {isEnterprise ? 'Initialize Enterprise Vault — $99' : 'Initialize Generation — $9'}
               </button>
 
               {isEnterprise && (
