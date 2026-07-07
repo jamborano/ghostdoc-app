@@ -86,12 +86,10 @@ const reviews = [
 export default function TestimonialsPage() {
   return (
     <main className="min-h-screen bg-[#0d1117] text-[#e6edf3] font-sans relative overflow-x-hidden">
-      {/* Background Glow */}
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
-        <div className="h-[600px] w-[900px] bg-[#58a6ff]/5 rounded-full blur-[200px] opacity-70"></div>
+        <div className="h-[600px] w-[900px] bg-[#0366d6]/5 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
-      {/* HEADER */}
       <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0d1117]">
         <Link href="/" className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
           <div className="relative w-8 h-8 transition-transform duration-0 group-hover:scale-110">
@@ -104,36 +102,31 @@ export default function TestimonialsPage() {
             />
           </div>
           <div className="font-black text-2xl tracking-tighter">
-            <span>Ghost</span><span className="text-[#58a6ff]">Doc</span>
+            <span>Ghost</span><span className="text-[#0366d6]">Doc</span>
           </div>
         </Link>
-        <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#58a6ff]/10 border border-[#58a6ff]/20">
+        <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#0366d6]/10 border border-[#0366d6]/20">
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-          <span className="text-xs font-bold text-[#58a6ff] tracking-wider">API OPERATIONAL</span>
+          <span className="text-xs font-bold text-[#0366d6] tracking-wider">API OPERATIONAL</span>
         </div>
       </header>
 
-      {/* HERO */}
       <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 pt-32 pb-12 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#58a6ff] to-[#79c0ff]">
-              Trusted
-            </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0366d6] to-[#0584f0]">Trusted</span>
             <span className="text-[#e6edf3]"> by Engineering Leaders</span>
           </h1>
           <p className="text-neutral-400 text-sm md:text-base max-w-2xl mx-auto mb-12 font-mono text-center">
             Real reviews from teams who ship faster with GhostDoc. All reviews are from verified users.
           </p>
-
-          {/* STATS */}
           <div className="flex flex-wrap items-center justify-center gap-8 mb-16">
             <div className="flex items-center gap-3">
               <span className="text-4xl font-black text-[#e6edf3]">4.9</span>
               <div>
                 <div className="flex gap-0.5">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <span key={star} className="text-[#58a6ff] text-xl">★</span>
+                    <span key={star} className="text-[#0366d6] text-xl">★</span>
                   ))}
                 </div>
                 <span className="text-xs text-neutral-500 font-mono">Based on 127 verified reviews</span>
@@ -141,11 +134,11 @@ export default function TestimonialsPage() {
             </div>
             <div className="flex items-center gap-6 text-xs text-neutral-500">
               <span className="flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#58a6ff]"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0366d6]"></span>
                 Zero-Retention
               </span>
               <span className="flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#58a6ff]"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0366d6]"></span>
                 10k+ repos analyzed
               </span>
             </div>
@@ -153,13 +146,12 @@ export default function TestimonialsPage() {
         </div>
       </section>
 
-      {/* REVIEWS GRID */}
       <section className="relative z-10 max-w-5xl mx-auto px-6 pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {reviews.map((review) => (
             <div
               key={review.id}
-              className="bg-[#161b22] p-6 rounded-2xl border border-[#30363d] hover:border-[#58a6ff]/30 transition-colors duration-0"
+              className="bg-[#161b22] p-6 rounded-2xl border border-[#30363d] hover:border-[#0366d6]/30 transition-colors duration-0"
             >
               <div className="flex items-start justify-between mb-3">
                 <div>
@@ -169,7 +161,7 @@ export default function TestimonialsPage() {
                 <div className="flex items-center gap-2">
                   <div className="flex gap-0.5">
                     {Array.from({ length: review.rating }).map((_, i) => (
-                      <span key={i} className="text-[#58a6ff] text-sm">★</span>
+                      <span key={i} className="text-[#0366d6] text-sm">★</span>
                     ))}
                   </div>
                   {review.verified && (

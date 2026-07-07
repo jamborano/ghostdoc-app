@@ -66,12 +66,12 @@ export default function GuidePage() {
   return (
     <main className="min-h-screen bg-[#0d1117] text-[#e6edf3] font-sans relative overflow-x-hidden">
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
-        <div className="h-[600px] w-[900px] bg-[#58a6ff]/10 rounded-full blur-[200px] opacity-70"></div>
+        <div className="h-[600px] w-[900px] bg-[#0366d6]/10 rounded-full blur-[200px] opacity-70"></div>
       </div>
       <div className="max-w-4xl mx-auto px-6 pt-32 pb-24 relative z-10">
         <Link
           href="/guides"
-          className="inline-flex items-center gap-2 text-[#58a6ff] hover:text-[#79c0ff] text-sm font-mono mb-6 transition-colors duration-0"
+          className="inline-flex items-center gap-2 text-[#0366d6] hover:text-[#0584f0] text-sm font-mono mb-6 transition-colors duration-0"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

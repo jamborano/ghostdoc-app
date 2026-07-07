@@ -113,7 +113,7 @@ export default function DemoPreviewClient() {
       } else if (line.startsWith('## ')) {
         elements.push(<h2 key={i} className="text-xl font-bold text-[#e6edf3] mt-5 mb-2">{line.replace('## ', '')}</h2>);
       } else if (line.startsWith('### ')) {
-        elements.push(<h3 key={i} className="text-lg font-bold text-[#58a6ff] mt-4 mb-2">{line.replace('### ', '')}</h3>);
+        elements.push(<h3 key={i} className="text-lg font-bold text-[#0366d6] mt-4 mb-2">{line.replace('### ', '')}</h3>);
       } else if (line.startsWith('**') && line.endsWith('**')) {
         elements.push(<p key={i} className="text-sm font-bold text-[#e6edf3] my-2">{line.replace(/\*\*/g, '')}</p>);
       } else if (line.startsWith('- ')) {
@@ -136,7 +136,7 @@ export default function DemoPreviewClient() {
   return (
     <main className="min-h-screen bg-[#0d1117] text-[#e6edf3] font-sans pb-24 relative overflow-x-hidden">
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
-        <div className="h-[600px] w-[1000px] bg-[#58a6ff]/5 rounded-full blur-[250px] opacity-60"></div>
+        <div className="h-[600px] w-[1000px] bg-[#0366d6]/5 rounded-full blur-[250px] opacity-60"></div>
       </div>
 
       <div className="sticky top-0 w-full bg-[#0d1117] p-4 text-center z-50">
@@ -145,8 +145,8 @@ export default function DemoPreviewClient() {
             <Image src="/logo.png" alt="GhostDoc Logo" width={20} height={20} />
           </div>
           <p className="text-xs font-mono text-neutral-400">
-            <LightningIcon className="w-3 h-3 inline-block mr-1 text-[#58a6ff]" />
-            <b className="text-[#58a6ff]">GHOSTDOC SANDBOX:</b> {activeRepo.displayName}
+            <LightningIcon className="w-3 h-3 inline-block mr-1 text-[#0366d6]" />
+            <b className="text-[#0366d6]">GHOSTDOC SANDBOX:</b> {activeRepo.displayName}
           </p>
         </div>
       </div>
@@ -159,7 +159,7 @@ export default function DemoPreviewClient() {
               onClick={() => { setSelectedRepo(repo); setActiveTab('readme'); }}
               className={`text-xs font-mono py-4 px-3 rounded-xl transition-colors duration-0 ${
                 selectedRepo === repo
-                  ? 'bg-[#58a6ff] text-white font-bold shadow-lg shadow-[#58a6ff]/40'
+                  ? 'bg-[#0366d6] text-white font-bold shadow-lg shadow-[#0366d6]/40'
                   : 'text-neutral-400 hover:text-[#e6edf3] hover:bg-[#30363d]/50'
               }`}
             >
@@ -170,8 +170,8 @@ export default function DemoPreviewClient() {
           ))}
         </div>
 
-        <div className="p-6 rounded-2xl border border-[#58a6ff]/20 bg-[#58a6ff]/5 mb-8 text-center">
-          <div className="text-[10px] font-bold uppercase tracking-widest font-mono text-[#58a6ff]">
+        <div className="p-6 rounded-2xl border border-[#0366d6]/20 bg-[#0366d6]/5 mb-8 text-center">
+          <div className="text-[10px] font-bold uppercase tracking-widest font-mono text-[#0366d6]">
             STATUS // DEMO PREVIEW
           </div>
           <div className="text-xl font-black text-[#e6edf3] mt-0.5">{activeRepo.displayName}</div>

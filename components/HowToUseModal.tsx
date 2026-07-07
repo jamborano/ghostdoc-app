@@ -32,34 +32,34 @@ export default function HowToUseModal({ isOpen, onClose }: HowToUseModalProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           
           <div className="bg-[#0d1117] p-5 rounded-xl border border-[#30363d]">
-            <h4 className="text-lg font-bold text-[#58a6ff] text-center mb-4">
+            <h4 className="text-lg font-bold text-[#0366d6] text-center mb-4">
               GhostDoc Core
               <span className="block text-sm font-mono text-neutral-400">$9</span>
             </h4>
             <div className="space-y-4 text-sm">
               <div className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#58a6ff] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">1</span>
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#0366d6] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">1</span>
                 <div>
                   <p className="font-bold text-[#e6edf3]">Paste GitHub URL</p>
                   <p className="text-neutral-400 text-xs">Enter your public GitHub repo URL.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#58a6ff] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">2</span>
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#0366d6] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">2</span>
                 <div>
                   <p className="font-bold text-[#e6edf3]">AI Scans &amp; Maps</p>
                   <p className="text-neutral-400 text-xs">Architecture, dependencies, endpoints analyzed.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#58a6ff] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">3</span>
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#0366d6] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">3</span>
                 <div>
                   <p className="font-bold text-[#e6edf3]">Email &amp; Checkout</p>
                   <p className="text-neutral-400 text-xs">Enter email → $9 via Gumroad.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#58a6ff] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">4</span>
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#0366d6] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">4</span>
                 <div>
                   <p className="font-bold text-[#e6edf3]">Docs in Inbox</p>
                   <p className="text-neutral-400 text-xs">README + API + Light Security Audit (~4 min).</p>
@@ -68,35 +68,35 @@ export default function HowToUseModal({ isOpen, onClose }: HowToUseModalProps) {
             </div>
           </div>
 
-          <div className="bg-[#0d1117] p-5 rounded-xl border border-[#58a6ff]/20">
-            <h4 className="text-lg font-bold text-[#58a6ff] text-center mb-4">
+          <div className="bg-[#0d1117] p-5 rounded-xl border border-[#0366d6]/20">
+            <h4 className="text-lg font-bold text-[#0366d6] text-center mb-4">
               Enterprise Vault
               <span className="block text-sm font-mono text-neutral-400">$99</span>
             </h4>
             <div className="space-y-4 text-sm">
               <div className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#58a6ff] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">1</span>
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#0366d6] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">1</span>
                 <div>
                   <p className="font-bold text-[#e6edf3]">Initialize Enterprise</p>
                   <p className="text-neutral-400 text-xs">Click Enterprise card → $99 via Gumroad.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#58a6ff] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">2</span>
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#0366d6] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">2</span>
                 <div>
                   <p className="font-bold text-[#e6edf3]">Portal Link via Email</p>
                   <p className="text-neutral-400 text-xs">One‑time secure link to upload .zip.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#58a6ff] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">3</span>
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#0366d6] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">3</span>
                 <div>
                   <p className="font-bold text-[#e6edf3]">Upload .zip + Email</p>
                   <p className="text-neutral-400 text-xs">NDA compliant. No public exposure.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#58a6ff] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">4</span>
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#0366d6] text-white font-bold text-[10px] flex items-center justify-center mt-0.5">4</span>
                 <div>
                   <p className="font-bold text-[#e6edf3]">Deep Audit + Docs + Pitch</p>
                   <p className="text-neutral-400 text-xs">Full DevSecOps audit + Executive Pitch.</p>

@@ -253,7 +253,7 @@ export default function TerminalConsole() {
               <div className="absolute right-3 top-1/2 -translate-y-1/2">
                 <button
                   onClick={() => simulateScan()}
-                  className="w-10 h-10 flex items-center justify-center bg-[#58a6ff] hover:bg-[#1f6feb] text-white rounded-full transition-all active:scale-95"
+                  className="w-10 h-10 flex items-center justify-center bg-[#0366d6] hover:bg-[#0355b4] text-white rounded-full transition-all active:scale-95"
                 >
                   <SendUpArrowIcon />
                 </button>
@@ -263,9 +263,9 @@ export default function TerminalConsole() {
             <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
               <button
                 onClick={() => setShowPopup(true)}
-                className="text-[#58a6ff] hover:text-[#79c0ff] text-sm border border-[#58a6ff]/30 px-6 py-3 rounded-full hover:bg-[#58a6ff]/10 transition-all font-mono w-full sm:w-auto text-center"
+                className="text-[#0366d6] hover:text-[#0584f0] text-sm border border-[#0366d6]/30 px-6 py-3 rounded-full hover:bg-[#0366d6]/10 transition-all font-mono w-full sm:w-auto text-center"
               >
-                <LightningIcon className="w-4 h-4 inline-block mr-1 text-[#58a6ff]" />
+                <LightningIcon className="w-4 h-4 inline-block mr-1 text-[#0366d6]" />
                 Try Instant Demo
               </button>
               <button
@@ -273,9 +273,9 @@ export default function TerminalConsole() {
                   const url = `${GUMROAD_ENTERPRISE_BASE}&repo_url=${encodeURIComponent(repoUrl)}&output_mode=enterprise`;
                   window.location.href = url;
                 }}
-                className="text-[#58a6ff] hover:text-[#79c0ff] text-sm border border-[#58a6ff]/30 px-6 py-3 rounded-full hover:bg-[#58a6ff]/20 transition-all w-full sm:w-auto text-center"
+                className="text-[#0366d6] hover:text-[#0584f0] text-sm border border-[#0366d6]/30 px-6 py-3 rounded-full hover:bg-[#0366d6]/20 transition-all w-full sm:w-auto text-center"
               >
-                <LockIcon className="w-4 h-4 inline-block mr-1 text-[#58a6ff]" />
+                <LockIcon className="w-4 h-4 inline-block mr-1 text-[#0366d6]" />
                 Upload Secure ZIP · $99
               </button>
             </div>
@@ -304,7 +304,7 @@ export default function TerminalConsole() {
                 <button
                   key={repo.id}
                   onClick={() => handleSelectDemo(repo)}
-                  className="w-full text-center bg-[#0d1117] hover:bg-[#30363d] border border-[#30363d] hover:border-[#58a6ff]/50 rounded-xl px-5 py-4 cursor-pointer transition-colors duration-0"
+                  className="w-full text-center bg-[#0d1117] hover:bg-[#30363d] border border-[#30363d] hover:border-[#0366d6]/50 rounded-xl px-5 py-4 cursor-pointer transition-colors duration-0"
                 >
                   <div className="text-[#e6edf3] font-bold text-sm">{repo.label}</div>
                   <div className="text-xs text-neutral-500 font-mono truncate">{repo.url}</div>
@@ -335,7 +335,7 @@ export default function TerminalConsole() {
                   key={i}
                   className={
                     log.includes('[SUCCESS]')
-                      ? 'text-[#58a6ff] font-bold'
+                      ? 'text-[#0366d6] font-bold'
                       : log.includes('[ERROR]')
                       ? 'text-red-400'
                       : ''
@@ -384,14 +384,14 @@ export default function TerminalConsole() {
                     placeholder="Enter delivery email..."
                     value={deliveryEmail}
                     onChange={(e) => setDeliveryEmail(e.target.value)}
-                    className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-4 py-3 text-[#e6edf3] text-base focus:outline-none focus:border-[#58a6ff] placeholder:text-neutral-600"
+                    className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-4 py-3 text-[#e6edf3] text-base focus:outline-none focus:border-[#0366d6] placeholder:text-neutral-600"
                   />
                 </div>
               )}
 
               <button
                 onClick={handleCheckout}
-                className="w-full py-3.5 bg-[#58a6ff] hover:bg-[#1f6feb] text-white font-black text-sm rounded-full transition-all uppercase tracking-widest"
+                className="w-full py-3.5 bg-[#0366d6] hover:bg-[#0355b4] text-white font-black text-sm rounded-full transition-all uppercase tracking-widest"
               >
                 {isEnterprise ? 'Initialize Enterprise Vault' : 'Initialize Generation'}
               </button>

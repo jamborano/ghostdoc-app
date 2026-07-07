@@ -8,7 +8,7 @@ export default function Footer() {
             href="https://jbtech.biz.id"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-400 hover:text-[#58a6ff] hover:underline transition-colors duration-0"
+            className="text-neutral-400 hover:text-[#0366d6] hover:underline transition-colors duration-0"
           >
             jbtech.biz.id
           </a>

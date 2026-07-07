@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#0d1117] text-[#e6edf3] flex flex-col font-sans relative overflow-x-hidden">
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
-        <div className="h-[600px] w-[900px] bg-[#58a6ff]/5 rounded-full blur-[200px] opacity-70"></div>
+        <div className="h-[600px] w-[900px] bg-[#0366d6]/5 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
       <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0d1117]">
@@ -28,12 +28,12 @@ export default function Home() {
             />
           </div>
           <div className="font-black text-2xl tracking-tighter">
-            <span>Ghost</span><span className="text-[#58a6ff]">Doc</span>
+            <span>Ghost</span><span className="text-[#0366d6]">Doc</span>
           </div>
         </Link>
-        <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#58a6ff]/10 border border-[#58a6ff]/20">
+        <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#0366d6]/10 border border-[#0366d6]/20">
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-          <span className="text-xs font-bold text-[#58a6ff] tracking-wider">API OPERATIONAL</span>
+          <span className="text-xs font-bold text-[#0366d6] tracking-wider">API OPERATIONAL</span>
         </div>
       </header>
 
@@ -41,7 +41,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl md:text-5xl text-[#e6edf3] font-light tracking-wide mb-4 leading-tight">
             Ship code. We write the docs. <br />
-            <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#58a6ff] to-[#79c0ff]">Then we vanish.</span>
+            <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#0366d6] to-[#0584f0]">Then we vanish.</span>
           </h1>
           <p className="text-neutral-400 text-sm md:text-base max-w-xl mx-auto mb-10 font-medium">
             Automated production-grade system architecture blueprints and code manuals for Next.js, Python, and microservice stacks.
@@ -64,10 +64,10 @@ export default function Home() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-            <div className="bg-[#161b22] p-8 rounded-2xl border border-[#30363d] hover:border-[#58a6ff]/30 transition-colors duration-0 flex flex-col">
+            <div className="bg-[#161b22] p-8 rounded-2xl border border-[#30363d] hover:border-[#0366d6]/30 transition-colors duration-0 flex flex-col">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-2xl font-black text-[#e6edf3] tracking-tight">GhostDoc Core</h3>
-                <span className="text-4xl font-black text-[#58a6ff]">$9</span>
+                <span className="text-4xl font-black text-[#0366d6]">$9</span>
               </div>
               <p className="text-sm text-neutral-400 mb-6 font-mono">Stop writing READMEs. Start shipping.</p>
               <div className="space-y-4 flex-1">
@@ -79,8 +79,8 @@ export default function Home() {
                   <p className="text-xs text-neutral-500 font-mono">API_Reference.md</p>
                   <p className="text-sm text-[#e6edf3] mt-1">Every endpoint, payload schema, and edge case.</p>
                 </div>
-                <div className="bg-[#0d1117] p-4 rounded-xl border border-[#58a6ff]/20">
-                  <p className="text-xs text-[#58a6ff] font-mono">Security Audit (Light)</p>
+                <div className="bg-[#0d1117] p-4 rounded-xl border border-[#0366d6]/20">
+                  <p className="text-xs text-[#0366d6] font-mono">Security Audit (Light)</p>
                   <p className="text-sm text-[#e6edf3] mt-1">OWASP Top 10 scan + high-level risk summary.</p>
                 </div>
               </div>
@@ -89,22 +89,22 @@ export default function Home() {
                   <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                   <span>Zero‑Retention · One‑time</span>
                 </div>
-                <a href="https://jamborano.gumroad.com/l/ghostdoc" target="_blank" rel="noopener noreferrer" className="mt-4 w-full block text-center py-4 bg-[#58a6ff] hover:bg-[#1f6feb] text-white font-black text-sm rounded-full transition-colors duration-0 uppercase tracking-widest">
+                <a href="https://jamborano.gumroad.com/l/ghostdoc" target="_blank" rel="noopener noreferrer" className="mt-4 w-full block text-center py-4 bg-[#0366d6] hover:bg-[#0355b4] text-white font-black text-sm rounded-full transition-colors duration-0 uppercase tracking-widest">
                   Initialize Engine
                 </a>
               </div>
             </div>
 
-            <div className="bg-[#161b22] p-8 rounded-2xl border border-[#58a6ff]/30 hover:border-[#58a6ff]/60 transition-colors duration-0 flex flex-col relative">
-              <div className="absolute -top-3 right-6 bg-[#58a6ff] text-white text-[10px] font-black px-4 py-1 rounded-full tracking-widest uppercase">Most Complete</div>
+            <div className="bg-[#161b22] p-8 rounded-2xl border border-[#0366d6]/30 hover:border-[#0366d6]/60 transition-colors duration-0 flex flex-col relative">
+              <div className="absolute -top-3 right-6 bg-[#0366d6] text-white text-[10px] font-black px-4 py-1 rounded-full tracking-widest uppercase">Most Complete</div>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-2xl font-black text-[#e6edf3] tracking-tight">Enterprise Vault</h3>
-                <span className="text-4xl font-black text-[#58a6ff]">$99</span>
+                <span className="text-4xl font-black text-[#0366d6]">$99</span>
               </div>
               <p className="text-sm text-neutral-400 mb-6 font-mono">Built for monolithic scale, corporate agencies.</p>
               <div className="space-y-4 flex-1">
-                <div className="bg-[#0d1117] p-4 rounded-xl border border-[#58a6ff]/20">
-                  <p className="text-xs text-[#58a6ff] font-mono">Secure ZIP Upload</p>
+                <div className="bg-[#0d1117] p-4 rounded-xl border border-[#0366d6]/20">
+                  <p className="text-xs text-[#0366d6] font-mono">Secure ZIP Upload</p>
                   <p className="text-sm text-[#e6edf3] mt-1">100% NDA compliant.</p>
                 </div>
                 <div className="bg-[#0d1117] p-4 rounded-xl border border-[#30363d]">
@@ -129,7 +129,7 @@ export default function Home() {
                   <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                   <span>One‑time · NDA compliant</span>
                 </div>
-                <a href="https://jamborano.gumroad.com/l/ghostdoc-enterprise" target="_blank" rel="noopener noreferrer" className="mt-4 w-full block text-center py-4 bg-[#58a6ff] hover:bg-[#1f6feb] text-white font-black text-sm rounded-full transition-colors duration-0 uppercase tracking-widest">
+                <a href="https://jamborano.gumroad.com/l/ghostdoc-enterprise" target="_blank" rel="noopener noreferrer" className="mt-4 w-full block text-center py-4 bg-[#0366d6] hover:bg-[#0355b4] text-white font-black text-sm rounded-full transition-colors duration-0 uppercase tracking-widest">
                   Initialize Enterprise
                 </a>
               </div>
@@ -139,7 +139,7 @@ export default function Home() {
           <div className="mt-12 pt-8 border-t border-[#30363d]">
             <button
               onClick={() => setShowHowToUse(true)}
-              className="px-8 py-3 bg-[#58a6ff] hover:bg-[#1f6feb] text-white font-bold text-sm rounded-full transition-colors duration-0 shadow-lg shadow-[#58a6ff]/25 hover:shadow-[#58a6ff]/50"
+              className="px-8 py-3 bg-[#0366d6] hover:bg-[#0355b4] text-white font-bold text-sm rounded-full transition-colors duration-0 shadow-lg shadow-[#0366d6]/25 hover:shadow-[#0366d6]/50"
             >
               How It Works
             </button>
@@ -157,17 +157,17 @@ export default function Home() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
             <div className="bg-[#161b22] p-8 rounded-2xl border-0 shadow-none ring-0 outline-none">
-              <div className="text-[#58a6ff] font-bold text-xl mb-3">01 / Ephemeral Compute</div>
+              <div className="text-[#0366d6] font-bold text-xl mb-3">01 / Ephemeral Compute</div>
               <h3 className="text-lg font-bold mb-2 text-[#e6edf3]">Zero Data Retention</h3>
               <p className="text-sm text-neutral-400">Our worker nodes spin dynamically for each scan.</p>
             </div>
             <div className="bg-[#161b22] p-8 rounded-2xl border-0 shadow-none ring-0 outline-none">
-              <div className="text-[#58a6ff] font-bold text-xl mb-3">02 / Deep Intelligence</div>
+              <div className="text-[#0366d6] font-bold text-xl mb-3">02 / Deep Intelligence</div>
               <h3 className="text-lg font-bold mb-2 text-[#e6edf3]">Cognitive Indexing</h3>
               <p className="text-sm text-neutral-400">Advanced parsing patterns read code complexities.</p>
             </div>
             <div className="bg-[#161b22] p-8 rounded-2xl border-0 shadow-none ring-0 outline-none">
-              <div className="text-[#58a6ff] font-bold text-xl mb-3">03 / Frictionless Pricing</div>
+              <div className="text-[#0366d6] font-bold text-xl mb-3">03 / Frictionless Pricing</div>
               <h3 className="text-lg font-bold mb-2 text-[#e6edf3]">Flat-Rate Licensing</h3>
               <p className="text-sm text-neutral-400">Pay an accessible flat $9 per repository.</p>
             </div>
@@ -180,17 +180,17 @@ export default function Home() {
           <blockquote className="text-center text-neutral-300 italic text-lg md:text-xl max-w-3xl mx-auto">
             “GhostDoc reduced our documentation overhead by 80%. The zero-retention policy made our security team very happy.”
           </blockquote>
-          <cite className="block mt-4 text-[#58a6ff] font-medium not-italic">— CTO, Fortune 500 Fintech</cite>
+          <cite className="block mt-4 text-[#0366d6] font-medium not-italic">— CTO, Fortune 500 Fintech</cite>
           <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-xs text-neutral-500">
             <span>★ 4.9/5</span>
             <span>SOC2 Compliant</span>
             <span>10k+ repos analyzed</span>
           </div>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/testimonials" className="px-6 py-3 bg-[#58a6ff] hover:bg-[#1f6feb] text-white font-bold text-sm rounded-full transition-colors duration-0">
+            <Link href="/testimonials" className="px-6 py-3 bg-[#0366d6] hover:bg-[#0355b4] text-white font-bold text-sm rounded-full transition-colors duration-0">
               Read more reviews
             </Link>
-            <Link href="/guides" className="px-6 py-3 bg-[#58a6ff] hover:bg-[#1f6feb] text-white font-bold text-sm rounded-full transition-colors duration-0">
+            <Link href="/guides" className="px-6 py-3 bg-[#0366d6] hover:bg-[#0355b4] text-white font-bold text-sm rounded-full transition-colors duration-0">
               Engineering Resources
             </Link>
           </div>
@@ -202,15 +202,15 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-center mb-12 text-[#e6edf3]">Frequently Asked Questions</h2>
           <dl className="space-y-6 text-center max-w-2xl mx-auto">
             <div>
-              <dt className="text-[#58a6ff] font-semibold">What is zero-retention?</dt>
+              <dt className="text-[#0366d6] font-semibold">What is zero-retention?</dt>
               <dd className="text-neutral-400 mt-1 text-sm">Your code is never stored on our servers.</dd>
             </div>
             <div>
-              <dt className="text-[#58a6ff] font-semibold">Which languages are supported?</dt>
+              <dt className="text-[#0366d6] font-semibold">Which languages are supported?</dt>
               <dd className="text-neutral-400 mt-1 text-sm">Next.js, Python, Go, Rust, Java, C++, C#, PHP, Ruby, and many more.</dd>
             </div>
             <div>
-              <dt className="text-[#58a6ff] font-semibold">Is there a free trial?</dt>
+              <dt className="text-[#0366d6] font-semibold">Is there a free trial?</dt>
               <dd className="text-neutral-400 mt-1 text-sm">Yes, we offer a free tier for open-source projects.</dd>
             </div>
           </dl>
@@ -219,7 +219,7 @@ export default function Home() {
 
       <section className="relative z-10 w-full px-6 py-10">
         <div className="max-w-3xl mx-auto text-center">
-          <div className="bg-[#58a6ff]/5 p-8 rounded-2xl border border-[#58a6ff]/20">
+          <div className="bg-[#0366d6]/5 p-8 rounded-2xl border border-[#0366d6]/20">
             <p className="text-2xl font-black text-[#e6edf3] mb-2">Risk-Free Guarantee</p>
             <p className="text-sm text-neutral-400 font-mono">"Don't like the docs? We'll refund 100% within 7 days."</p>
           </div>

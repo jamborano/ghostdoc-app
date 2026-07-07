@@ -22,7 +22,7 @@ const MaximizeIcon = () => (
     viewBox="0 0 24 24"
     strokeWidth={2}
     stroke="currentColor"
-    className="w-5 h-5 text-neutral-500 group-hover:text-[#58a6ff] transition-colors duration-0"
+    className="w-5 h-5 text-neutral-500 group-hover:text-[#0366d6] transition-colors duration-0"
   >
     <path
       strokeLinecap="round"
@@ -58,7 +58,7 @@ export default function GuidesPage() {
   return (
     <main className="min-h-screen bg-[#0d1117] text-[#e6edf3] font-sans relative overflow-x-hidden">
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
-        <div className="h-[600px] w-[900px] bg-[#58a6ff]/5 rounded-full blur-[200px] opacity-70"></div>
+        <div className="h-[600px] w-[900px] bg-[#0366d6]/5 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
       <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0d1117]">
@@ -73,18 +73,18 @@ export default function GuidesPage() {
             />
           </div>
           <div className="font-black text-2xl tracking-tighter">
-            <span>Ghost</span><span className="text-[#58a6ff]">Doc</span>
+            <span>Ghost</span><span className="text-[#0366d6]">Doc</span>
           </div>
         </Link>
-        <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#58a6ff]/10 border border-[#58a6ff]/20">
+        <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#0366d6]/10 border border-[#0366d6]/20">
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-          <span className="text-xs font-bold text-[#58a6ff] tracking-wider">API OPERATIONAL</span>
+          <span className="text-xs font-bold text-[#0366d6] tracking-wider">API OPERATIONAL</span>
         </div>
       </header>
 
       <div className="max-w-5xl mx-auto px-6 pt-32 pb-24 relative z-10">
         <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-6 text-center">
-          <span className="text-[#58a6ff]">Engineering </span>
+          <span className="text-[#0366d6]">Engineering </span>
           <span className="text-[#e6edf3]">Resources</span>
         </h1>
         <p className="text-neutral-400 text-sm md:text-base max-w-2xl mx-auto mb-12 font-mono text-center">
@@ -105,7 +105,7 @@ export default function GuidesPage() {
                 key={guide.slug}
                 href={`/guides/${guide.slug}`}
                 prefetch={true}
-                className="group bg-[#161b22] p-6 rounded-2xl border border-[#30363d] hover:border-[#58a6ff]/30 transition-colors duration-0 relative block"
+                className="group bg-[#161b22] p-6 rounded-2xl border border-[#30363d] hover:border-[#0366d6]/30 transition-colors duration-0 relative block"
               >
                 <div className="absolute top-4 right-4">
                   <MaximizeIcon />
