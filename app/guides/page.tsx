@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Footer from '@/components/Footer';
-import Header from '@/components/Header';
 import BackHomeButton from '@/components/BackHomeButton';
-import TrustBadge from '@/components/TrustBadge';
 import LoadingDots from '@/components/LoadingDots';
 import { MaximizeIcon } from '@/components/Icons';
+import Header from '@/components/Header';
+import TrustBadge from '@/components/TrustBadge';
 
 type Guide = {
   slug: string;

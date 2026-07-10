@@ -2,8 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import Footer from '@/components/Footer';
-import Header from '@/components/Header';
 import BackHomeButton from '@/components/BackHomeButton';
+import Header from '@/components/Header';
 import TrustBadge from '@/components/TrustBadge';
 
 export const metadata: Metadata = {

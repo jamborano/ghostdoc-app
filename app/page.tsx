@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import TerminalConsole from '@/components/TerminalConsole';
 import Footer from '@/components/Footer';
+import HowToUseModal from '@/components/HowToUseModal';
 import Header from '@/components/Header';
 import TrustBadge from '@/components/TrustBadge';
-import HowToUseModal from '@/components/HowToUseModal';
 
 export default function Home() {
   const [showHowToUse, setShowHowToUse] = useState(false);

@@ -40,6 +40,13 @@ GhostDoc is an AI-powered documentation engine that transforms any codebase into
 
 ## 📦 Local Development
 
+📄 Lisensi
+© 2026 Chronos. All rights reserved.
+
+👨‍💻 Developer
+Jamborano Tech Studio
+
+
 ```bash
 git clone https://github.com/jamborano/ghostdoc-app.git
 cd ghostdoc-app
