@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import TerminalConsole from '@/components/TerminalConsole';
 import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import TrustBadge from '@/components/TrustBadge';
 import HowToUseModal from '@/components/HowToUseModal';
 
 export default function Home() {
@@ -12,34 +13,12 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#0d1117] text-[#e6edf3] flex flex-col font-sans relative overflow-x-hidden">
-      {/* Background Glow */}
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
         <div className="h-[600px] w-[900px] bg-[#0366d6]/5 rounded-full blur-[200px] opacity-70"></div>
       </div>
 
-      {/* ===== HEADER ===== */}
-      <header className="fixed top-0 w-full p-6 flex justify-between items-center z-40 bg-[#0d1117]">
-        <Link href="/" className="flex items-center gap-3 cursor-pointer group" aria-label="GhostDoc Home">
-          <div className="relative w-8 h-8 transition-transform duration-0 group-hover:scale-110">
-            <Image 
-              src="/logo.svg"
-              alt="GhostDoc Logo" 
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
-          <div className="font-black text-2xl tracking-tighter">
-            <span>Ghost</span><span className="text-[#0366d6]">Doc</span>
-          </div>
-        </Link>
-        <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#0366d6]/10 border border-[#0366d6]/20">
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-          <span className="text-xs font-bold text-[#0366d6] tracking-wider">API OPERATIONAL</span>
-        </div>
-      </header>
+      <Header />
 
-      {/* ===== HERO ===== */}
       <section className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 pt-28 pb-16 text-center">
         <div className="max-w-4xl mx-auto">
           <p className="text-sm font-mono text-[#0366d6] mb-4 tracking-widest uppercase">
@@ -58,22 +37,12 @@ export default function Home() {
             1. Paste your GitHub URL or upload a .zip → 2. AI scans architecture → 3. Docs in your inbox within minutes.
           </p>
 
-          {/* Trust Badge */}
-          <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-neutral-500 mt-6">
-            <span className="flex items-center gap-1">🔒 Zero-retention</span>
-            <span className="flex items-center gap-1">⚡ ~4 min average</span>
-            <span className="flex items-center gap-1">🏆 4.9/5 (127 reviews)</span>
-            <span className="flex items-center gap-1">🛡️ SOC2 compliant</span>
+          <div className="mt-6">
+            <TrustBadge />
           </div>
 
           <div className="mt-8">
             <TerminalConsole />
-          </div>
-
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-neutral-500 font-mono">
-            <span className="bg-[#161b22] px-3 py-1 rounded-full border border-[#30363d]">👨‍💻 Indie devs</span>
-            <span className="bg-[#161b22] px-3 py-1 rounded-full border border-[#30363d]">🏢 Engineering teams</span>
-            <span className="bg-[#161b22] px-3 py-1 rounded-full border border-[#30363d]">🔐 Security‑conscious CTOs</span>
           </div>
 
           <div className="flex items-center justify-center gap-2.5 text-sm font-medium text-neutral-400 mt-6">
@@ -83,7 +52,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== PRICING ===== */}
       <section className="relative z-10 w-full px-6 py-16">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-2xl md:text-4xl font-black tracking-tight mb-4 text-[#e6edf3]">
@@ -94,7 +62,6 @@ export default function Home() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-            {/* Core Card */}
             <div className="bg-[#161b22] p-8 rounded-2xl border border-[#30363d] hover:border-[#0366d6]/30 transition-colors duration-0 flex flex-col">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-2xl font-black text-[#e6edf3] tracking-tight">GhostDoc Core</h3>
@@ -126,7 +93,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Enterprise Card */}
             <div className="bg-[#161b22] p-8 rounded-2xl border border-[#0366d6]/30 hover:border-[#0366d6]/60 transition-colors duration-0 flex flex-col relative">
               <div className="absolute -top-3 right-6 bg-[#0366d6] text-white text-[10px] font-black px-4 py-1 rounded-full tracking-widest uppercase">Most Complete</div>
               <div className="flex items-center justify-between mb-4">
@@ -168,7 +134,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* ===== HOW IT WORKS (Flowchart) ===== */}
           <div className="mt-16 pt-8 border-t border-[#30363d]">
             <h3 className="text-lg font-bold text-[#e6edf3] mb-6">How It Works in 3 Steps</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
@@ -204,7 +169,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== FEATURES ===== */}
       <section className="relative z-10 w-full px-6 py-16">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-2xl md:text-4xl font-black tracking-tight mb-4 text-[#e6edf3]">
@@ -230,7 +194,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== TESTIMONIALS ===== */}
       <section className="relative z-10 w-full px-6 py-16">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex flex-col items-center">
@@ -258,7 +221,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== FAQ ===== */}
       <section className="relative z-10 w-full px-6 py-16">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-center mb-12 text-[#e6edf3]">Frequently Asked Questions</h2>
@@ -279,7 +241,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== RISK-FREE ===== */}
       <section className="relative z-10 w-full px-6 py-10">
         <div className="max-w-3xl mx-auto text-center">
           <div className="bg-[#0366d6]/5 p-8 rounded-2xl border border-[#0366d6]/20">
