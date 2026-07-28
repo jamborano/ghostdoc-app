@@ -255,7 +255,7 @@ export default function TerminalConsole() {
               </div>
               <input
                 type="text"
-                placeholder="Paste your GitHub URL or upload a .zip..."
+                placeholder="Paste your GitHub URL..."
                 value={repoUrl}
                 onChange={(e) => setRepoUrl(e.target.value)}
                 onKeyDown={handleKeyDown}
