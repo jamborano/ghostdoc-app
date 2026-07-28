@@ -2,7 +2,7 @@ name: Clean Old Vercel Deployments
 
 on:
   schedule:
-    - cron: '0 0 * * 0'
+    - cron: '0 0 1 * *'  # tiap tanggal 1 (bulanan)
   workflow_dispatch:
 
 jobs:
