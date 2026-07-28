@@ -1,25 +1,19 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function EnterpriseUploadPage() {
   const searchParams = useSearchParams();
-  const emailParam = searchParams.get('email');
-  
-  const [email, setEmail] = useState('');
+  const emailParam = searchParams.get('email'); // opsional, kalau Gumroad kasih
+
+  const [email, setEmail] = useState(emailParam || '');
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<'idle' | 'uploading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    if (emailParam) {
-      setEmail(emailParam);
-    }
-  }, [emailParam]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

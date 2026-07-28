@@ -226,7 +226,8 @@ export default function TerminalConsole() {
 
     if (isEnterprise) {
       setShowGumroadLoading(true);
-      const url = `${GUMROAD_ENTERPRISE_BASE}&repo_url=${encodeURIComponent(repoUrl)}&output_mode=enterprise`;
+      const returnUrl = encodeURIComponent('https://ghostdoc.dev/enterprise/upload');
+      const url = `${GUMROAD_ENTERPRISE_BASE}&repo_url=${encodeURIComponent(repoUrl)}&output_mode=enterprise&return_url=${returnUrl}`;
       window.location.href = url;
       return;
     }
@@ -287,7 +288,8 @@ export default function TerminalConsole() {
               </button>
               <button
                 onClick={() => {
-                  const url = `${GUMROAD_ENTERPRISE_BASE}&repo_url=${encodeURIComponent(repoUrl)}&output_mode=enterprise`;
+                  const returnUrl = encodeURIComponent('https://ghostdoc.dev/enterprise/upload');
+                  const url = `${GUMROAD_ENTERPRISE_BASE}&repo_url=${encodeURIComponent(repoUrl)}&output_mode=enterprise&return_url=${returnUrl}`;
                   window.location.href = url;
                 }}
                 className="text-[#0366d6] hover:text-[#0584f0] text-sm border border-[#0366d6]/30 px-6 py-3 rounded-full hover:bg-[#0366d6]/20 transition-all w-full sm:w-auto text-center"
