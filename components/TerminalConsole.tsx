@@ -76,7 +76,7 @@ export default function TerminalConsole() {
     };
   }, [showPopup]);
 
-  const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+  const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const simulateScan = async (url?: string, repoId?: string, isDemo: boolean = false) => {
     const targetUrl = url || repoUrl;
